@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="css/c3/c3.min.css">
+    <title>Sinh Vien Page</title>
+</head>
+<body>
+<!-- Start Left menu area -->
+<div th:replace="SV_Fragment :: frag_menu_left"/>
+<!-- Content area -->
+<div class="all-content-wrapper">
+    <!--    Logo header mobile -->
+    <div th:replace="SV_Fragment ::frag_icon_mobile"/>
+    <!--    Header area -->
+    <div th:replace="SV_Fragment :: frag_header"/>
+    <!-- Single pro tab review Start-->
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12">
+                    <div class="single-cards-item">
+                        <div class="single-product-image">
+                            <a href="#"><img src="img/product/profile-bg.jpg" alt=""></a>
+                        </div>
+                        <div class="single-product-text">
+                            <img src="img/product/pro4.jpg" alt="">
+                            <h4><a class="cards-hd-dn" href="#">Trương Nhật Long</a></h4>
+                            <h5>Khoa Công Nghệ Thông Tin</h5>
+                            <p class="ctn-cards">MSSV: 18036331 - Lớp học: DHKTPM14ATT</p>
+                            <a class="follow-cards" href="#">Xem Chi Tiết</a>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="cards-dtn">
+                                        <h3><span>2018 - 2019</span></h3>
+                                        <p>Khóa học</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="cards-dtn">
+                                        <h3><span>Đại học</span></h3>
+                                        <p>Bậc đào tạo</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="cards-dtn">
+                                        <h3><span>21/03/2000</span></h3>
+                                        <p>Ngày sinh</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Lịch Theo Tuần</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-apps"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-1">
+                                                <h1 class="text-success">160k+</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Kết Quả Học Tập</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right"><i
+                                                    class="educate-icon educate-professor"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-2">
+                                                <h1 class="text-info">462</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Đăng Ký Học Phần</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-department"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-3">
+                                                <h1 class="text-warning">$2000</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape res-tablet-mg-t-30 dk-res-t-pro-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Tra Cứu Công Nợ</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-message"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-4">
+                                                <h1 class="text-danger">680</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mg-tb-30">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Thanh Toán</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-apps"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-1">
+                                                <h1 class="text-success">160k+</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Phiếu Tổng Hợp</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right"><i
+                                                    class="educate-icon educate-professor"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-2">
+                                                <h1 class="text-info">462</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape responsive-mg-b-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Lịch Theo Tiến Độ</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-department"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-3">
+                                                <h1 class="text-warning">$2000</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <a href="#">
+                                    <div class="hpanel widget-int-shape res-tablet-mg-t-30 dk-res-t-pro-30">
+                                        <div class="panel-body">
+                                            <div class="stats-title pull-left">
+                                                <h4>Nhắc Nhở</h4>
+                                            </div>
+                                            <div class="stats-icon pull-right">
+                                                <i class="educate-icon educate-message"></i>
+                                            </div>
+                                            <div class="m-t-xl widget-cl-4">
+                                                <h1 class="text-danger">680</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="sparkline11-list">
+                                    <div class="sparkline11-hd">
+                                        <div class="main-sparkline11-hd">
+                                            <h1>Tiến Độ Học Tập <span class="c3-ds-n">Example</span></h1>
+                                        </div>
+                                    </div>
+                                    <div class="sparkline11-graph">
+                                        <div id="gauge"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Footer-->
+    <div th:replace="SV_Fragment :: frag_footer"/>
+</div>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
+<!-- c3 JS  -->
+<script th:src="@{/js/c3-charts/d3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3-active.js}"></script>
+<!-- tab JS  -->
+<script th:src="@{/js/tab.js}"></script>
+</body>
+</html>
