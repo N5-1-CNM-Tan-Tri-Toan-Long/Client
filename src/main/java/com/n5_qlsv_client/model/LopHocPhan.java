@@ -36,6 +36,4 @@ public class LopHocPhan {
     private List<ChiTietLopHocPhan> chiTietLopHocPhanList;
 
     private List<KetQuaHocTap> ketQuaHocTapList;
-
-    private List<LichHoc> lichHocList;
 }

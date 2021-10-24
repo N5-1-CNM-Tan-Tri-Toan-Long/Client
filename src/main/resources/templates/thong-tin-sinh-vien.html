@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="SV_Fragment :: head"/>
 <head>
     <meta charset="UTF-8">
-    <title>Thong Tin Sinh Vien</title>
+    <title>Thông Tin Sinh Viên</title>
     <!-- forms CSS -->
     <link rel="stylesheet" href="css/form/all-type-forms.css">
 </head>
@@ -30,24 +30,25 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                     <div class="address-hr">
-                                        <p><b>MSSV</b><br />18036331</p>
+                                        <p><b>MSSV</b><br /><span th:text="${sinhvien.getMaSV()}"></span></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                     <div class="address-hr tb-sm-res-d-n dps-tb-ntn">
-                                        <p><b>Họ tên</b><br /> Trương Nhật Long</p>
+                                        <p><b>Họ tên</b><br /><span th:text="${sinhvien.getTenSV()}"></span></p>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                     <div class="address-hr">
-                                        <p><b>Giới tính</b><br /> Nam</p>
+                                        <p><b>Giới tính</b><br /> <span th:text="${sinhvien.isGioiTinh() == true ? 'Nam' : 'Nữ'}"></span></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
                                     <div class="address-hr tb-sm-res-d-n dps-tb-ntn">
-                                        <p><b>Lớp học</b><br /> DHKTPM14ATT</p>
+                                        <p><b>Lớp học</b><br /> <span th:text="${sinhvien.getLopHoc().tenLop}"></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -74,24 +75,24 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Lớp học</b><br /> DHKTPM14ATT</p>
+                                                        <p><b>Lớp học</b><br /> <span th:text="${sinhvien.getLopHoc().tenLop}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Bậc đào tạo</b><br /> Đại học</p>
+                                                        <p><b>Bậc đào tạo</b><br /> <span th:text="${sinhvien.getBacDaoTao()}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Khoa</b><br /> Khoa Công nghệ Thông tin</p>
+                                                        <p><b>Khoa</b><br /> <span th:text="${sinhvien.getKhoa().tenKhoa}"></span></p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Chuyên ngành</b><br /> Kỹ thuật phần mềm</p>
+                                                        <p><b>Chuyên ngành</b><br /> <span th:text="${sinhvien.chuyenNganh.tenChuyenNganh}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
@@ -101,7 +102,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Ngành</b><br /> Kỹ thuật phần mềm</p>
+                                                        <p><b>Ngành</b><br /> <span th:text="${sinhvien.chuyenNganh.tenChuyenNganh}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
@@ -121,12 +122,12 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Ngày sinh</b><br /> 21/03/2000</p>
+                                                        <p><b>Ngày sinh</b><br /> <span th:text="${#dates.format(sinhvien.getNgaySinh(), 'dd/MM/yyyy')}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Số CMND </b><br /> 225768900</p>
+                                                        <p><b>Số CMND </b><br /> <span th:text="${sinhvien.getSoCMND()}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
@@ -143,34 +144,34 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Điện thoại </b><br /> 0344325820</p>
+                                                        <p><b>Điện thoại </b><br /> <span th:text="${sinhvien.getSoDienThoai()}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Địa chỉ liên hệ</b><br />...</p>
+                                                        <p><b>Địa chỉ liên hệ</b><br /> <span th:text="${sinhvien.getDiaChi()}"></span></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Nơi sinh</b><br /> Tỉnh Khánh Hòa</p>
+                                                        <p><b>Nơi sinh</b><br /> ...</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Dân tộc</b><br /> Kinh</p>
+                                                        <p><b>Dân tộc</b><br /></p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Tôn giáo</b><br /> Công giáo</p>
+                                                        <p><b>Tôn giáo</b><br /> ...</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Khu vực</b><br />...</p>
+                                                        <p><b>Khu vực</b><br /> ...</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">

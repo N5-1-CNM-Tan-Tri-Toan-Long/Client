@@ -13,7 +13,7 @@ public class LichHocSinhVien {
 
     private long maLHSV;
 
-    private LichHoc lichHoc;
+    private ChiTietLopHocPhan chiTietLopHocPhan;
 
     private SinhVien sinhVien;
 }

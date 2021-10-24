@@ -16,12 +16,12 @@ public class SinhVienController {
         return "index";
     }
 
-    @GetMapping("/thong-tin-sinh-vien")
-    public String ThongTinSinhVien(Model model){
-
-        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
-        return "thong-tin-sinh-vien";
-    }
+//    @GetMapping("/thong-tin-sinh-vien")
+//    public String ThongTinSinhVien(Model model){
+//
+//        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
+//        return "thong-tin-sinh-vien";
+//    }
 
     @GetMapping("/thong-tin-ngan-hang")
     public String ThongTinNganHang(Model model){
