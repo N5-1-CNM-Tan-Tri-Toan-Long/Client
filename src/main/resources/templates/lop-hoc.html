@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="css/c3/c3.min.css">
+    <title>Sinh Vien Page</title>
+</head>
+<head th:replace="SV_Fragment :: style-head"/>
+<body>
+<!-- Start Left menu area -->
+<div th:replace="SV_Fragment :: frag_menu_left"/>
+<!-- Content area -->
+<div class="all-content-wrapper">
+    <!--    Logo header mobile -->
+    <div th:replace="SV_Fragment ::frag_icon_mobile"/>
+    <!--    Header area -->
+    <div th:replace="SV_Fragment :: frag_header"/>
+    <!-- Single pro tab review Start-->
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+
+        </div>
+    </div>
+    <!--    Footer-->
+    <div th:replace="SV_Fragment :: frag_footer"/>
+</div>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
+<!-- c3 JS  -->
+<script th:src="@{/js/c3-charts/d3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3-active.js}"></script>
+<!-- tab JS  -->
+<script th:src="@{/js/tab.js}"></script>
+</body>
+</html>
