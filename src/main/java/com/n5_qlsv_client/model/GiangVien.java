@@ -1,6 +1,7 @@
 package com.n5_qlsv_client.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ public class GiangVien {
 
     private boolean gioiTinh;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
     private String email;

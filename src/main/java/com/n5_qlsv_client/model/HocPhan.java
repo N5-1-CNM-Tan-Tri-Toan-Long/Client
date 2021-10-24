@@ -26,4 +26,5 @@ public class HocPhan {
     private ChuyenNganh chuyenNganh;
 
     private List<LopHocPhan> lopHocPhanList;
+
 }
