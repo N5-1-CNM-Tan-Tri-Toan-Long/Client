@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/c3/c3.min.css">
     <title>Sinh Vien Page</title>
 </head>
+<head th:replace="SV_Fragment :: style-head"/>
 <body>
 <!-- Start Left menu area -->
 <div th:replace="SV_Fragment :: frag_menu_left"/>
@@ -20,7 +21,7 @@
     <div class="single-pro-review-area mt-t-30 mg-b-15">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                     <div class="single-cards-item">
                         <div class="single-product-image">
                             <a href="#"><img src="img/product/profile-bg.jpg" alt=""></a>
@@ -54,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
@@ -63,9 +64,6 @@
                                         <div class="panel-body">
                                             <div class="stats-title pull-left">
                                                 <h4>Lịch Theo Tuần</h4>
-                                            </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-apps"></i>
                                             </div>
                                             <div class="m-t-xl widget-cl-1">
                                                 <h1 class="text-success">160k+</h1>
@@ -81,9 +79,6 @@
                                             <div class="stats-title pull-left">
                                                 <h4>Kết Quả Học Tập</h4>
                                             </div>
-                                            <div class="stats-icon pull-right"><i
-                                                    class="educate-icon educate-professor"></i>
-                                            </div>
                                             <div class="m-t-xl widget-cl-2">
                                                 <h1 class="text-info">462</h1>
                                             </div>
@@ -98,9 +93,6 @@
                                             <div class="stats-title pull-left">
                                                 <h4>Đăng Ký Học Phần</h4>
                                             </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-department"></i>
-                                            </div>
                                             <div class="m-t-xl widget-cl-3">
                                                 <h1 class="text-warning">$2000</h1>
                                             </div>
@@ -114,9 +106,6 @@
                                         <div class="panel-body">
                                             <div class="stats-title pull-left">
                                                 <h4>Tra Cứu Công Nợ</h4>
-                                            </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-message"></i>
                                             </div>
                                             <div class="m-t-xl widget-cl-4">
                                                 <h1 class="text-danger">680</h1>
@@ -136,9 +125,6 @@
                                             <div class="stats-title pull-left">
                                                 <h4>Thanh Toán</h4>
                                             </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-apps"></i>
-                                            </div>
                                             <div class="m-t-xl widget-cl-1">
                                                 <h1 class="text-success">160k+</h1>
                                             </div>
@@ -152,9 +138,6 @@
                                         <div class="panel-body">
                                             <div class="stats-title pull-left">
                                                 <h4>Phiếu Tổng Hợp</h4>
-                                            </div>
-                                            <div class="stats-icon pull-right"><i
-                                                    class="educate-icon educate-professor"></i>
                                             </div>
                                             <div class="m-t-xl widget-cl-2">
                                                 <h1 class="text-info">462</h1>
@@ -170,9 +153,6 @@
                                             <div class="stats-title pull-left">
                                                 <h4>Lịch Theo Tiến Độ</h4>
                                             </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-department"></i>
-                                            </div>
                                             <div class="m-t-xl widget-cl-3">
                                                 <h1 class="text-warning">$2000</h1>
                                             </div>
@@ -186,9 +166,6 @@
                                         <div class="panel-body">
                                             <div class="stats-title pull-left">
                                                 <h4>Nhắc Nhở</h4>
-                                            </div>
-                                            <div class="stats-icon pull-right">
-                                                <i class="educate-icon educate-message"></i>
                                             </div>
                                             <div class="m-t-xl widget-cl-4">
                                                 <h1 class="text-danger">680</h1>

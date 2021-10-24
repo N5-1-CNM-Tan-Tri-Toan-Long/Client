@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Thong Tin Sinh Vien</title>
+    <!-- calendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js'></script>
+</head>
+<head th:replace="SV_Fragment :: style-head"/>
+<body>
+<!-- Start Left menu area -->
+<div th:replace="SV_Fragment :: frag_menu_left"/>
+<!-- Content area -->
+<div class="all-content-wrapper">
+    <!--    Logo header mobile -->
+    <div th:replace="SV_Fragment ::frag_icon_mobile"/>
+    <!--    Header area -->
+    <div th:replace="SV_Fragment :: frag_header"/>
+    <!-- Single pro tab review Start-->
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline12-list">
+                        <div class="sparkline12-hd mg-b-30">
+                            <div class="main-sparkline12-hd">
+                                <h1>Lịch Học</h1>
+                            </div>
+                        </div>
+                        <div class="sparkline12-graph">
+                            <div class="basic-login-form-ad">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="calender-inner">
+<!--                                            JS Calendar fullcalendar-active.js-->
+                                            <div id='calendar'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
+<!-- calendar JS -->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            initialDate: '2021-10-07',
+            buttonText: { today: "Hôm nay" },
+            locale: 'vi',
+            views: {
+                listWeek: { buttonText: 'Sự kiện tuần' },
+                dayGridMonth : {buttonText: 'Tháng'},
+                timeGridWeek: {buttonText: 'Tuần'},
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'timeGridWeek,listWeek,dayGridMonth'
+            },
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2021-10-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2021-10-07',
+                    end: '2021-10-10'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-10-09T16:00:00'
+                },
+                {
+                    groupId: '999',
+                    title: 'Repeating Event',
+                    start: '2021-10-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2021-10-11',
+                    end: '2021-10-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-10-12T10:30:00',
+                    end: '2021-10-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2021-10-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-10-12T14:30:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2021-10-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2021-10-28'
+                }
+            ]
+        });
+
+        calendar.render();
+    });
+
+</script>
+
+</body>
+</html>
