@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="css/c3/c3.min.css">
+    <title>Trang Lớp Học</title>
+</head>
+<head th:replace="SV_Fragment :: style-head"/>
+<body>
+<!-- Start Left menu area -->
+<div th:replace="SV_Fragment :: frag_menu_left"/>
+<!-- Content area -->
+<div class="all-content-wrapper">
+    <!--    Logo header mobile -->
+    <div th:replace="SV_Fragment ::frag_icon_mobile"/>
+    <!--    Header area -->
+    <div th:replace="SV_Fragment :: frag_header"/>
+    <!-- Single pro tab review Start-->
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="basic-login-inner inline-basic-form">
+                        <form action="#">
+                            <div class="form-group-inner">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="login2 pull-right pull-right-pro">Chọn Học Kỳ</label>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                        <div class="form-select-list">
+                                            <select class="form-control custom-select-value" name="account">
+                                                <option>Select 1</option>
+                                                <option>Select 2</option>
+                                                <option>Select 3</option>
+                                                <option>Select 4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline13-list">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <h1>Môn học/học phần đang chờ đăng ký</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <table class="table table-bordered" width="100%">
+                        <thead>
+                        <tr class="active">
+                            <th style="min-width: 20px">STT</th>
+                            <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
+                            <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
+                            <th>Số Tín Chỉ</th>
+                            <th>Bắt Buộc</th>
+                            <th>học phần: học trước (a),
+                                tiên quyết (b),
+                                song hành (c)
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="min-widtd: 20px">1</td>
+                            <td style="min-widtd: 150px; text-align: center">4220001459</td>
+                            <td style="min-widtd: 200px; text-align: center">Anh văn 1</td>
+                            <td>3</td>
+                            <td>
+                                <i class="fa fa-check-circle"></i>
+                            </td>
+                            <td>001496 (a)</td>
+                        </tr>
+                        <tr>
+                            <td style="min-widtd: 20px">1</td>
+                            <td style="min-widtd: 150px; text-align: center">4220001459</td>
+                            <td style="min-widtd: 200px; text-align: center">Anh văn 1</td>
+                            <td>3</td>
+                            <td>
+                                <i class="fa fa-times-circle"></i>
+                            </td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="sparkline13-list">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>Lớp học phần chờ đăng ký</h1>
+                                        <div class="i-checks pull-left">
+                                            <label>
+                                                <input type="checkbox" value="" checked=""> HIỂN THỊ LỚP HỌC PHẦN KHÔNG
+                                                TRÙNG
+                                                LỊCH</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-bordered" width="100%">
+                                <thead>
+                                <tr class="active">
+                                    <th>STT</th>
+                                    <th>Thông tin lớp học phần</th>
+                                    <th>Đã đăng ký</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>4220001459</td>
+                                    <td>Anh văn 1</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>4220001459</td>
+                                    <td>Anh văn 1</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="sparkline13-list">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>Chi tiết lớp học phần</h1>
+                                        <input type="button" class="btn btn-custon-four btn-warning" value="Xem học phần trùng">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-bordered" width="100%">
+                                <thead>
+                                <tr class="active">
+                                    <th>Mã lớp học phần</th>
+                                    <th>Tên môn học/học phần</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>3</td>
+                                    <td>001496 (a)</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>001496 (a)</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline13-list">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <h1>Lớp học phần đã đăng ký trong học kỳ này</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <table class="table table-bordered" width="100%">
+                        <thead>
+                        <tr class="active">
+                            <th>STT</th>
+                            <th>Mã lớp học phần</th>
+                            <th>Tên môn học/học phần</th>
+                            <th>Lớp học dự kiến</th>
+                            <th>TC</th>
+                            <th>Nhóm TH</th>
+                            <th>Học phí</th>
+                            <th>Trạng thái ĐK</th>
+                            <th>Ngày ĐK</th>
+                            <th>Trạng thái Lớp học phần</th>
+                            <th colspan="2">Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>4220001459</td>
+                            <td >Anh văn 1</td>
+                            <td>DHKTPM14ATT</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>2.370.000</td>
+                            <td>Đăng ký mới</td>
+                            <td>13/07/2021</td>
+                            <td>Đã khóa</td>
+                            <td>
+                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">
+                            </td>
+                            <td>
+                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Footer-->
+    <div th:replace="SV_Fragment :: frag_footer"/>
+</div>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
+<!-- c3 JS  -->
+<script th:src="@{/js/c3-charts/d3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3.min.js}"></script>
+<script th:src="@{/js/c3-charts/c3-active.js}"></script>
+<!-- tab JS  -->
+<script th:src="@{/js/tab.js}"></script>
+</body>
+</html>
