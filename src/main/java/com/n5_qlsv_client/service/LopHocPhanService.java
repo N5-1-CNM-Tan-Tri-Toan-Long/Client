@@ -18,4 +18,6 @@ public interface LopHocPhanService {
 
     LopHocPhan findById(long ma_lhp);
 
+    List<LopHocPhan> findLHPByMaHK(long maHK);
+
 }

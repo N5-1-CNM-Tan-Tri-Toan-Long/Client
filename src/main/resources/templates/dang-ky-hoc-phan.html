@@ -31,12 +31,15 @@
                                     </div>
                                     <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                         <div class="form-select-list">
-                                            <select class="form-control custom-select-value" name="account">
-                                                <option>Select 1</option>
-                                                <option>Select 2</option>
-                                                <option>Select 3</option>
-                                                <option>Select 4</option>
-                                            </select>
+                                            <form th:action="@{/dslhp}" method="get">
+                                                <select class="form-control custom-select-value" th:name="maHK"
+                                                        th:onchange="this.form.submit()">
+                                                        <option th:each="hk: ${HKLHP}"
+                                                                th:value="${hk.hocKy.maHK}"
+                                                                th:text="'Học kỳ ' + ${hk.getHocKy().getThuTuHocKy()} + ' (' + ${hk.getHocKy().getNamBatDau()} + ' - ' + ${hk.getHocKy().getNamKetThuc()} + ')'">
+                                                        </option>
+                                                </select>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -71,26 +74,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="lhp, status : ${danhsachLHP}">
                             <td style="min-widtd: 20px">1</td>
-                            <td style="min-widtd: 150px; text-align: center">4220001459</td>
-                            <td style="min-widtd: 200px; text-align: center">Anh văn 1</td>
-                            <td>3</td>
+                            <td style="min-widtd: 150px; text-align: center" th:text="${lhp.maLHP}"></td>
+                            <td style="min-widtd: 200px; text-align: center" th:text="${lhp.tenLHP}"></td>
+                            <td th:text="${lhp.hocPhan.soTCLT}"></td>
                             <td>
                                 <i class="fa fa-check-circle"></i>
                             </td>
                             <td>001496 (a)</td>
                         </tr>
-                        <tr>
-                            <td style="min-widtd: 20px">1</td>
-                            <td style="min-widtd: 150px; text-align: center">4220001459</td>
-                            <td style="min-widtd: 200px; text-align: center">Anh văn 1</td>
-                            <td>3</td>
-                            <td>
-                                <i class="fa fa-times-circle"></i>
-                            </td>
-                            <td></td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>

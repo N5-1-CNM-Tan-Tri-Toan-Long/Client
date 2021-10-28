@@ -15,9 +15,9 @@ public class HocPhanController {
         return "hoc-phan-khung";
     }
 
-    @GetMapping("/dang-ky-hoc-phan")
-    public String dangKyHocPhan(Model model){
-        model.addAttribute("TrangHienTai","Đăng Ký Học Phần");
-        return "dang-ky-hoc-phan";
-    }
+//    @GetMapping("/dang-ky-hoc-phan")
+//    public String dangKyHocPhan(Model model){
+//        model.addAttribute("TrangHienTai","Đăng Ký Học Phần");
+//        return "dang-ky-hoc-phan";
+//    }
 }

@@ -1,5 +1,7 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.model.KetQuaHocTap;
+import com.n5_qlsv_client.model.SinhVien;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,17 +27,16 @@ public class SinhVienController {
 
     @GetMapping("/thong-tin-ngan-hang")
     public String ThongTinNganHang(Model model){
-
         model.addAttribute("TrangHienTai","Thong Tin Ngan Hang");
         return "thong-tin-ngan-hang";
     }
 
-    @GetMapping("/ket-qua-hoc-tap")
-    public String KetQuaHocTap(Model model){
-
-        model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
-        return "ket-qua-hoc-tap";
-    }
+//    @GetMapping("/ket-qua-hoc-tap")
+//    public String KetQuaHocTap(Model model){
+//
+//        model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
+//        return "ket-qua-hoc-tap";
+//    }
 
     @GetMapping("/lich-theo-tuan")
     public String LichTheoTuan(Model model){
