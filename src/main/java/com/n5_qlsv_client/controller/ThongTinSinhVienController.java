@@ -22,6 +22,7 @@ public class ThongTinSinhVienController {
     public String findSinhVienById(Model model){
         SinhVien sinhVien = sinhVienService.findById(3);
         model.addAttribute("sinhvien", sinhVien);
+        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
         return "thong-tin-sinh-vien";
     }
 }

@@ -54,20 +54,22 @@
                                             </tr>
                                             </thead>
                                             <tbody class="scroll">
-                                            <tr>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mary</td>
-                                                <td>Moe</td>
-                                                <td>mary@example.com</td>
-                                            </tr>
-                                            <tr>
-                                                <td>July</td>
-                                                <td>Dooley</td>
-                                                <td>july@example.com</td>
+                                            <tr th:each="kqht, status: ${KQHTs}">
+                                                <td th:text="${status.index + 1}"></td>
+                                                <td th:text="${kqht.lopHocPhan.getMaLHP()}"></td>
+                                                <td th:text="${kqht.lopHocPhan.getTenLHP()}"></td>
+                                                <td th:text="${kqht.lopHocPhan.hocPhan.soTCLT}+${kqht.lopHocPhan.hocPhan.soTCTH}"></td>
+                                                <td th:text="${kqht.getDiemTK1()}"></td>
+                                                <td th:text="${kqht.getDiemTK2()}"></td>
+                                                <td th:text="${kqht.getDiemTK3()}"></td>
+                                                <td th:text="${kqht.getDiemGK()}"></td>
+                                                <td th:text="${kqht.getDiemTH()}"></td>
+                                                <td th:text="${kqht.getDiemCK()}"></td>
+                                                <td th:text="${kqht.getDiemHe10()}"></td>
+                                                <td th:text="${kqht.getDiemHe4()}"></td>
+                                                <td th:text="${kqht.getDiemChu()}"></td>
+                                                <td th:text="${kqht.getXepLoai()}"></td>
+                                                <td th:text="${kqht.getMoTa()}"></td>
                                             </tr>
                                             </tbody>
                                         </table>
