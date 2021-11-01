@@ -12,11 +12,7 @@ public interface ChuyenNganhService {
     List<ChuyenNganh> getAllChuyenNganhs();
 
     List<ChuyenNganh> getAllChuyenNganhsByPageAndSize(int pageIndex, int pageSize);
-
-    void saveChuyenNganh(ChuyenNganh chuyenNganh);
-
-    void deleteChuyenNganh(long id);
-
+    
     ChuyenNganh findById(long id);
 
 }

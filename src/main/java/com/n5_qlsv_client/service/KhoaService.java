@@ -11,9 +11,5 @@ public interface KhoaService {
 
     List<Khoa> getAllKhoasByPageAndSize(int pageIndex, int pageSize);
 
-    void saveKhoa(Khoa khoa);
-
-    void deleteKhoas(long ma_khoa);
-
     Khoa findById(long ma_khoa);
 }

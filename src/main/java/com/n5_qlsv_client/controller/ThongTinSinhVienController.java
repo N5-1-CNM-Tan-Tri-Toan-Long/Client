@@ -20,8 +20,9 @@ public class ThongTinSinhVienController {
 
     @GetMapping
     public String findSinhVienById(Model model){
-        SinhVien sinhVien = sinhVienService.findById(3);
+        SinhVien sinhVien = sinhVienService.findById("18000001");
         model.addAttribute("sinhvien", sinhVien);
+        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
         return "thong-tin-sinh-vien";
     }
 }

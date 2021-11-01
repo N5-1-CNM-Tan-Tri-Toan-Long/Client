@@ -43,25 +43,7 @@ public class SinhVienServiceImpl implements SinhVienService {
     }
 
     @Override
-    public void saveSinhVien(SinhVien sinhVien) {
-        long ma_sv = sinhVien.getMaSV();
-        if(ma_sv == 0){
-//            sinhVien.setNgayVaoTruong(new Date(System.currentTimeMillis()));
-            sinhVien.setPassword("1111");
-            sinhVien.setRoleName("USER");
-            restTemplate.postForEntity(url, sinhVien, String.class);
-        }else {
-            restTemplate.put(url + "/" + ma_sv, sinhVien);
-        }
-    }
-
-    @Override
-    public void deleteSinhVien(long ma_sv) {
-        restTemplate.delete(url + "/" + ma_sv);
-    }
-
-    @Override
-    public SinhVien findById(long ma_sv) {
+    public SinhVien findById(String ma_sv) {
         SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
         return sinhVien;
     }

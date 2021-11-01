@@ -63,4 +63,15 @@ public class LopHocPhanServiceImpl implements LopHocPhanService {
         LopHocPhan lopHocPhan = restTemplate.getForObject(url + "/" + ma_lhp, LopHocPhan.class);
         return lopHocPhan;
     }
+
+    @Override
+    public List<LopHocPhan> findLHPByMaHK(long maHK) {
+        ResponseEntity<List<LopHocPhan>> responseEntity
+                = restTemplate.exchange(url + "/" + maHK + "/mahk",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<LopHocPhan>>() {
+                });
+        List<LopHocPhan> lopHocPhanList = responseEntity.getBody();
+        return lopHocPhanList;
+    }
 }

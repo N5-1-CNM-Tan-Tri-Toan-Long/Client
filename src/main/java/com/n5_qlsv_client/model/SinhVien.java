@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class SinhVien {
 
-    private long maSV;
+    private String maSV;
 
     private String tenSV;
 

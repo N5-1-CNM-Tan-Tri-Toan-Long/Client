@@ -12,10 +12,6 @@ public interface HocKyService {
 
     List<HocKy> getAllHocKysByPageAndSize(int pageIndex, int pageSize);
 
-    void saveHocKy(HocKy hocKy);
-
-    void deleteHocKy(long id);
-
     HocKy findById(long id);
 
 }

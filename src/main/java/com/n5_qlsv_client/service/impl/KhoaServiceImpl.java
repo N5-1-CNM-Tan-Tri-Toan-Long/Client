@@ -43,20 +43,6 @@ public class KhoaServiceImpl implements KhoaService {
         return khoaList;
     }
 
-    @Override
-    public void saveKhoa(Khoa khoa) {
-        long ma_khoa = khoa.getMaKhoa();
-        if(ma_khoa == 0){
-            restTemplate.postForEntity(url, khoa, String.class);
-        }else {
-            restTemplate.put(url + "/" + ma_khoa, khoa);
-        }
-    }
-
-    @Override
-    public void deleteKhoas(long ma_khoa) {
-        restTemplate.delete(url + "/" + ma_khoa);
-    }
 
     @Override
     public Khoa findById(long ma_khoa) {

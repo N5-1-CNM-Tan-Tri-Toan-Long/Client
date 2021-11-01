@@ -42,34 +42,10 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
-    public void saveMonHoc(MonHoc monHoc) {
-        long maMonHoc = monHoc.getMaMonHoc();
-        if(maMonHoc == 0){
-            restTemplate.postForEntity(url, monHoc, String.class);
-        }else
-        {
-            restTemplate.put(url + "/" + maMonHoc, monHoc);
-        }
-    }
-
-    @Override
-    public void deleteMonHocs(long maMonHoc) {
-        restTemplate.delete(url + "/" + maMonHoc);
-    }
-
-    @Override
     public MonHoc findById(long maMonHoc) {
         MonHoc monHoc = restTemplate.getForObject(url + "/" + maMonHoc, MonHoc.class);
         return monHoc;
     }
 
-    @Override
-    public List<MonHoc> getAllMonHocNotInHocPhan() {
-        ResponseEntity<List<MonHoc>> responseEntity
-                = restTemplate.exchange(url + "/notinhocphan", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<MonHoc>>() {
-                });
-        List<MonHoc> monHocList = responseEntity.getBody();
-        return monHocList;
-    }
+
 }

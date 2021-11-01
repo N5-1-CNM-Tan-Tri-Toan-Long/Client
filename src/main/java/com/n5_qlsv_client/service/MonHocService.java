@@ -11,11 +11,6 @@ public interface MonHocService {
 
     List<MonHoc> getAllMonHocByPageAndSize(int pageIndex, int pageSize);
 
-    void saveMonHoc(MonHoc monHoc);
-
-    void deleteMonHocs(long maMonHoc);
-
     MonHoc findById(long maMonHoc);
 
-    List<MonHoc> getAllMonHocNotInHocPhan();
 }

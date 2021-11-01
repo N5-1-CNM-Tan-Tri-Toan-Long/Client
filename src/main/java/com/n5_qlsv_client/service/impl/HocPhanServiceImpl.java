@@ -41,23 +41,9 @@ public class HocPhanServiceImpl implements HocPhanService {
         return hocPhanList;
     }
 
-    @Override
-    public void saveHocPhan(HocPhan hocPhan) {
-        long maHocPhan = hocPhan.getMaHocPhan();
-        if(maHocPhan == 0){
-            restTemplate.postForEntity(url, hocPhan, String.class);
-        }else {
-            restTemplate.put(url + "/" + maHocPhan, hocPhan);
-        }
-    }
 
     @Override
-    public void deleteHocPhans(long maHocPhan) {
-        restTemplate.delete(url + "/" + maHocPhan);
-    }
-
-    @Override
-    public HocPhan findById(long maHocPhan) {
+    public HocPhan findById(String maHocPhan) {
         HocPhan hocPhan = restTemplate.getForObject(url + "/" + maHocPhan, HocPhan.class);
         return hocPhan;
     }

@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class HocPhan {
 
-    private long maHocPhan;
+    private String maHocPhan;
 
     private boolean hocPhanBatBuoc;
 

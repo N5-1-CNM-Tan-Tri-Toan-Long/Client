@@ -13,9 +13,5 @@ public interface HocPhanService {
 
     List<HocPhan> getAllHocPhansByPageAndSize(int pageIndex, int pageSize);
 
-    void saveHocPhan(HocPhan hocPhan);
-
-    void deleteHocPhans(long maHocPhan);
-
-    HocPhan findById(long maHocPhan);
+    HocPhan findById(String maHocPhan);
 }
