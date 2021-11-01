@@ -2,6 +2,8 @@ package com.n5_qlsv_client.controller;
 
 import com.n5_qlsv_client.model.KetQuaHocTap;
 import com.n5_qlsv_client.model.SinhVien;
+import com.n5_qlsv_client.service.SinhVienService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class SinhVienController {
+    @Autowired
+    private SinhVienService sinhVienService;
 
     @GetMapping
     public String homePage(Model model){
-
+        SinhVien sinhVien = sinhVienService.findById("18000001");
+        model.addAttribute("sinhvien", sinhVien);
         model.addAttribute("TrangHienTai","");
         return "index";
     }

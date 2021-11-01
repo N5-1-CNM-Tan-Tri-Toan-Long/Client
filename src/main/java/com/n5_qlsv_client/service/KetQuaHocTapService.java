@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface KetQuaHocTapService {
 
-    List<KetQuaHocTap> findKQHTByMaSV(long maSV);
+    List<KetQuaHocTap> findKQHTByMaSV(String maSV);
 }
