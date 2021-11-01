@@ -38,12 +38,12 @@ public class SinhVienController {
 //        return "ket-qua-hoc-tap";
 //    }
 
-    @GetMapping("/lich-theo-tuan")
-    public String LichTheoTuan(Model model){
-
-        model.addAttribute("TrangHienTai","Lịch Theo Tuần");
-        return "lich-theo-tuan";
-    }
+//    @GetMapping("/lich-theo-tuan")
+//    public String LichTheoTuan(Model model){
+//
+//        model.addAttribute("TrangHienTai","Lịch Theo Tuần");
+//        return "lich-theo-tuan";
+//    }
 
     @GetMapping("/lop-hoc")
     public String LopHoc(Model model){
