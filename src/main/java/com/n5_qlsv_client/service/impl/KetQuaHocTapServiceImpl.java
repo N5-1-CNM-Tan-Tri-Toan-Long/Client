@@ -21,7 +21,7 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
     @Value("${app.url.ketquahoctap}")
     private String url;
     @Override
-    public List<KetQuaHocTap> findKQHTByMaSV(long maSV) {
+    public List<KetQuaHocTap> findKQHTByMaSV(String maSV) {
         ResponseEntity<List<KetQuaHocTap>> responseEntity
                 = restTemplate.exchange(url + "/" + maSV + "/masv",
                 HttpMethod.GET, null,

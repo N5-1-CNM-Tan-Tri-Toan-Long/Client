@@ -19,7 +19,7 @@ public class KetQuaHocTapController {
 
     @GetMapping
     public String findKQHTByMaSV(Model model){
-        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(1);
+        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV("18000001");
         model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
         model.addAttribute("KQHTs", ketQuaHocTaps);
         return "ket-qua-hoc-tap";
