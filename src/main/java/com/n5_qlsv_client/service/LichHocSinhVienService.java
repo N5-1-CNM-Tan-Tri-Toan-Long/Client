@@ -6,5 +6,5 @@ import com.n5_qlsv_client.model.SinhVien;
 import java.util.List;
 
 public interface LichHocSinhVienService {
-    List<LichHocSinhVien> getLichHocByMaSV(long maSV);
+    List<LichHocSinhVien> getLichHocByMaSV(String maSV);
 }

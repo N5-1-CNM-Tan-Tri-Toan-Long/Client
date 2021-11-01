@@ -21,7 +21,7 @@ public class LichHocSinhVienServiceImpl implements LichHocSinhVienService {
     private String url;
 
     @Override
-    public List<LichHocSinhVien> getLichHocByMaSV(long maSV) {
+    public List<LichHocSinhVien> getLichHocByMaSV(String maSV) {
         ResponseEntity<List<LichHocSinhVien>> responseEntity = restTemplate.exchange(url+'/'+maSV, HttpMethod.GET, null, new ParameterizedTypeReference<List<LichHocSinhVien>>() {
         });
         return responseEntity.getBody();

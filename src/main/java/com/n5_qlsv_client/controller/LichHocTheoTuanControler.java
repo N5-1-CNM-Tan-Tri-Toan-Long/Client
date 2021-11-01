@@ -38,7 +38,7 @@ public class LichHocTheoTuanControler {
     @GetMapping("/lich-hoc")
     @ResponseBody
     public List<ItemLichHoc> listLichHoc() {
-        List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV(1);
+        List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV("18000001");
         List<ItemLichHoc> lichHocs = new ArrayList<>();
         list.forEach(lichHocSinhVien -> {
             LocalDate dateBD = lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()
