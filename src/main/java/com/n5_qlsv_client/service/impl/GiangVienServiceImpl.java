@@ -43,22 +43,6 @@ public class GiangVienServiceImpl implements GiangVienService {
     }
 
     @Override
-    public void saveGiangVien(GiangVien giangVien) {
-        long maGiangVien = giangVien.getMaGV();
-        if(maGiangVien == 0){
-            restTemplate.postForEntity(url, giangVien, String.class);
-        }else
-        {
-            restTemplate.put(url + "/" + maGiangVien, giangVien);
-        }
-    }
-
-    @Override
-    public void deleteGiangViens(long maGiangVien) {
-        restTemplate.delete(url + "/" + maGiangVien);
-    }
-
-    @Override
     public GiangVien findById(long maGiangVien) {
         GiangVien giangVien = restTemplate.getForObject(url + "/" + maGiangVien, GiangVien.class);
         return giangVien;

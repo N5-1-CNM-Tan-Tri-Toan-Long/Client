@@ -43,21 +43,6 @@ public class ChuyenNganhServiceImpl implements ChuyenNganhService {
     }
 
     @Override
-    public void saveChuyenNganh(ChuyenNganh chuyenNganh) {
-        long id = chuyenNganh.getMaChuyenNganh();
-        if(id == 0){
-            restTemplate.postForEntity(url, chuyenNganh, String.class);
-        }else {
-            restTemplate.put(url + "/" + id, chuyenNganh);
-        }
-    }
-
-    @Override
-    public void deleteChuyenNganh(long id) {
-        restTemplate.delete(url + "/" + id);
-    }
-
-    @Override
     public ChuyenNganh findById(long id) {
         ChuyenNganh chuyenNganh = restTemplate.getForObject(url + "/" + id, ChuyenNganh.class);
         return chuyenNganh;

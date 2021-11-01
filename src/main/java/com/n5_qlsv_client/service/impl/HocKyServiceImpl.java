@@ -44,21 +44,6 @@ public class HocKyServiceImpl implements HocKyService {
     }
 
     @Override
-    public void saveHocKy(HocKy hocKy) {
-        long id = hocKy.getMaHK();
-        if(id == 0){
-            restTemplate.postForEntity(url, hocKy, String.class);
-        }else {
-            restTemplate.put(url + "/" + id, hocKy);
-        }
-    }
-
-    @Override
-    public void deleteHocKy(long id) {
-        restTemplate.delete(url + "/" + id);
-    }
-
-    @Override
     public HocKy findById(long id) {
         HocKy hocKy = restTemplate.getForObject(url + "/" + id, HocKy.class);
         return hocKy;

@@ -42,20 +42,6 @@ public class LopHocServiceImpl implements LopHocService {
         return lopHocList;
     }
 
-    @Override
-    public void saveLopHoc(LopHoc lopHoc) {
-        long maLopHoc = lopHoc.getMaLop();
-        if (maLopHoc == 0){
-            restTemplate.postForEntity(url, lopHoc, String.class);
-        }else{
-            restTemplate.put(url + "/" + maLopHoc, lopHoc);
-        }
-    }
-
-    @Override
-    public void deleteLopHocs(long maLopHoc) {
-        restTemplate.delete(url + "/" + maLopHoc);
-    }
 
     @Override
     public LopHoc findById(long maLopHoc) {
