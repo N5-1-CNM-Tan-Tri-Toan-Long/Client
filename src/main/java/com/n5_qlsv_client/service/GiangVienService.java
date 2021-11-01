@@ -11,10 +11,6 @@ public interface GiangVienService {
 
     List<GiangVien> getAllGiangVienByPageAndSize(int pageIndex, int pageSize);
 
-    void saveGiangVien(GiangVien giangVien);
-
-    void deleteGiangViens(long maGiangVien);
-
     GiangVien findById(long maGiangVien);
 
 }
