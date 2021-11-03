@@ -56,7 +56,7 @@
                                             <tbody class="scroll">
                                             <tr th:each="kqht, status: ${KQHTs}">
                                                 <td th:text="${status.index + 1}"></td>
-                                                <td th:text="${kqht.lopHocPhan.getMaLHP()}"></td>
+                                                <td th:text="${kqht.lopHocPhan.hocPhan.getMaHocPhan()} + ' - ' + ${kqht.lopHocPhan.getTenVietTat()}"></td>
                                                 <td th:text="${kqht.lopHocPhan.getTenLHP()}"></td>
                                                 <td th:text="${kqht.lopHocPhan.hocPhan.soTCLT}+${kqht.lopHocPhan.hocPhan.soTCTH}"></td>
                                                 <td th:text="${kqht.getDiemTK1()}"></td>
