@@ -16,14 +16,17 @@ public class DangKyHocPhanController {
     private LopHocPhanService lopHocPhanService;
 
     @GetMapping
-    public String hocKyLopHocPhan(Model model){
-        model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
-        return "dang-ky-hoc-phan";
-    }
+    public String hocKyLopHocPhan(Model model, Long maHK){
+        if(maHK != null){
+            model.addAttribute("danhsachLHP", lopHocPhanService.findLHPByMaHK(maHK));
+            model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
 
-    @GetMapping("/dslhp")
-    public String danhsachLHP(Model model, @RequestParam(name = "maHK") long maHK){
-        model.addAttribute("danhsachLHP", lopHocPhanService.findLHPByMaHK(maHK));
+        }else {
+            model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
+        }
+
+        model.addAttribute("maHK", maHK);
+        model.addAttribute("TrangHienTai","Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
     }
 
