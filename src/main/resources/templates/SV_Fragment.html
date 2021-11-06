@@ -69,8 +69,6 @@
     <script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
     <!-- morrisjs JS -->
     <script th:src="@{/js/morrisjs/raphael-min.js}"></script>
-    <script th:src="@{/js/morrisjs/morris.js}"></script>
-    <script th:src="@{/js/morrisjs/morris-active.js}"></script>
     <!-- morrisjs JS -->
     <script th:src="@{/js/sparkline/jquery.sparkline.min.js}"></script>
     <script th:src="@{/js/sparkline/jquery.charts-sparkline.js}"></script>
@@ -86,8 +84,8 @@
 <div th:fragment="frag_menu_left" class="left-sidebar-pro">
     <nav id="sidebar" class="">
         <div class="sidebar-header">
-            <a href="/"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
-            <strong><a href="/"><img src="img/logo/logosn.png" alt=""/></a></strong>
+            <a href="/"><img class="main-logo" th:src="@{../img/logo/logo.png}" alt=""/></a>
+            <strong><a href="/"><img th:src="@{../img/logo/logosn.png}" alt=""/></a></strong>
         </div>
         <div class="left-custom-menu-adp-wrap comment-scrollbar">
             <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -156,7 +154,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="logo-pro">
-                <a href="/"><img class="main-logo" th:src="@{/img/logo/logo.png}" alt="" /></a>
+                <a href="/"><img class="main-logo" th:src="@{../img/logo/logo.png}" alt="" /></a>
             </div>
         </div>
     </div>

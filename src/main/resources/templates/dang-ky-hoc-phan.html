@@ -3,8 +3,6 @@
 <head th:replace="SV_Fragment :: head"/>
 <head>
     <meta charset="UTF-8">
-    <!-- Chart CSS -->
-    <link rel="stylesheet" href="css/c3/c3.min.css">
     <title>Trang Lớp Học</title>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
@@ -73,6 +71,7 @@
                                 tiên quyết (b),
                                 song hành (c)
                             </th>
+                            <th>Đăng Ký</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -88,10 +87,55 @@
                                 <i class="fa fa-times-circle"></i>
                             </td>
                             <td>001496 (a)</td>
+                            <td>
+                                <button type="button" class="btn btn-custon-two btn-success"
+                                        th:onclick="xemLopHocPhan([[${lhp.hocPhan.maHocPhan}]])">Đăng Ký</button>
+                            </td>
                         </tr>
-
                         </tbody>
                     </table>
+                    <script>
+                        function xemLopHocPhan(id){
+                            console.log(id+'')
+                            $.ajax({
+                                url: "/SinhVienDangKy/ChiTietLopHocPhanChoDangKy",
+                                type: 'POST',
+                                data: {
+                                    param: {
+                                        GuidIDLopHocPhan: id
+                                    }
+                                },
+                                dataType: 'html',
+                                beforeSend: function () {
+                                    loadingMark();
+                                },
+                                success: function (data) {
+                                    removeLoadingMark();
+                                    $('#box_chitietlophocphan_chodangky').html('');
+                                    var jsonResult = null;
+                                    try {
+                                        jsonResult = JSON.parse(data);
+                                    } catch (exxx) { }
+
+                                    if (jsonResult != null && jsonResult != undefined && jsonResult.Message != "" && jsonResult.ExceptionMessage != "" && jsonResult.Message != undefined && jsonResult.ExceptionMessage != undefined) {
+                                        showPopUpMessage(jsonResult.ExceptionMessage);
+                                    } else {
+                                        $('#box_chitietlophocphan_chodangky').html(data);
+                                    }
+
+                                }
+                            });
+
+                            function removeLoadingMark() {
+                                $('.k-loading-mask').remove();
+                            }
+
+                            function loadingMark() {
+                                var html = '<div class="k-loading-mask" style="width: 100%;height: 100%;top: 0px;left: 0px;z-index: 999;display: block;background-color: #607d8b2b;position: fixed;bottom: 0px;"><i class="fa fa-spinner fa-pulse fa-3x fa-fw" style="position:absolute;left:45%;color:#4287f5;margin-top:20%;font-size:150px;"></i></div>';
+                                $(html).appendTo(document.body);
+                            }
+                        }
+                    </script>
                 </div>
             </div>
             <div class="row">
