@@ -63,7 +63,7 @@
                         <thead>
                         <tr class="active">
                             <th style="min-width: 20px">STT</th>
-                            <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
+                            <th style="min-width: 150px; text-align: center">Mã học phần</th>
                             <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
                             <th>Số Tín Chỉ</th>
                             <th>Bắt Buộc</th>
@@ -75,21 +75,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="lhp, status : ${danhsachLHP}">
+                        <tr th:each="hp, status : ${danhsachHP}">
                             <td style="min-widtd: 20px" th:text="${status.index + 1}"></td>
-                            <td style="min-widtd: 150px; text-align: center" th:text="${lhp.hocPhan.getMaHocPhan()}"></td>
-                            <td style="min-widtd: 200px; text-align: center" th:text="${lhp.tenLHP}"></td>
-                            <td th:text="${lhp.hocPhan.soTCLT}+${lhp.hocPhan.soTCTH}"></td>
-                            <td th:if="${lhp.hocPhan.hocPhanBatBuoc == true}">
+                            <td style="min-widtd: 150px; text-align: center" th:text="${hp.getMaHocPhan()}"></td>
+                            <td style="min-widtd: 200px; text-align: center" th:text="${hp.getMonHoc().getTenMonHoc()}"></td>
+                            <td th:text="${hp.getSoTCLT()}+${hp.getSoTCTH()}"></td>
+                            <td th:if="${hp.hocPhanBatBuoc == true}">
                                 <i class="fa fa-check-circle"></i>
                             </td>
-                            <td th:if="${lhp.hocPhan.hocPhanBatBuoc == false}">
+                            <td th:if="${hp.hocPhanBatBuoc == false}">
                                 <i class="fa fa-times-circle"></i>
                             </td>
                             <td>001496 (a)</td>
                             <td>
                                 <button type="button" class="btn btn-custon-two btn-success"
-                                        th:onclick="xemLopHocPhan([[${lhp.hocPhan.maHocPhan}]])">Đăng Ký</button>
+                                        th:onclick="xemLopHocPhan([[${hp.maHocPhan}]])">Đăng Ký</button>
                             </td>
                         </tr>
                         </tbody>

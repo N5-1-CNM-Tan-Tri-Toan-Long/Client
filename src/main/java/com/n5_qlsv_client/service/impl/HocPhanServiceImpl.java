@@ -1,6 +1,7 @@
 package com.n5_qlsv_client.service.impl;
 
 import com.n5_qlsv_client.model.HocPhan;
+import com.n5_qlsv_client.model.LopHocPhan;
 import com.n5_qlsv_client.service.HocPhanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,5 +47,16 @@ public class HocPhanServiceImpl implements HocPhanService {
     public HocPhan findById(String maHocPhan) {
         HocPhan hocPhan = restTemplate.getForObject(url + "/" + maHocPhan, HocPhan.class);
         return hocPhan;
+    }
+
+    @Override
+    public List<HocPhan> findHPByMaHK(long maHK) {
+        ResponseEntity<List<HocPhan>> responseEntity
+                = restTemplate.exchange(url + "/" + maHK + "/mahk",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<HocPhan>>() {
+                });
+        List<HocPhan> HocPhans = responseEntity.getBody();
+        return HocPhans;
     }
 }

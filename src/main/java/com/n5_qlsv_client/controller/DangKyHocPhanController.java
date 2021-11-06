@@ -1,5 +1,6 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.service.HocPhanService;
 import com.n5_qlsv_client.service.LopHocPhanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,13 @@ public class DangKyHocPhanController {
     @Autowired
     private LopHocPhanService lopHocPhanService;
 
+    @Autowired
+    private HocPhanService hocPhanService;
+
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK){
         if(maHK != null){
-            model.addAttribute("danhsachLHP", lopHocPhanService.findLHPByMaHK(maHK));
+            model.addAttribute("danhsachHP", hocPhanService.findHPByMaHK(maHK));
             model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
 
         }else {
