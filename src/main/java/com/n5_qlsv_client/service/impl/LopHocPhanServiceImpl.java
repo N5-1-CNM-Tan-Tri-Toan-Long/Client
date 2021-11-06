@@ -46,9 +46,9 @@ public class LopHocPhanServiceImpl implements LopHocPhanService {
     @Override
     public void saveLopHocPhan(LopHocPhan lopHocPhan) {
         long maLopHocPhan = lopHocPhan.getMaLHP();
-        if(maLopHocPhan == 0){
+        if (maLopHocPhan == 0) {
             restTemplate.postForEntity(url, lopHocPhan, String.class);
-        }else {
+        } else {
             restTemplate.put(url + "/" + maLopHocPhan, lopHocPhan);
         }
     }
@@ -68,6 +68,17 @@ public class LopHocPhanServiceImpl implements LopHocPhanService {
     public List<LopHocPhan> findLHPByMaHK(long maHK) {
         ResponseEntity<List<LopHocPhan>> responseEntity
                 = restTemplate.exchange(url + "/" + maHK + "/mahk",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<LopHocPhan>>() {
+                });
+        List<LopHocPhan> lopHocPhanList = responseEntity.getBody();
+        return lopHocPhanList;
+    }
+
+    @Override
+    public List<LopHocPhan> findByMaHocPhan(String maHP) {
+        ResponseEntity<List<LopHocPhan>> responseEntity
+                = restTemplate.exchange(url + "/mahocphan/" + maHP,
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<LopHocPhan>>() {
                 });

@@ -20,4 +20,5 @@ public interface LopHocPhanService {
 
     List<LopHocPhan> findLHPByMaHK(long maHK);
 
+    List<LopHocPhan> findByMaHocPhan(String maHP);
 }
