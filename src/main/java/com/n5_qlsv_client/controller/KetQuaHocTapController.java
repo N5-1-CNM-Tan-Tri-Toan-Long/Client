@@ -1,6 +1,8 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.service.impl.MaHKTheoKQHT;
 import com.n5_qlsv_client.model.KetQuaHocTap;
+import com.n5_qlsv_client.service.HocKyService;
 import com.n5_qlsv_client.service.KetQuaHocTapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +19,21 @@ public class KetQuaHocTapController {
     @Autowired
     private KetQuaHocTapService ketQuaHocTapService;
 
+    @Autowired
+    private HocKyService hocKyService;
+
+    @Autowired
+    private MaHKTheoKQHT maHKTheoKQHT;
     @GetMapping
     public String findKQHTByMaSV(Model model){
-        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV("18000001");
+        String maSV = "18000001";
+        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
         model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
         model.addAttribute("KQHTs", ketQuaHocTaps);
+        model.addAttribute("HK", hocKyService.getAllHocKys());
+        model.addAttribute("HKSV", maHKTheoKQHT.getMaHKTheoKQHT(maSV));
         return "ket-qua-hoc-tap";
     }
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
@@ -30,4 +31,17 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
         List<KetQuaHocTap> ketQuaHocTapList = responseEntity.getBody();
         return ketQuaHocTapList;
     }
+
+    @Override
+    public Set<Long> findMaHKByMaSV(String maSV) {
+        ResponseEntity<Set<Long>> responseEntity
+                = restTemplate.exchange(url + "/" + maSV + "/hk",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<Set<Long>>() {
+                });
+        Set<Long> mahk = responseEntity.getBody();
+        return mahk;
+    }
+
+
 }
