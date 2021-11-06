@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>Thong Tin Sinh Vien</title>
     <!-- calendar CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet'/>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js'></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" rel="stylesheet"
+          media="print" />
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -34,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="calender-inner">
-<!--                                            JS Calendar fullcalendar-active.js-->
+                                            <!--                                            JS Calendar fullcalendar-active.js-->
                                             <div id='calendar'></div>
                                         </div>
                                     </div>
@@ -51,21 +53,34 @@
 <div th:replace="SV_Fragment :: script"/>
 <!-- calendar JS -->
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
-            buttonText: { today: "Hôm nay" },
+            buttonText: {today: "Hôm nay"},
+            customButtons: {
+                printCalendar: {
+                    text: 'In lịch',
+                    click: function () {
+                        window.open("/lich-theo-tuan/in-lich")
+                    }
+                }
+            },
             locale: 'vi',
             nowIndicator: true,
+            height: 760,
             views: {
-                listWeek: { buttonText: 'Sự kiện tuần' },
-                dayGridMonth : {buttonText: 'Tháng'},
-                timeGridWeek: {buttonText: 'Tuần'},
+                listWeek: {buttonText: 'Sự kiện tuần'},
+                dayGridMonth: {buttonText: 'Tháng'},
+                timeGridWeek: {
+                    buttonText: 'Tuần',
+                    slotMinTime: '6:00:00',
+                    slotMaxTime: '22:00:00',
+                    allDaySlot: false,
+                },
             },
             headerToolbar: {
-                left: 'prev,next today',
+                left: 'prev,next today printCalendar',
                 center: 'title',
                 right: 'timeGridWeek,listWeek,dayGridMonth'
             },
