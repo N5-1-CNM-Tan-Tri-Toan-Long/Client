@@ -3,7 +3,7 @@
 <head th:replace="SV_Fragment :: head"/>
 <head>
     <meta charset="UTF-8">
-    <title>Thong Tin Sinh Vien</title>
+    <title>Kết quả học tập</title>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -22,9 +22,11 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="sparkline12-list">
                         <div class="sparkline12-hd mg-b-30">
-                            <div class="main-sparkline12-hd">
+                            <div class=" main-sparkline12-hd">
                                 <h1>Kết Quả Học Tập</h1>
+                                <button type="button" class="btn btn-dark"  th:onclick="window.open('/ket-qua-hoc-tap/in-lich')" >In lịch</button>
                             </div>
+
                         </div>
                         <div class="sparkline12-graph">
                             <div class="basic-login-form-ad">
