@@ -1,15 +1,11 @@
 package com.n5_qlsv_client.controller;
 
-import com.fasterxml.jackson.databind.JsonSerializable;
 import com.n5_qlsv_client.model.ItemLichHoc;
 import com.n5_qlsv_client.model.LichHocSinhVien;
 import com.n5_qlsv_client.service.LichHocSinhVienService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,6 +86,11 @@ public class LichHocTheoTuanControler {
     public String LichTheoTuan(Model model) {
         model.addAttribute("TrangHienTai", "Lịch Theo Tuần");
         return "lich-theo-tuan";
+    }
+
+    @GetMapping("/in-lich")
+    public String InLichTheoTuan() {
+        return "in-lich-sinh-vien";
     }
 
     public static List<Integer> extractNumbers(String s) {
