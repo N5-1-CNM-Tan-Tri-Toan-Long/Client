@@ -2,6 +2,8 @@ package com.n5_qlsv_client.model;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -16,4 +18,6 @@ public class LichHocSinhVien {
     private ChiTietLopHocPhan chiTietLopHocPhan;
 
     private SinhVien sinhVien;
+
+    private Date ngayDangKyHP;
 }

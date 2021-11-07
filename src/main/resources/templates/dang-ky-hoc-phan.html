@@ -89,7 +89,7 @@
                             <td th:if="${hp.hocPhanBatBuoc == false}">
                                 <i class="fa fa-times-circle"></i>
                             </td>
-                            <td>001496 (a)</td>
+                            <td></td>
                             <td>
                                 <button type="button" class="btn btn-custon-two btn-success"
                                         th:onclick="xemLopHocPhan([[${hp.maHocPhan}]],[[${maHK}]])">Đăng Ký
@@ -168,42 +168,24 @@
                                         <h1>Chi tiết lớp học phần</h1>
                                     </div>
                                 </div>
-                                <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal" data-target="#WarningModalhdbgcl"
+                                <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal"
+                                       data-target="#WarningModalhdbgcl"
                                        value="Xem học phần trùng">
-                                <button type="button" class="btn btn-custon-four btn-success"
-                                        th:onclick="dangKyHocPhan([[${maHK}]])">Đăng Ký Học Phần</button>
-                                <script>
-                                    function dangKyHocPhan(hocKy) {
-                                        var maCTLH = document.getElementById('title-cthp');
-                                        // var id = maCTLH.str.match(/[0-9]$/)[0];
-                                        $.ajax({
-                                            url: "/hoc-phan/dang-ky-hoc-phan/dang-ky-lop-hoc-phan",
-                                            type: 'POST',
-                                            data: jQuery.param({maCTLHP : 2, maHocKy: hocKy}),
-                                            beforeSend: function () {
-                                                loadingMark();
-                                            }, success: function (data) {
-                                                removeLoadingMark();
-                                                var table = document.getElementById('table-lhpdadk');
-                                                table.innerHTML = '';
-                                                var row = '';
-                                                for (var i = 0; i < data.length; i++) {
-                                                    row = `<tr><td>${i + 1}</td><td>${data[i].maLHP}</td><td>${data[i].tenLHP}</td><td>${data[i].lopHocDK}</td><td>${data[i].soTC}</td><td>${data[i].nhomTH}</td><td>${data[i].hocPhi}</td><td>${data[i].trangThaiDK}</td><td>${data[i].ngayDK}</td><td>${data[i].trangThaiLHP}</td></tr>`;
-                                                    table.innerHTML += row;
-                                                }
-
-                                            }
-                                        });
-                                    }
-                                </script>
-
-                                <div id="WarningModalhdbgcl" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
+                                <form action="/hoc-phan/dang-ky-hoc-phan/dang-ky" method="post"
+                                      style="display: inline-block">
+                                    <div id="input-dkhp"></div>
+                                    <input id="btn-dangky" type="submit" class="btn btn-custon-four btn-success"
+                                           value="Đang Ký Học Phần" disabled>
+                                </form>
+                                <div id="WarningModalhdbgcl"
+                                     class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
                                     <div class="modal-dialog" style="width: 80vw">
                                         <div class="modal-content">
                                             <div class="modal-header header-color-modal bg-color-3">
                                                 <h4 class="modal-title">Kiểm Tra Học Phần Trùng</h4>
                                                 <div class="modal-close-area modal-close-df">
-                                                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                                                    <a class="close" data-dismiss="modal" href="#"><i
+                                                            class="fa fa-close"></i></a>
                                                 </div>
                                             </div>
                                             <div class="modal-body">
@@ -256,6 +238,9 @@
                                             var table = document.getElementById('table-cthp');
                                             table.innerHTML = '';
                                             document.getElementById('title-cthp').innerHTML = `<h1>Chi tiết lớp học phần: ${id}</h1>`;
+                                            document.getElementById('input-dkhp').innerHTML =
+                                                `<input type="hidden" name="maLHP" value="${id}"><input type="hidden" name="maHocKy" value="[[${maHK}]]">`;
+                                            document.getElementById('btn-dangky').disabled = false;
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
                                                 row = `<tr><td>${data[i].tietHoc}</td><td>${data[i].coSo} ${data[i].phongHoc}</td><td>${data[i].tenGiaoVien}</td><td>${data[i].ngayBatDau} - ${data[i].ngayKetThuc}</td></tr>`;
@@ -289,32 +274,28 @@
                             <th>Lớp học dự kiến</th>
                             <th>TC</th>
                             <th>Nhóm TH</th>
-                            <th>Học phí</th>
-                            <th>Trạng thái ĐK</th>
                             <th>Ngày ĐK</th>
                             <th>Trạng thái Lớp học phần</th>
                             <th colspan="2">Hành Động</th>
                         </tr>
                         </thead>
-                        <tbody id="table-lhpdadk">
-<!--                        <tr>-->
-<!--                            <td>1</td>-->
-<!--                            <td>4220001459</td>-->
-<!--                            <td>Anh văn 1</td>-->
-<!--                            <td>DHKTPM14ATT</td>-->
-<!--                            <td>3</td>-->
-<!--                            <td>3</td>-->
-<!--                            <td>2.370.000</td>-->
-<!--                            <td>Đăng ký mới</td>-->
-<!--                            <td>13/07/2021</td>-->
-<!--                            <td>Đã khóa</td>-->
-<!--                            <td>-->
-<!--                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">-->
-<!--                            </td>-->
-<!--                        </tr>-->
+                        <tbody id="table-lhpdadk" th:each="hocPhan,i : ${listHocPhanDaDK}">
+                        <tr>
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${hocPhan.maLopHocPhan}">4220001459</td>
+                            <td th:text="${hocPhan.tenLopHocPhan}">Anh văn 1</td>
+                            <td th:text="${hocPhan.lopHocDuKien}">DHKTPM14ATT</td>
+                            <td th:text="${hocPhan.soTC}">3</td>
+                            <td th:text="${hocPhan.nhomTH}">3</td>
+                            <td th:text="${hocPhan.ngayDangKy}">13/07/2021</td>
+                            <td th:text="${hocPhan.trangThai}">Đã khóa</td>
+                            <td>
+                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">
+                            </td>
+                            <td>
+                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

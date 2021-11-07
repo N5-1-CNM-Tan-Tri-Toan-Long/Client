@@ -21,6 +21,7 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
 
     @Value("${app.url.ketquahoctap}")
     private String url;
+
     @Override
     public List<KetQuaHocTap> findKQHTByMaSV(String maSV) {
         ResponseEntity<List<KetQuaHocTap>> responseEntity
@@ -41,6 +42,11 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
                 });
         Set<Long> mahk = responseEntity.getBody();
         return mahk;
+    }
+
+    @Override
+    public KetQuaHocTap saveKetQuaHT(KetQuaHocTap ketQuaHocTap) {
+        return restTemplate.postForObject(url, ketQuaHocTap, KetQuaHocTap.class);
     }
 
 

@@ -1,6 +1,5 @@
 package com.n5_qlsv_client.controller;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.n5_qlsv_client.model.*;
 import com.n5_qlsv_client.service.*;
 import org.slf4j.Logger;
@@ -12,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Controller
 @RequestMapping("/hoc-phan/dang-ky-hoc-phan")
@@ -38,21 +36,50 @@ public class DangKyHocPhanController {
     @Autowired
     private SinhVienService sinhVienService;
 
+    @Autowired
+    private KetQuaHocTapService ketQuaHocTapService;
+
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
 
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK) {
+
         if (maHK != null) {
-            model.addAttribute("danhsachHP", hocPhanService.findHPByMaHK(maHK));
-            model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
+            Set<HocPhanDaDangKy> list = new HashSet<>();
+            lichHocSinhVienService.getLichHocByMaSV("18000001").forEach(lichHocSinhVien -> {
+                if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHK)
+                    list.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenVietTat(),
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getSoNhomTH() + "",
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTrangThai(),
+                            convertToLocalDate(lichHocSinhVien.getNgayDangKyHP()),
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT() +
+                                    lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH(),
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getMaHocPhan()));
+            });
+            model.addAttribute("listHocPhanDaDK", list);
 
-        } else {
-            model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
+            List<HocPhan> listHP = new ArrayList<>();
+            hocPhanService.findHPByMaHK(maHK).forEach(hocPhan -> {
+                if (!checkHocPhanTrongList(hocPhan.getMaHocPhan(),list))
+                    listHP.add(hocPhan);
+            });
+            model.addAttribute("danhsachHP", listHP);
         }
-
+        model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
         model.addAttribute("maHK", maHK);
         model.addAttribute("TrangHienTai", "Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
+    }
+
+    private boolean checkHocPhanTrongList(String maMonHoc, Set<HocPhanDaDangKy> list) {
+        AtomicBoolean ketQua = new AtomicBoolean(true);
+        list.forEach(hocPhanDaDangKy -> {
+            if (hocPhanDaDangKy.getMaHocPhan().equals(maMonHoc))
+                ketQua.set(false);
+        });
+        return ketQua.get();
     }
 
     @PostMapping("/lop-hoc-phan")
@@ -87,30 +114,29 @@ public class DangKyHocPhanController {
                 .toLocalDate();
     }
 
-    @PostMapping("/dang-ky-lop-hoc-phan")
-    @ResponseBody
-    public List<LopHocPhanDaDK> lopHocPhanDaDK(@RequestParam("maCTLHP") long id,@RequestParam("maHocKy") long maHocKy){
-        String maSV = "18000001";
-        ChiTietLopHocPhan chiTietLopHocPhan = ctlhpService.findById(id);
+    @PostMapping("/dang-ky")
+    public String dangKyLopHocPhan(@RequestParam("maHocKy") long maHK, @RequestParam("maLHP") long maLHP) {
+        SinhVien sinhVien = sinhVienService.findById("18000001");
+        LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
+        int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
-        lichHocSinhVien.setSinhVien(sinhVienService.findById(maSV));
-        lichHocSinhVien.setChiTietLopHocPhan(chiTietLopHocPhan);
-        lichHocSinhVienService.saveLHSV(lichHocSinhVien);
-        //xử lý data
-        List<LopHocPhanDaDK> list = new ArrayList<>();
+        lichHocSinhVien.setNgayDangKyHP(new Date());
 
-        lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(LHPDaDK ->{
-            if(LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHocKy)
-            list.add(new LopHocPhanDaDK(LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
-                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
-                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTenVietTat(),
-                    "Đăng ký mới", LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTrangThai(),
-                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT()+
-                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH(),
-                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getSoNhomTH(),
-                    111111, LocalDate.now()));
+        if (hienTai + 1 >= toiDa)
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+        lopHocPhan.setSoLuongDangKyHienTai(hienTai + 1);
+        lopHocPhanService.saveLopHocPhan(lopHocPhan);
+
+        ctlhpService.findByMaLopHocPhan(maLHP).forEach(chiTietLopHocPhan -> {
+            lichHocSinhVien.setChiTietLopHocPhan(chiTietLopHocPhan);
+            lichHocSinhVien.setSinhVien(sinhVien);
+            lichHocSinhVienService.saveLHSV(lichHocSinhVien);
+            KetQuaHocTap ktht = new KetQuaHocTap();
+            ktht.setSinhVien(sinhVien);
+            ktht.setLopHocPhan(lopHocPhan);
+            ketQuaHocTapService.saveKetQuaHT(ktht);
         });
-        return list;
+        return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
     }
 
 }

@@ -8,5 +8,8 @@ import java.util.Set;
 public interface KetQuaHocTapService {
 
     List<KetQuaHocTap> findKQHTByMaSV(String maSV);
+
     Set<Long> findMaHKByMaSV(String maSV);
+
+    KetQuaHocTap saveKetQuaHT(KetQuaHocTap ketQuaHocTap);
 }
