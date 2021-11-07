@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Trang Lớp Học</title>
+    <!-- modals CSS -->
+    <link rel="stylesheet" th:href="@{/css/modals.css}">
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -166,7 +168,7 @@
                                         <h1>Chi tiết lớp học phần</h1>
                                     </div>
                                 </div>
-                                <input type="button" class="btn btn-custon-four btn-warning"
+                                <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal" data-target="#WarningModalhdbgcl"
                                        value="Xem học phần trùng">
                                 <button type="button" class="btn btn-custon-four btn-success"
                                         th:onclick="dangKyHocPhan([[${maHK}]])">Đăng Ký Học Phần</button>
@@ -194,9 +196,6 @@
                                         });
                                     }
                                 </script>
-
-                                <input type="button" class="btn btn-custon-four btn-success"
-                                       value="Đăng Ký Học Phần">
 
                                 <div id="WarningModalhdbgcl" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
                                     <div class="modal-dialog" style="width: 80vw">
@@ -297,25 +296,25 @@
                             <th colspan="2">Hành Động</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>4220001459</td>
-                            <td>Anh văn 1</td>
-                            <td>DHKTPM14ATT</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>2.370.000</td>
-                            <td>Đăng ký mới</td>
-                            <td>13/07/2021</td>
-                            <td>Đã khóa</td>
-                            <td>
-                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">
-                            </td>
-                            <td>
-                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">
-                            </td>
-                        </tr>
+                        <tbody id="table-lhpdadk">
+<!--                        <tr>-->
+<!--                            <td>1</td>-->
+<!--                            <td>4220001459</td>-->
+<!--                            <td>Anh văn 1</td>-->
+<!--                            <td>DHKTPM14ATT</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>3</td>-->
+<!--                            <td>2.370.000</td>-->
+<!--                            <td>Đăng ký mới</td>-->
+<!--                            <td>13/07/2021</td>-->
+<!--                            <td>Đã khóa</td>-->
+<!--                            <td>-->
+<!--                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>
