@@ -12,4 +12,8 @@ public interface KetQuaHocTapService {
     Set<Long> findMaHKByMaSV(String maSV);
 
     KetQuaHocTap saveKetQuaHT(KetQuaHocTap ketQuaHocTap);
+
+    void deleteKQHT(Long maKQHT);
+
+    KetQuaHocTap findKQHTByMaSVAndMaLHP(String maSV, Long maLHP);
 }

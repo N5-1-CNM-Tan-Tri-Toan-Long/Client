@@ -279,21 +279,26 @@
                             <th colspan="2">Hành Động</th>
                         </tr>
                         </thead>
-                        <tbody id="table-lhpdadk" th:each="hocPhan,i : ${listHocPhanDaDK}">
+                        <tbody id="table-lhpdadk" th:each="hocPhan, i : ${listHocPhanDaDK}">
                         <tr>
                             <td th:text="${i.index+1}"></td>
-                            <td th:text="${hocPhan.maLopHocPhan}">4220001459</td>
-                            <td th:text="${hocPhan.tenLopHocPhan}">Anh văn 1</td>
-                            <td th:text="${hocPhan.lopHocDuKien}">DHKTPM14ATT</td>
+                            <td th:text="${hocPhan.maLopHocPhan}"></td>
+                            <td th:text="${hocPhan.tenLopHocPhan}"></td>
+                            <td th:text="${hocPhan.lopHocDuKien}"></td>
                             <td th:text="${hocPhan.soTC}">3</td>
                             <td th:text="${hocPhan.nhomTH}">3</td>
-                            <td th:text="${hocPhan.ngayDangKy}">13/07/2021</td>
-                            <td th:text="${hocPhan.trangThai}">Đã khóa</td>
+                            <td th:text="${hocPhan.ngayDangKy}"></td>
+                            <td th:text="${hocPhan.trangThai}"></td>
                             <td>
                                 <input type="button" class="btn btn-custon-four btn-primary" value="Xem">
                             </td>
                             <td>
-                                <input type="button" class="btn btn-custon-four btn-danger" value="Xoá">
+                                <form action="/hoc-phan/dang-ky-hoc-phan/xoa-dang-ky" method="get">
+                                    <input type="hidden" name="maLHP" th:value="${hocPhan.maLopHocPhan}">
+<!--                                    <input type="hidden" name="maHocKy" th:value="[[${maHK}]]">-->
+                                    <input type="submit" class="btn btn-custon-four btn-danger" value="Xoá">
+                                </form>
+
                             </td>
                         </tr>
                         </tbody>

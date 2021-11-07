@@ -7,4 +7,5 @@ import java.util.List;
 public interface LichHocSinhVienService {
     List<LichHocSinhVien> getLichHocByMaSV(String maSV);
     void saveLHSV(LichHocSinhVien lichHocSinhVien);
+    void deleteLHSV(Long maLHSV);
 }
