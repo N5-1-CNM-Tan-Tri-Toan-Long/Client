@@ -1,7 +1,11 @@
 package com.n5_qlsv_client.service.impl;
 
+import com.n5_qlsv_client.model.HocPhan;
 import com.n5_qlsv_client.model.KetQuaHocTap;
+import com.n5_qlsv_client.model.LopHocPhan;
+import com.n5_qlsv_client.service.HocPhanService;
 import com.n5_qlsv_client.service.KetQuaHocTapService;
+import com.n5_qlsv_client.service.LopHocPhanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
