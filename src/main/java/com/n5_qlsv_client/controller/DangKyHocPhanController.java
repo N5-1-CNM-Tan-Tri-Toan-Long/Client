@@ -1,12 +1,8 @@
 package com.n5_qlsv_client.controller;
 
-import com.n5_qlsv_client.model.CTLHPChoDangKy;
-import com.n5_qlsv_client.model.ChiTietLopHocPhan;
-import com.n5_qlsv_client.model.LopHocPhan;
-import com.n5_qlsv_client.model.LopHocPhanChoDangKy;
-import com.n5_qlsv_client.service.CTLHPService;
-import com.n5_qlsv_client.service.HocPhanService;
-import com.n5_qlsv_client.service.LopHocPhanService;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.n5_qlsv_client.model.*;
+import com.n5_qlsv_client.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +28,15 @@ public class DangKyHocPhanController {
 
     @Autowired
     private CTLHPService ctlhpService;
+
+    @Autowired
+    private HocKyService hocKyService;
+
+    @Autowired
+    private LichHocSinhVienService lichHocSinhVienService;
+
+    @Autowired
+    private SinhVienService sinhVienService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
 
@@ -82,4 +86,31 @@ public class DangKyHocPhanController {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
+
+    @PostMapping("/dang-ky-lop-hoc-phan")
+    @ResponseBody
+    public List<LopHocPhanDaDK> lopHocPhanDaDK(@RequestParam("maCTLHP") long id,@RequestParam("maHocKy") long maHocKy){
+        String maSV = "18000001";
+        ChiTietLopHocPhan chiTietLopHocPhan = ctlhpService.findById(id);
+        LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
+        lichHocSinhVien.setSinhVien(sinhVienService.findById(maSV));
+        lichHocSinhVien.setChiTietLopHocPhan(chiTietLopHocPhan);
+        lichHocSinhVienService.saveLHSV(lichHocSinhVien);
+        //xử lý data
+        List<LopHocPhanDaDK> list = new ArrayList<>();
+
+        lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(LHPDaDK ->{
+            if(LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHocKy)
+            list.add(new LopHocPhanDaDK(LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
+                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTenVietTat(),
+                    "Đăng ký mới", LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getTrangThai(),
+                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT()+
+                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH(),
+                    LHPDaDK.getChiTietLopHocPhan().getLopHocPhan().getSoNhomTH(),
+                    111111, LocalDate.now()));
+        });
+        return list;
+    }
+
 }
