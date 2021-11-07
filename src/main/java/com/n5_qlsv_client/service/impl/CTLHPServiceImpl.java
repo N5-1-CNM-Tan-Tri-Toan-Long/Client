@@ -26,21 +26,20 @@ public class CTLHPServiceImpl implements CTLHPService {
     private String urlCTLHP;
 
     @Override
-    public List<ChiTietLopHocPhan> getAllCTLHPsByLHP(Long idLHP) {
+    public List<ChiTietLopHocPhan> findByMaLopHocPhan(Long maLHP) {
         ResponseEntity<List<ChiTietLopHocPhan>> responseEntity
-                = restTemplate.exchange(urlLHP + "/" + idLHP + "/CTLHP", HttpMethod.GET, null,
+                = restTemplate.exchange(urlCTLHP + "/malophocphan/" + maLHP, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<ChiTietLopHocPhan>>() {
                 });
-        List<ChiTietLopHocPhan> chiTietLopHocPhanList = responseEntity.getBody();
-        return chiTietLopHocPhanList;
+        return responseEntity.getBody();
     }
 
     @Override
     public void saveCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, Long maLHP) {
         long maCTLHP = chiTietLopHocPhan.getMaCTLHP();
-        if(maCTLHP == 0){
+        if (maCTLHP == 0) {
             restTemplate.postForEntity(urlLHP + "/" + maLHP + "/CTLHP", chiTietLopHocPhan, String.class);
-        }else {
+        } else {
             restTemplate.put(urlCTLHP + "/" + maCTLHP, chiTietLopHocPhan);
         }
     }

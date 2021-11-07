@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CTLHPService {
 
-    List<ChiTietLopHocPhan> getAllCTLHPsByLHP(Long idLHP);
+    List<ChiTietLopHocPhan> findByMaLopHocPhan(Long maLHP);
 
     void saveCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, Long maLHP);
 

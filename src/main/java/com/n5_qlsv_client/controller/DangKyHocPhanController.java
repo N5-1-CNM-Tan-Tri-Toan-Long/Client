@@ -1,7 +1,10 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.model.CTLHPChoDangKy;
+import com.n5_qlsv_client.model.ChiTietLopHocPhan;
 import com.n5_qlsv_client.model.LopHocPhan;
 import com.n5_qlsv_client.model.LopHocPhanChoDangKy;
+import com.n5_qlsv_client.service.CTLHPService;
 import com.n5_qlsv_client.service.HocPhanService;
 import com.n5_qlsv_client.service.LopHocPhanService;
 import org.slf4j.Logger;
@@ -11,7 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,6 +30,9 @@ public class DangKyHocPhanController {
 
     @Autowired
     private HocPhanService hocPhanService;
+
+    @Autowired
+    private CTLHPService ctlhpService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
 
@@ -52,5 +62,24 @@ public class DangKyHocPhanController {
                         lopHocPhan.getSoLuongDangKyHienTai(), lopHocPhan.getSoLuongDangKyToiDa()));
         });
         return list;
+    }
+
+    @PostMapping("/chi-tiet-lop-hoc-phan")
+    @ResponseBody
+    public List<CTLHPChoDangKy> findByMaLopHocPhan(@RequestParam("maLHP") long id) {
+        List<CTLHPChoDangKy> list = new ArrayList<>();
+        ctlhpService.findByMaLopHocPhan(id).forEach(chiTietLopHocPhan -> {
+            list.add(new CTLHPChoDangKy(chiTietLopHocPhan.getTietHoc(), chiTietLopHocPhan.getCoSo(),
+                    chiTietLopHocPhan.getPhong(), chiTietLopHocPhan.getGiangVien().getTenGV(),
+                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()),
+                    convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+        });
+        return list;
+    }
+
+    public LocalDate convertToLocalDate(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 }
