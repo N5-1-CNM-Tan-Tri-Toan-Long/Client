@@ -49,5 +49,15 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
         return restTemplate.postForObject(url, ketQuaHocTap, KetQuaHocTap.class);
     }
 
+    @Override
+    public void deleteKQHT(Long maKQHT) {
+        restTemplate.delete(url + "/" + maKQHT);
+    }
+
+    @Override
+    public KetQuaHocTap findKQHTByMaSVAndMaLHP(String maSV, Long maLHP) {
+        return restTemplate.getForObject(url + "/" + maSV + "/" + maLHP + "/kq", KetQuaHocTap.class);
+    }
+
 
 }

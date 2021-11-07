@@ -38,5 +38,10 @@ public class LichHocSinhVienServiceImpl implements LichHocSinhVienService {
         }
     }
 
+    @Override
+    public void deleteLHSV(Long maLHSV) {
+        restTemplate.delete(url + "/" + maLHSV);
+    }
+
 
 }
