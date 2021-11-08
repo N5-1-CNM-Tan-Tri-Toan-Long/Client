@@ -100,7 +100,7 @@ public class DangKyHocPhanController {
     public List<CTLHPChoDangKy> findByMaLopHocPhan(@RequestParam("maLHP") long id) {
         List<CTLHPChoDangKy> list = new ArrayList<>();
         ctlhpService.findByMaLopHocPhan(id).forEach(chiTietLopHocPhan -> {
-            list.add(new CTLHPChoDangKy(chiTietLopHocPhan.getTietHoc(), chiTietLopHocPhan.getCoSo(),
+            list.add(new CTLHPChoDangKy(chiTietLopHocPhan.getNhomTH() + "", chiTietLopHocPhan.getTietHoc(), chiTietLopHocPhan.getCoSo(),
                     chiTietLopHocPhan.getPhong(), chiTietLopHocPhan.getGiangVien().getTenGV(),
                     convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()),
                     convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
@@ -172,16 +172,16 @@ public class DangKyHocPhanController {
                     List<Integer> tietHoc2s = LichHocTheoTuanControler.extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
                     if (tietHoc1s.get(0) == tietHoc2s.get(0)) {
                         if (tietHoc1s.get(1) >= tietHoc2s.get(1) && tietHoc1s.get(1) <= tietHoc2s.get(2))
-                            hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getTietHoc(),
+                            hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getLopHocPhan().getTenLHP(), chiTietLopHocPhan.getTietHoc(),
                                     chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
                                     chiTietLopHocPhan.getGiangVien().getTenGV(),
-                                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + ":" + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + " : " + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
                         else {
                             if (tietHoc1s.get(2) >= tietHoc2s.get(1) && tietHoc1s.get(2) <= tietHoc2s.get(2))
-                                hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getTietHoc(),
+                                hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getLopHocPhan().getTenLHP(), chiTietLopHocPhan.getTietHoc(),
                                         chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
                                         chiTietLopHocPhan.getGiangVien().getTenGV(),
-                                        convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + ":" + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                                        convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + " : " + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
                         }
                     }
                 }
@@ -196,4 +196,16 @@ public class DangKyHocPhanController {
         return false;
     }
 
+    @PostMapping("/xem-lop-hoc-phan")
+    @ResponseBody
+    public List<ThongTinLopHP> findThongTinLopByMaLHP(@RequestParam("maLHP") long maLHP) {
+        List<ThongTinLopHP> thongTinLopHPS = new ArrayList<>();
+        ctlhpService.findByMaLopHocPhan(maLHP).forEach(chiTietLopHocPhan -> {
+            thongTinLopHPS.add(new ThongTinLopHP(chiTietLopHocPhan.getTietHoc(), chiTietLopHocPhan.getLopHocPhan().getSoNhomTH() + "",
+                    chiTietLopHocPhan.getPhong(), chiTietLopHocPhan.getDayNha(), chiTietLopHocPhan.getCoSo(),
+                    chiTietLopHocPhan.getGiangVien().getTenGV(),
+                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + " : " + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+        });
+        return thongTinLopHPS;
+    }
 }

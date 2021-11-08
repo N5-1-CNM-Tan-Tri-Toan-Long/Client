@@ -193,6 +193,7 @@
                                                 <table class="table table-bordered" width="100%">
                                                     <thead>
                                                     <tr class="active">
+                                                        <th>Môn học</th>
                                                         <th>Tiết học</th>
                                                         <th>CS-Phòng học</th>
                                                         <th>Giáo viên</th>
@@ -215,6 +216,7 @@
                             <table class="table table-bordered" width="100%">
                                 <thead>
                                 <tr class="active">
+                                    <th>Nhóm thực hành</th>
                                     <th>Tiết học</th>
                                     <th>CS-Phòng học</th>
                                     <th>Giáo viên</th>
@@ -243,7 +245,7 @@
                                             document.getElementById('btn-kiemtra').disabled = false;
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
-                                                row = `<tr><td>${data[i].tietHoc}</td><td>${data[i].coSo} ${data[i].phongHoc}</td><td>${data[i].tenGiaoVien}</td><td>${data[i].ngayBatDau} - ${data[i].ngayKetThuc}</td></tr>`;
+                                                row = `<tr><td>${data[i].nhomTH}</td><td>${data[i].tietHoc}</td><td>${data[i].coSo} ${data[i].phongHoc}</td><td>${data[i].tenGiaoVien}</td><td>${data[i].ngayBatDau} - ${data[i].ngayKetThuc}</td></tr>`;
                                                 table.innerHTML += row;
                                             }
                                         },
@@ -254,7 +256,7 @@
                                         type: 'POST',
                                         data: jQuery.param({maLHP: id}),
                                         success: function (data) {
-                                            if (data.length>0)
+                                            if (data.length > 0)
                                                 document.getElementById('titleHocPhanTrung').innerHTML = "Đã có học phần trùng";
                                             else {
                                                 document.getElementById('titleHocPhanTrung').innerHTML = "Không có học phần trùng";
@@ -263,7 +265,7 @@
                                             var table = document.getElementById('tableHocPhanTrung');
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
-                                                row = `<tr><td>${data[i].tietHoc}</td><td>${data[i].coSoPhong}</td><td>${data[i].giaoVien}</td><td>${data[i].ngayHoc}</td></tr>`;
+                                                row = `<tr><td>${data[i].monHoc}</td><td>${data[i].tietHoc}</td><td>${data[i].coSoPhong}</td><td>${data[i].giaoVien}</td><td>${data[i].ngayHoc}</td></tr>`;
                                                 table.innerHTML += row;
                                             }
                                         },
@@ -310,20 +312,74 @@
                             <td th:text="${hocPhan.ngayDangKy}"></td>
                             <td th:text="${hocPhan.trangThai}"></td>
                             <td>
-                                <input type="button" class="btn btn-custon-four btn-primary" value="Xem">
+                                <input type="button" class="btn btn-custon-four btn-primary"
+                                       th:onclick="loadHocPhanDangKy([[${hocPhan.maLopHocPhan}]])"
+                                       value="Xem" data-toggle="modal" data-target="#PrimaryModalhdbgcl">
                             </td>
                             <td>
                                 <form action="/hoc-phan/dang-ky-hoc-phan/xoa-dang-ky" method="get">
                                     <input type="hidden" name="maLHP" th:value="${hocPhan.maLopHocPhan}">
-<!--                                    <input type="hidden" name="maHocKy" th:value="[[${maHK}]]">-->
+                                    <!--                                    <input type="hidden" name="maHocKy" th:value="[[${maHK}]]">-->
                                     <input type="submit" class="btn btn-custon-four btn-danger" value="Xoá">
                                 </form>
-
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <div id="PrimaryModalhdbgcl" class="modal modal-edu-general default-popup-PrimaryModal fade"
+                     role="dialog">
+                    <div class="modal-dialog" style="width: 80vw">
+                        <div class="modal-content">
+                            <div class="modal-header header-color-modal bg-color-1">
+                                <h4 class="modal-title">BG Color Header Modal</h4>
+                                <div class="modal-close-area modal-close-df">
+                                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <i class="educate-icon educate-checked modal-check-pro"></i>
+                                <h2>Xem thông tinh học phần đã đăng ký!</h2>
+                                <table class="table table-bordered" width="100%">
+                                    <thead>
+                                    <tr class="active">
+                                        <th>Lịch Học</th>
+                                        <th>Nhóm</th>
+                                        <th>Phòng</th>
+                                        <th>Dãy Nhà</th>
+                                        <th>Cơ Sở</th>
+                                        <th>Giáo viên</th>
+                                        <th>Thời Gian</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tableHocPhanDaDangKy">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <a data-dismiss="modal">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function loadHocPhanDangKy(id) {
+                        $.ajax({
+                            url: "/hoc-phan/dang-ky-hoc-phan/xem-lop-hoc-phan",
+                            type: 'POST',
+                            data: jQuery.param({maLHP: id}),
+                            success: function (data) {
+                                var table = document.getElementById('tableHocPhanDaDangKy');
+                                var row = '';
+                                table.innerHTML = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    row = `<tr><td>${data[i].lichHoc}</td><td>${data[i].nhom}</td><td>${data[i].phong}</td><td>${data[i].dayNha}</td><td>${data[i].coSo}</td><td>${data[i].giaoVien}</td><td>${data[i].thoiGian}</td></tr>`;
+                                    table.innerHTML += row;
+                                }
+                            },
+                        });
+                    }
+                </script>
             </div>
         </div>
     </div>

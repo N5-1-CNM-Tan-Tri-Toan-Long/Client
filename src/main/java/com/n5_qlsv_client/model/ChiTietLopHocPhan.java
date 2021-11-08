@@ -34,6 +34,8 @@ public class ChiTietLopHocPhan implements Serializable {
 
     private String tietHoc;
 
+    private int nhomTH;
+
     private GiangVien giangVien;
 
     private LopHocPhan lopHocPhan;

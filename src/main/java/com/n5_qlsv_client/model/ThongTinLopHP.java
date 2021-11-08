@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HocPhanTrung {
-    private String monHoc, tietHoc, coSoPhong, giaoVien, ngayHoc;
+public class ThongTinLopHP {
+    private String lichHoc, nhom, phong, dayNha, coSo, giaoVien, thoiGian;
 }
