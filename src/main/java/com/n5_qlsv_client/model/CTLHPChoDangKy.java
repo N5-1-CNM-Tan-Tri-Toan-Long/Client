@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CTLHPChoDangKy {
-    private String nhomTH, tietHoc, coSo, phongHoc, tenGiaoVien;
+    private int nhomTH;
+    private String tietHoc, coSo, phongHoc, tenGiaoVien;
     private LocalDate ngayBatDau, ngayKetThuc;
+
 }
