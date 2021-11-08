@@ -40,13 +40,14 @@ public class DangKyHocPhanController {
     private KetQuaHocTapService ketQuaHocTapService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
-
+    String maSV = "18000003";
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK) {
 
+
         if (maHK != null) {
             Set<HocPhanDaDangKy> list = new HashSet<>();
-            lichHocSinhVienService.getLichHocByMaSV("18000001").forEach(lichHocSinhVien -> {
+            lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
                 if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHK)
                     list.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
@@ -67,10 +68,23 @@ public class DangKyHocPhanController {
             });
             model.addAttribute("danhsachHP", listHP);
         }
-        model.addAttribute("HKLHP", lopHocPhanService.getAllLopHocPhans());
+        model.addAttribute("HKLHP", hocKyLHPS(maSV));
         model.addAttribute("maHK", maHK);
         model.addAttribute("TrangHienTai", "Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
+    }
+
+    List<HocKyLHP> hocKyLHPS (String maSV){
+        //học kỳ học phần
+        List<HocKyLHP> hocKyList = new ArrayList<>();
+        SinhVien sv = sinhVienService.findById(maSV);
+        int gioiHanHK = convertToLocalDate(sv.getNgayVaoTruong()).getYear() + 6;
+         hocKyService.getAllHocKys().forEach(hocKy -> {
+            if (convertToLocalDate(sv.getNgayVaoTruong()).getYear() <= hocKy.getNamBatDau() && gioiHanHK > hocKy.getNamBatDau())
+                hocKyList.add(new HocKyLHP(hocKy.getMaHK(), hocKy.getMoTa(), hocKy.getNamBatDau(),
+                        hocKy.getNamKetThuc(), hocKy.getThuTuHocKy()));
+        });
+         return hocKyList;
     }
 
     private boolean checkHocPhanTrongList(String maMonHoc, Set<HocPhanDaDangKy> list) {
@@ -116,13 +130,13 @@ public class DangKyHocPhanController {
 
     @PostMapping("/dang-ky")
     public String dangKyLopHocPhan(@RequestParam("maHocKy") long maHK, @RequestParam("maLHP") long maLHP) {
-        SinhVien sinhVien = sinhVienService.findById("18000001");
+        SinhVien sinhVien = sinhVienService.findById(maSV);
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
         lichHocSinhVien.setNgayDangKyHP(new Date());
 
-        if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV("18000001")).size() > 0)
+        if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV(maSV)).size() > 0)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
         if (hienTai + 1 >= toiDa)
@@ -158,7 +172,7 @@ public class DangKyHocPhanController {
     @ResponseBody
     public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP) {
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
-        List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV("18000001");
+        List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         return kiemTraLichTrung(listCTHP, listLH);
     }
 

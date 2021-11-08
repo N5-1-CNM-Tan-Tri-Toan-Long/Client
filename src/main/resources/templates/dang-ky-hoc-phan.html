@@ -36,9 +36,9 @@
                                                         th:onchange="this.form.submit()">
                                                     <option value="">Chọn đợt đăng ký</option>
                                                     <option th:each="hk: ${HKLHP}"
-                                                            th:value="${hk.hocKy.maHK}"
-                                                            th:text="'Học kỳ ' + ${hk.getHocKy().getThuTuHocKy()} + ' (' + ${hk.getHocKy().getNamBatDau()} + ' - ' + ${hk.getHocKy().getNamKetThuc()} + ')'"
-                                                            th:selected="${maHK == hk.getHocKy().getMaHK()}">
+                                                            th:value="${hk.getMaHK()}"
+                                                            th:text="'Học kỳ ' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'"
+                                                            th:selected="${maHK == hk.getMaHK()}">
                                                     </option>
                                                 </select>
                                             </form>
