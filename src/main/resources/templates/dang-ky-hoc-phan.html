@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                                 <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal"
-                                       data-target="#WarningModalhdbgcl"
+                                       data-target="#WarningModalhdbgcl" disabled id="btn-kiemtra"
                                        value="Xem học phần trùng">
                                 <form action="/hoc-phan/dang-ky-hoc-phan/dang-ky" method="post"
                                       style="display: inline-block">
@@ -189,7 +189,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                <h2>Warning!</h2>
+                                                <h2 id="titleHocPhanTrung">Chưa chọn môn học!</h2>
                                                 <table class="table table-bordered" width="100%">
                                                     <thead>
                                                     <tr class="active">
@@ -199,7 +199,7 @@
                                                         <th>Ngày học</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="tableHocPhanTrung">
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -240,10 +240,30 @@
                                             document.getElementById('title-cthp').innerHTML = `<h1>Chi tiết lớp học phần: ${id}</h1>`;
                                             document.getElementById('input-dkhp').innerHTML =
                                                 `<input type="hidden" name="maLHP" value="${id}"><input type="hidden" name="maHocKy" value="[[${maHK}]]">`;
-                                            document.getElementById('btn-dangky').disabled = false;
+                                            document.getElementById('btn-kiemtra').disabled = false;
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
                                                 row = `<tr><td>${data[i].tietHoc}</td><td>${data[i].coSo} ${data[i].phongHoc}</td><td>${data[i].tenGiaoVien}</td><td>${data[i].ngayBatDau} - ${data[i].ngayKetThuc}</td></tr>`;
+                                                table.innerHTML += row;
+                                            }
+                                        },
+                                    });
+
+                                    $.ajax({
+                                        url: "/hoc-phan/dang-ky-hoc-phan/kiem-tra-trung",
+                                        type: 'POST',
+                                        data: jQuery.param({maLHP: id}),
+                                        success: function (data) {
+                                            if (data.length>0)
+                                                document.getElementById('titleHocPhanTrung').innerHTML = "Đã có học phần trùng";
+                                            else {
+                                                document.getElementById('titleHocPhanTrung').innerHTML = "Không có học phần trùng";
+                                                document.getElementById('btn-dangky').disabled = false;
+                                            }
+                                            var table = document.getElementById('tableHocPhanTrung');
+                                            var row = '';
+                                            for (var i = 0; i < data.length; i++) {
+                                                row = `<tr><td>${data[i].tietHoc}</td><td>${data[i].coSoPhong}</td><td>${data[i].giaoVien}</td><td>${data[i].ngayHoc}</td></tr>`;
                                                 table.innerHTML += row;
                                             }
                                         },

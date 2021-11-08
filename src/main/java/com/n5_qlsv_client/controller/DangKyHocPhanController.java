@@ -62,7 +62,7 @@ public class DangKyHocPhanController {
 
             List<HocPhan> listHP = new ArrayList<>();
             hocPhanService.findHPByMaHK(maHK).forEach(hocPhan -> {
-                if (checkHocPhanTrongList(hocPhan.getMaHocPhan(),list))
+                if (checkHocPhanTrongList(hocPhan.getMaHocPhan(), list))
                     listHP.add(hocPhan);
             });
             model.addAttribute("danhsachHP", listHP);
@@ -122,6 +122,9 @@ public class DangKyHocPhanController {
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
         lichHocSinhVien.setNgayDangKyHP(new Date());
 
+        if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV("18000001")).size() > 0)
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
         if (hienTai + 1 >= toiDa)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
         lopHocPhan.setSoLuongDangKyHienTai(hienTai + 1);
@@ -131,29 +134,66 @@ public class DangKyHocPhanController {
             lichHocSinhVien.setChiTietLopHocPhan(chiTietLopHocPhan);
             lichHocSinhVien.setSinhVien(sinhVien);
             lichHocSinhVienService.saveLHSV(lichHocSinhVien);
-            KetQuaHocTap ktht = new KetQuaHocTap();
-            ktht.setSinhVien(sinhVien);
-            ktht.setLopHocPhan(lopHocPhan);
-            ketQuaHocTapService.saveKetQuaHT(ktht);
         });
         return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
     }
 
     @GetMapping(value = "/xoa-dang-ky")
-    String deleteLHSV(@RequestParam("maLHP") long maLHP){
+    public String deleteLHSV(@RequestParam("maLHP") long maLHP) {
         String maSV = "18000001";
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         lopHocPhan.setSoLuongDangKyHienTai(hienTai - 1);
         lopHocPhanService.saveLopHocPhan(lopHocPhan);
-        KetQuaHocTap ketQuaHocTap = ketQuaHocTapService.findKQHTByMaSVAndMaLHP(maSV, maLHP);
 
-        lichHocSinhVienService.getLichHocByMaSV("18000001").forEach(lichHocSinhVien -> {
-            if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP() == lopHocPhan.getMaLHP()){
+        lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
+            if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP() == lopHocPhan.getMaLHP()) {
                 lichHocSinhVienService.deleteLHSV(lichHocSinhVien.getMaLHSV());
-                ketQuaHocTapService.deleteKQHT(ketQuaHocTap.getMaKQHT());
             }
         });
         return "redirect:/hoc-phan/dang-ky-hoc-phan";
     }
+
+    @PostMapping("/kiem-tra-trung")
+    @ResponseBody
+    public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP) {
+        List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
+        List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV("18000001");
+        return kiemTraLichTrung(listCTHP, listLH);
+    }
+
+    private List<HocPhanTrung> kiemTraLichTrung(List<ChiTietLopHocPhan> listCTHP, List<LichHocSinhVien> listLH) {
+        List<HocPhanTrung> hocPhanTrungs = new ArrayList<>();
+        listCTHP.forEach(chiTietLopHocPhan -> {
+            listLH.forEach(lichHocSinhVien -> {
+                if (kiemTraNgayBatDau(chiTietLopHocPhan.getNgayBatDau(), lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau(),
+                        lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc())) {
+                    List<Integer> tietHoc1s = LichHocTheoTuanControler.extractNumbers(chiTietLopHocPhan.getTietHoc());
+                    List<Integer> tietHoc2s = LichHocTheoTuanControler.extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
+                    if (tietHoc1s.get(0) == tietHoc2s.get(0)) {
+                        if (tietHoc1s.get(1) >= tietHoc2s.get(1) && tietHoc1s.get(1) <= tietHoc2s.get(2))
+                            hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getTietHoc(),
+                                    chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
+                                    chiTietLopHocPhan.getGiangVien().getTenGV(),
+                                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + ":" + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                        else {
+                            if (tietHoc1s.get(2) >= tietHoc2s.get(1) && tietHoc1s.get(2) <= tietHoc2s.get(2))
+                                hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getTietHoc(),
+                                        chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
+                                        chiTietLopHocPhan.getGiangVien().getTenGV(),
+                                        convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + ":" + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                        }
+                    }
+                }
+            });
+        });
+        return hocPhanTrungs;
+    }
+
+    private boolean kiemTraNgayBatDau(Date ngayhoc, Date ngayBatDau, Date ngayKetThuc) {
+        if (!ngayBatDau.after(ngayhoc) && !ngayKetThuc.before(ngayhoc))
+            return true;
+        return false;
+    }
+
 }
