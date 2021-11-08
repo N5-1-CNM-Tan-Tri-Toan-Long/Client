@@ -21,21 +21,23 @@ public class KetQuaHocTap implements Serializable {
 
     private String diemChu;
 
-    private double diemTK1;
+    private Double diemTK1;
 
-    private double diemTK2;
+    private Double diemTK2;
 
-    private double diemTK3;
+    private Double diemTK3;
 
-    private double diemTH;
+    private Double diemTH1;
 
-    private double diemHe4;
+    private Double diemTH2;
 
-    private double diemHe10;
+    private Double diemHe4;
 
-    private double diemGK;
+    private Double diemHe10;
 
-    private double diemCK;
+    private Double diemGK;
+
+    private Double diemCK;
 
     private LopHocPhan lopHocPhan;
 

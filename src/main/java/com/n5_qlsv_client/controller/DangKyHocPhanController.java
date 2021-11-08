@@ -40,7 +40,7 @@ public class DangKyHocPhanController {
     private KetQuaHocTapService ketQuaHocTapService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
-    String maSV = "18000003";
+    String maSV = "18000001";
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK) {
 
@@ -155,7 +155,6 @@ public class DangKyHocPhanController {
 
     @GetMapping(value = "/xoa-dang-ky")
     public String deleteLHSV(@RequestParam("maLHP") long maLHP) {
-        String maSV = "18000001";
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         lopHocPhan.setSoLuongDangKyHienTai(hienTai - 1);
@@ -216,7 +215,7 @@ public class DangKyHocPhanController {
     @ResponseBody
     public List<ThongTinLopHP> findThongTinLopByMaLHP(@RequestParam("maLHP") long maLHP) {
         List<ThongTinLopHP> thongTinLopHPS = new ArrayList<>();
-        List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV("18000001");
+        List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         ctlhpService.findByMaLopHocPhan(maLHP).forEach(chiTietLopHocPhan -> {
             if (kiemTraCTHPtrongLH(chiTietLopHocPhan.getMaCTLHP(), listLH)) {
                 String nhomTH = "Lý thuyết";
