@@ -51,7 +51,6 @@ public class DangKyHocPhanController {
                     list.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenVietTat(),
-                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getSoNhomTH() + "",
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTrangThai(),
                             convertToLocalDate(lichHocSinhVien.getNgayDangKyHP()),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT() +

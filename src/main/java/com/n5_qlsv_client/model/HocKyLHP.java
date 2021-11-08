@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class HocKyLHP {
+
     private long maHK;
 
     private String moTa;
