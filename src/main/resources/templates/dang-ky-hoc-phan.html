@@ -168,12 +168,17 @@
                                         <h1>Chi tiết lớp học phần</h1>
                                     </div>
                                 </div>
-                                <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal"
-                                       data-target="#WarningModalhdbgcl" disabled id="btn-kiemtra"
-                                       value="Xem học phần trùng">
+
                                 <form action="/hoc-phan/dang-ky-hoc-phan/dang-ky" method="post"
-                                      style="display: inline-block">
-                                    <div id="input-dkhp"></div>
+                                      style="display: flex">
+                                    <input type="button" class="btn btn-custon-four btn-warning" data-toggle="modal"
+                                           data-target="#WarningModalhdbgcl" disabled id="btn-kiemtra"
+                                           value="Xem học phần trùng">
+                                    <div id="input-dkhp">
+                                    </div>
+                                    <select class="form-control custom-select-value" name="nhomTH" id="selectNTH">
+                                        <option value="0">Nhóm Thực Hành</option>
+                                    </select>
                                     <input id="btn-dangky" type="submit" class="btn btn-custon-four btn-success"
                                            value="Đang Ký Học Phần" disabled>
                                 </form>
@@ -216,7 +221,7 @@
                             <table class="table table-bordered" width="100%">
                                 <thead>
                                 <tr class="active">
-                                    <th>Nhóm thực hành</th>
+                                    <th>Nhóm TH</th>
                                     <th>Tiết học</th>
                                     <th>CS-Phòng học</th>
                                     <th>Giáo viên</th>
@@ -228,6 +233,7 @@
                             </table>
                             <script>
                                 function xemCTLHP(id) {
+                                    var select = document.getElementById('selectNTH');
                                     $.ajax({
                                         url: "/hoc-phan/dang-ky-hoc-phan/chi-tiet-lop-hoc-phan",
                                         type: 'POST',
@@ -239,6 +245,7 @@
                                             removeLoadingMark();
                                             var table = document.getElementById('table-cthp');
                                             table.innerHTML = '';
+                                            select.innerHTML = '';
                                             document.getElementById('title-cthp').innerHTML = `<h1>Chi tiết lớp học phần: ${id}</h1>`;
                                             document.getElementById('input-dkhp').innerHTML =
                                                 `<input type="hidden" name="maLHP" value="${id}"><input type="hidden" name="maHocKy" value="[[${maHK}]]">`;
@@ -247,15 +254,22 @@
                                             for (var i = 0; i < data.length; i++) {
                                                 row = `<tr><td>${data[i].nhomTH}</td><td>${data[i].tietHoc}</td><td>${data[i].coSo} ${data[i].phongHoc}</td><td>${data[i].tenGiaoVien}</td><td>${data[i].ngayBatDau} - ${data[i].ngayKetThuc}</td></tr>`;
                                                 table.innerHTML += row;
+                                                if (data[i].nhomTH > 0)
+                                                    select.innerHTML += `<option value="${data[i].nhomTH}">${data[i].nhomTH}</option>`;
                                             }
+
                                         },
                                     });
-
+                                    var value = select.value;
                                     $.ajax({
                                         url: "/hoc-phan/dang-ky-hoc-phan/kiem-tra-trung",
                                         type: 'POST',
-                                        data: jQuery.param({maLHP: id}),
+                                        data: jQuery.param({maLHP: id, nhomTH: value}),
+                                        beforeSend: function () {
+                                            loadingMark();
+                                        },
                                         success: function (data) {
+                                            removeLoadingMark();
                                             if (data.length > 0)
                                                 document.getElementById('titleHocPhanTrung').innerHTML = "Đã có học phần trùng";
                                             else {
@@ -295,7 +309,6 @@
                             <th>Tên môn học/học phần</th>
                             <th>Lớp học dự kiến</th>
                             <th>TC</th>
-                            <th>Nhóm TH</th>
                             <th>Ngày ĐK</th>
                             <th>Trạng thái Lớp học phần</th>
                             <th colspan="2">Hành Động</th>
@@ -308,7 +321,6 @@
                             <td th:text="${hocPhan.tenLopHocPhan}"></td>
                             <td th:text="${hocPhan.lopHocDuKien}"></td>
                             <td th:text="${hocPhan.soTC}">3</td>
-                            <td th:text="${hocPhan.nhomTH}">3</td>
                             <td th:text="${hocPhan.ngayDangKy}"></td>
                             <td th:text="${hocPhan.trangThai}"></td>
                             <td>
@@ -339,7 +351,7 @@
                             </div>
                             <div class="modal-body">
                                 <i class="educate-icon educate-checked modal-check-pro"></i>
-                                <h2>Xem thông tinh học phần đã đăng ký!</h2>
+                                <h2>Thông Tin Học Phần Đã Đăng Ký!</h2>
                                 <table class="table table-bordered" width="100%">
                                     <thead>
                                     <tr class="active">

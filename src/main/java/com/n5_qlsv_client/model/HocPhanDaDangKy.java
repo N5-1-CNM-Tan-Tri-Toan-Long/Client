@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class HocPhanDaDangKy {
     private long maLopHocPhan;
-    private String tenLopHocPhan, lopHocDuKien, nhomTH, trangThai;
+    private String tenLopHocPhan, lopHocDuKien, trangThai;
     private LocalDate ngayDangKy;
     private int soTC;
     private String maHocPhan;
