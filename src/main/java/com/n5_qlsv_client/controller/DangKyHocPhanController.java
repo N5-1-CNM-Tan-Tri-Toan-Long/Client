@@ -41,6 +41,7 @@ public class DangKyHocPhanController {
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
     String maSV = "18000001";
+
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK) {
 
@@ -72,17 +73,17 @@ public class DangKyHocPhanController {
         return "dang-ky-hoc-phan";
     }
 
-    List<HocKyLHP> hocKyLHPS (String maSV){
+    List<HocKyLHP> hocKyLHPS(String maSV) {
         //học kỳ học phần
         List<HocKyLHP> hocKyList = new ArrayList<>();
         SinhVien sv = sinhVienService.findById(maSV);
         int gioiHanHK = convertToLocalDate(sv.getNgayVaoTruong()).getYear() + 6;
-         hocKyService.getAllHocKys().forEach(hocKy -> {
+        hocKyService.getAllHocKys().forEach(hocKy -> {
             if (convertToLocalDate(sv.getNgayVaoTruong()).getYear() <= hocKy.getNamBatDau() && gioiHanHK > hocKy.getNamBatDau())
                 hocKyList.add(new HocKyLHP(hocKy.getMaHK(), hocKy.getMoTa(), hocKy.getNamBatDau(),
                         hocKy.getNamKetThuc(), hocKy.getThuTuHocKy()));
         });
-         return hocKyList;
+        return hocKyList;
     }
 
     private boolean checkHocPhanTrongList(String maMonHoc, Set<HocPhanDaDangKy> list) {
@@ -187,16 +188,22 @@ public class DangKyHocPhanController {
                     List<Integer> tietHoc2s = LichHocTheoTuanControler.extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
                     if (tietHoc1s.get(0) == tietHoc2s.get(0)) {
                         if (tietHoc1s.get(1) >= tietHoc2s.get(1) && tietHoc1s.get(1) <= tietHoc2s.get(2))
-                            hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getLopHocPhan().getTenLHP(), chiTietLopHocPhan.getTietHoc(),
-                                    chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
-                                    chiTietLopHocPhan.getGiangVien().getTenGV(),
-                                    convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + " : " + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                            hocPhanTrungs.add(new HocPhanTrung(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                                    lichHocSinhVien.getChiTietLopHocPhan().getTietHoc(),
+                                    lichHocSinhVien.getChiTietLopHocPhan().getCoSo() + " " +
+                                            lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
+                                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV(),
+                                    convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()) +
+                                            " : " + convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc())));
                         else {
                             if (tietHoc1s.get(2) >= tietHoc2s.get(1) && tietHoc1s.get(2) <= tietHoc2s.get(2))
-                                hocPhanTrungs.add(new HocPhanTrung(chiTietLopHocPhan.getLopHocPhan().getTenLHP(), chiTietLopHocPhan.getTietHoc(),
-                                        chiTietLopHocPhan.getCoSo() + " " + chiTietLopHocPhan.getPhong(),
-                                        chiTietLopHocPhan.getGiangVien().getTenGV(),
-                                        convertToLocalDate(chiTietLopHocPhan.getNgayBatDau()) + " : " + convertToLocalDate(chiTietLopHocPhan.getNgayKetThuc())));
+                                hocPhanTrungs.add(new HocPhanTrung(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                                        lichHocSinhVien.getChiTietLopHocPhan().getTietHoc(),
+                                        lichHocSinhVien.getChiTietLopHocPhan().getCoSo() + " " +
+                                                lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
+                                        lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV(),
+                                        convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()) +
+                                                " : " + convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc())));
                         }
                     }
                 }
