@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sinh viên</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <!--    <link th:rel="shortcut icon" type="image/x-icon" th:href="@{/asset/img/favicon.ico}">-->
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    <link th:rel="stylesheet" th:href="@{/css/owl.theme.css}">
+    <link th:rel="stylesheet" th:href="@{/css/owl.transitions.css}">
+    <!-- animate CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- normalize CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/normalize.css}">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <!-- main CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- educate icon CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/educate-custon-icon.css}">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/morrisjs/morris.css}">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/scrollbar/jquery.mCustomScrollbar.min.css}">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/metisMenu/metisMenu.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/metisMenu/metisMenu-vertical.css}">
+    <!-- calendar CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/calendar/fullcalendar.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/calendar/fullcalendar.print.min.css}">
+    <!-- x-editor CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/editor/select2.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/datetimepicker.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/bootstrap-editable.css}">
+    <link th:rel="stylesheet" th:href="@{/css/editor/x-editor-style.css}">
+    <!-- normalize CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/data-table/bootstrap-table.css}">
+    <link th:rel="stylesheet" th:href="@{/css/data-table/bootstrap-editable.css}">
+    <!-- style CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- modal CSS
+        ============================================ -->
+    <link th:rel="stylesheet" th:href="@{/modal.css}">
+    <!-- responsive CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/responsive.css}">
+    <!-- modernizr JS
+		============================================ -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="error-pagewrap">
+    <div class="error-page-int">
+        <div class="content-error">
+<!--            <h1>ERROR <span class="counter"> 403</span></h1>-->
+            <img src="https://demobucket0411.s3.ap-southeast-1.amazonaws.com/403.png" alt="">
+            <p th:if="${message != null}" th:utext="${message}"></p>
+            <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}"
+            style="border-radius: 15px 15px 15px 15px; background-color: #1ab394;">Quay lại đăng nhập</a>
+        </div>
+    </div>
+</div>
+
+<!-- jquery
+============================================ -->
+<script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+<!-- bootstrap JS
+============================================ -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- wow JS
+============================================ -->
+<script th:src="@{/js/wow.min.js}"></script>
+<!-- price-slider JS
+============================================ -->
+<script th:src="@{/js/jquery-price-slider.js}"></script>
+<!-- meanmenu JS
+============================================ -->
+<script th:src="@{/js/jquery.meanmenu.js}"></script>
+<!-- owl.carousel JS
+============================================ -->
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<!-- sticky JS
+============================================ -->
+<script th:src="@{/js/jquery.sticky.js}"></script>
+<!-- scrollUp JS
+============================================ -->
+<script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+<!-- mCustomScrollbar JS
+============================================ -->
+<script th:src="@{/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/js/scrollbar/mCustomScrollbar-active.js}"></script>
+<!-- metisMenu JS
+============================================ -->
+<script th:src="@{/js/metisMenu/metisMenu.min.js}"></script>
+<script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
+<!-- data table JS
+============================================ -->
+<script th:src="@{/js/data-table/bootstrap-table.js}"></script>
+<script th:src="@{/js/data-table/tableExport.js}"></script>
+<script th:src="@{/js/data-table/data-table-active.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-editable.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-editable.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-resizable.js}"></script>
+<script th:src="@{/js/data-table/colResizable-1.5.source.js}"></script>
+<script th:src="@{/js/data-table/bootstrap-table-export.js}"></script>
+<!--  editable JS
+============================================ -->
+<script th:src="@{/js/editable/jquery.mockjax.js}"></script>
+<script th:src="@{/js/editable/mock-active.js}"></script>
+<script th:src="@{/js/editable/select2.js}"></script>
+<script th:src="@{/js/editable/moment.min.js}"></script>
+<script th:src="@{/js/editable/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{/js/editable/bootstrap-editable.js}"></script>
+<script th:src="@{/js/editable/xediable-active.js}"></script>
+<!-- Chart JS
+============================================ -->
+<script th:src="@{/js/chart/jquery.peity.min.js}"></script>
+<script th:src="@{/js/peity/peity-active.js}"></script>
+<!-- tab JS
+============================================ -->
+<script th:src="@{/js/tab.js}"></script>
+<!-- plugins JS
+============================================ -->
+<script th:src="@{/js/plugins.js}"></script>
+<!-- main JS
+============================================ -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

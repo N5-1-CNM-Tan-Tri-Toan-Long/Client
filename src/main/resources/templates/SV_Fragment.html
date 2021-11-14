@@ -3,6 +3,7 @@
 <!-- Fragment Head-->
 <head th:fragment="head">
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="https://media.iuh.edu.vn/Media/2_sviuh/Images/icon65d669c1-0-e.ico" />
     <!--    Link google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!--    Link bootstrap-->
@@ -192,7 +193,7 @@
                                         <li class="nav-item">
                                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                 <img th:src="@{/img/student/1.jpg}" alt="avatar" />
-                                                <span class="admin-name">Tên Sinh Viên</span>
+                                                <span class="admin-name" th:utext="${session.tensinhvien}"></span>
                                                 <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                             </a>
                                             <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
@@ -200,7 +201,10 @@
                                                 </li>
                                                 <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>Đổi Mật Khẩu</a>
                                                 </li>
-                                                <li><a href="#"><span class="edu-icon edu-money author-log-ic"></span>Đăng Xuất</a>
+                                                <li><a th:if="${#request.userPrincipal != null}"
+                                                       th:href="@{/logout}"><span
+                                                        class="edu-icon edu-locked author-log-ic"></span>
+                                                    Đăng xuất</a>
                                                 </li>
                                             </ul>
                                         </li>

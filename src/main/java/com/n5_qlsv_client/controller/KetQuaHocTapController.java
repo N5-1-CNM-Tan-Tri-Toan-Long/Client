@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -31,8 +32,9 @@ public class KetQuaHocTapController {
     @Autowired
     private SinhVienService sinhVienService;
     @GetMapping
-    public String findKQHTByMaSV(Model model){
-        String maSV = "18000001";
+    public String findKQHTByMaSV(Model model, HttpSession session){
+
+        String maSV = (String) session.getAttribute("maSV");
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
         model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);
@@ -42,8 +44,8 @@ public class KetQuaHocTapController {
     }
 
     @GetMapping("/in-lich")
-    public String inKetQuaHocTap(Model model) {
-        String maSV = "18000001";
+    public String inKetQuaHocTap(Model model, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
         model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/thong-tin-sinh-vien")
 public class ThongTinSinhVienController {
@@ -19,10 +21,11 @@ public class ThongTinSinhVienController {
     private SinhVienService sinhVienService;
 
     @GetMapping
-    public String findSinhVienById(Model model){
-        SinhVien sinhVien = sinhVienService.findById("18000001");
+    public String findSinhVienById(Model model, HttpSession session){
+        String ma = (String) session.getAttribute("maSV");
+        SinhVien sinhVien = sinhVienService.findById(ma);
         model.addAttribute("sinhvien", sinhVien);
-        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
+        model.addAttribute("TrangHienTai","Thông Tin Sinh Viên");
         return "thong-tin-sinh-vien";
     }
 }
