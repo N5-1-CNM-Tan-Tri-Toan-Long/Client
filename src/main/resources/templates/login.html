@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Đăng nhập</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <!--    <link th:rel="shortcut icon" type="image/x-icon" th:href="@{/asset/img/favicon.ico}">-->
+
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <!-- style CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+
+</head>
+<body>
+
+<!--<div th:if="${#request.getParameter('error') == 'true'}"-->
+<!--     style="color:red;margin:10px 0px;">-->
+<!--    Đăng nhập thất bại<br/>-->
+<!--    Reason :-->
+<!--    <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"-->
+<!--          th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">-->
+<!--                Static summary-->
+<!--         </span>-->
+
+<div class="error-pagewrap" style="background-image: linear-gradient(45deg ,#0000EE, rgb(150, 21, 182), green);">
+    <div class="error-page-int">
+        <div class="text-center m-b-md custom-login">
+            <img src="https://demobucket0411.s3.ap-southeast-1.amazonaws.com/z2875846529109_c95a5697ce4a4e338b9525c68f0a8313.jpg    "
+                 alt="" srcset="" width="460px" style="height:170px; border-radius: 15px 15px 0px 0px;">
+        </div>
+        <div class="content-error">
+            <div class="hpanel">
+                <div class="panel-body" style="border-radius: 0px 0px 15px 15px;">
+                    <form name='f' th:action="@{/j_spring_security_check}" method='POST'>
+                        <div th:if="${#request.getParameter('error') == 'true'}">
+                            <div class="alert alert-danger fa fa-exclamation-circle" style="width: 100%">
+                                Đăng nhập thất bại. Sai tài khoản hoặc mật khẩu
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" style="font-size: 25px;">Tài khoản</label>
+                            <input type="text" style="font-size: 17px;" placeholder="Ví dụ: 18031361"
+                                   title="Nhập mã số sinh viên" name="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" style="font-size: 25px;">Mật khẩu</label>
+                            <input type="password" style="font-size: 17px;" title="Nhập mật khẩu"
+                                   placeholder="Ví dụ: 123456" name="password" class="form-control">
+                        </div>
+                        <div>
+                            <button class="btn btn-success btn-block loginbtn"
+                                    style="font-size: 20px;">Đăng nhập
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

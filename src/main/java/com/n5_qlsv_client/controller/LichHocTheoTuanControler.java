@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,8 +32,9 @@ public class LichHocTheoTuanControler {
 
     @GetMapping("/lich-hoc")
     @ResponseBody
-    public List<ItemLichHoc> listLichHoc() {
-        List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV("18000001");
+    public List<ItemLichHoc> listLichHoc(HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
+        List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV(maSV);
         List<ItemLichHoc> lichHocs = new ArrayList<>();
         list.forEach(lichHocSinhVien -> {
             LocalDate dateBD = lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()

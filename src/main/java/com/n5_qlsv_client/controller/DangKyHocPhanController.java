@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -40,11 +41,11 @@ public class DangKyHocPhanController {
     private KetQuaHocTapService ketQuaHocTapService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
-    String maSV = "18000001";
+
 
     @GetMapping
-    public String hocKyLopHocPhan(Model model, Long maHK) {
-
+    public String hocKyLopHocPhan(Model model, Long maHK, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
         if (maHK != null) {
             Set<HocPhanDaDangKy> list = new HashSet<>();
             lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
@@ -129,7 +130,9 @@ public class DangKyHocPhanController {
 
     @PostMapping("/dang-ky")
     public String dangKyLopHocPhan(@RequestParam("maHocKy") long maHK, @RequestParam("maLHP") long maLHP,
-                                   @RequestParam(name = "nhomTH", defaultValue = "0") int nhomTH) {
+                                   @RequestParam(name = "nhomTH", defaultValue = "0") int nhomTH, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
+
         SinhVien sinhVien = sinhVienService.findById(maSV);
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
@@ -155,7 +158,8 @@ public class DangKyHocPhanController {
     }
 
     @GetMapping(value = "/xoa-dang-ky")
-    public String deleteLHSV(@RequestParam("maLHP") long maLHP) {
+    public String deleteLHSV(@RequestParam("maLHP") long maLHP, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         lopHocPhan.setSoLuongDangKyHienTai(hienTai - 1);
@@ -171,7 +175,9 @@ public class DangKyHocPhanController {
 
     @PostMapping("/kiem-tra-trung")
     @ResponseBody
-    public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH) {
+    public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH,
+                                                  HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
         List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         return kiemTraLichTrung(listCTHP, listLH, nhomTH);
@@ -220,7 +226,8 @@ public class DangKyHocPhanController {
 
     @PostMapping("/xem-lop-hoc-phan")
     @ResponseBody
-    public List<ThongTinLopHP> findThongTinLopByMaLHP(@RequestParam("maLHP") long maLHP) {
+    public List<ThongTinLopHP> findThongTinLopByMaLHP(@RequestParam("maLHP") long maLHP, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
         List<ThongTinLopHP> thongTinLopHPS = new ArrayList<>();
         List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         ctlhpService.findByMaLopHocPhan(maLHP).forEach(chiTietLopHocPhan -> {

@@ -10,25 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/sinhvien")
 public class SinhVienController {
     @Autowired
     private SinhVienService sinhVienService;
 
-    @GetMapping
-    public String homePage(Model model){
-        SinhVien sinhVien = sinhVienService.findById("18000001");
-        model.addAttribute("sinhvien", sinhVien);
-        model.addAttribute("TrangHienTai","");
-        return "index";
-    }
-
-//    @GetMapping("/thong-tin-sinh-vien")
-//    public String ThongTinSinhVien(Model model){
-//
-//        model.addAttribute("TrangHienTai","Thong Tin Sinh Vien");
-//        return "thong-tin-sinh-vien";
-//    }
 
     @GetMapping("/thong-tin-ngan-hang")
     public String ThongTinNganHang(Model model){
@@ -36,19 +22,6 @@ public class SinhVienController {
         return "thong-tin-ngan-hang";
     }
 
-//    @GetMapping("/ket-qua-hoc-tap")
-//    public String KetQuaHocTap(Model model){
-//
-//        model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
-//        return "ket-qua-hoc-tap";
-//    }
-
-//    @GetMapping("/lich-theo-tuan")
-//    public String LichTheoTuan(Model model){
-//
-//        model.addAttribute("TrangHienTai","Lịch Theo Tuần");
-//        return "lich-theo-tuan";
-//    }
 
     @GetMapping("/lop-hoc")
     public String LopHoc(Model model){
