@@ -1,5 +1,6 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.service.SinhVienService;
 import com.n5_qlsv_client.service.impl.MaHKTheoKQHT;
 import com.n5_qlsv_client.model.KetQuaHocTap;
 import com.n5_qlsv_client.service.HocKyService;
@@ -27,11 +28,13 @@ public class KetQuaHocTapController {
 
     @Autowired
     private MaHKTheoKQHT maHKTheoKQHT;
+    @Autowired
+    private SinhVienService sinhVienService;
     @GetMapping
     public String findKQHTByMaSV(Model model){
         String maSV = "18000001";
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
-        model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
+        model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);
         model.addAttribute("HK", hocKyService.getAllHocKys());
         model.addAttribute("HKSV", maHKTheoKQHT.getMaHKTheoKQHT(maSV));
@@ -42,10 +45,11 @@ public class KetQuaHocTapController {
     public String inKetQuaHocTap(Model model) {
         String maSV = "18000001";
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
-        model.addAttribute("TrangHienTai","Ket Qua Hoc Tap");
+        model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);
         model.addAttribute("HK", hocKyService.getAllHocKys());
         model.addAttribute("HKSV", maHKTheoKQHT.getMaHKTheoKQHT(maSV));
+        model.addAttribute("sinhvien", sinhVienService.findById(maSV));
         return "in-ket-qua-hoc-tap";
     }
 
