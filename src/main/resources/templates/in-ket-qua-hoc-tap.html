@@ -15,6 +15,10 @@
                 display: none !important;
             }
         }
+        .diemred{
+            color: red;
+            cursor: pointer;
+        }
     </style>
     <script>
         setTimeout(window.print(), 1000);
@@ -31,9 +35,10 @@
                     <div class="sparkline12-hd mg-b-30">
                         <div class="main-sparkline12-hd">
                             <h1>Kết Quả Học Tập</h1>
-                            <button type="button" class="btn btn-dark" th:onfocus="window.print()"
-                                    th:onclick="window.print()">In lịch
-                            </button>
+                            <p>MSSV: <span th:text="${sinhvien.getMaSV()}"></span></p>
+                            <p>Họ và tên: <span th:text="${sinhvien.getTenSV()}"></span></p>
+                            <input type="hidden" class="btn btn-dark" th:onload="window.print()"
+                            th:onfocus="window.print()">
                         </div>
                     </div>
                     <div class="sparkline12-graph">
@@ -53,7 +58,7 @@
                                             <th rowspan="2">Số tín chỉ</th>
                                             <th colspan="3">Thường kỳ</th>
                                             <th rowspan="2">Giữa kỳ</th>
-                                            <th rowspan="2">Thực hành</th>
+                                            <th colspan="2">Thực hành</th>
                                             <th rowspan="2">Cuối kỳ</th>
                                             <th rowspan="2">Điểm tổng kết</th>
                                             <th rowspan="2">Thang điểm 4</th>
@@ -65,15 +70,20 @@
                                             <th>1</th>
                                             <th>2</th>
                                             <th>3</th>
+                                            <th>1</th>
+                                            <th>2</th>
                                         </tr>
+
+
                                         </thead>
                                         <tbody class="scroll">
                                         <div th:each="hksv, status: ${HKSV}">
                                             <div th:each="hk, status: ${HK}">
                                                 <tr th:if="${hk.getMaHK()} == ${hksv}">
                                                     <td style="background-color: #F5F5F5; color: #0a6aa1; font-weight: bold"
-                                                        colspan="15" th:text="'HK' + ${hk.getThuTuHocKy()}
+                                                        colspan="16" th:text="'HK' + ${hk.getThuTuHocKy()}
                                                 + '(' + ${hk.getNamBatDau()}+ '-' + ${hk.getNamKetThuc()} + ')'"></td>
+                                                    <td class="hidden"></td>
                                                     <td class="hidden"></td>
                                                     <td class="hidden"></td>
                                                     <td class="hidden"></td>
@@ -90,28 +100,30 @@
                                                     <td class="hidden"></td>
                                                 </tr>
                                             </div>
-                                            <div th:each="kqht, status: ${KQHTs}">
+                                            <div class="diem" th:each="kqht, status: ${KQHTs}">
                                                 <tr th:if="${kqht.lopHocPhan.getHocKy().getMaHK()} == ${hksv}">
                                                     <td th:text="${status.index + 1}"></td>
-                                                    <td th:text="${kqht.lopHocPhan.hocPhan.getMaHocPhan()} + ' - ' + ${kqht.lopHocPhan.getTenVietTat()}"></td>
+                                                    <td th:text="${kqht.getLopHocPhan().getMaLHP()}"></td>
                                                     <td th:text="${kqht.lopHocPhan.getTenLHP()}"></td>
                                                     <td th:text="${kqht.lopHocPhan.hocPhan.soTCLT}+${kqht.lopHocPhan.hocPhan.soTCTH}"></td>
-                                                    <td th:style="${kqht.getDiemTK1()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemTK1()}"></td>
-                                                    <td th:style="${kqht.getDiemTK2()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemTK2()}"></td>
-                                                    <td th:style="${kqht.getDiemTK3()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemTK3()}"></td>
-                                                    <td th:style="${kqht.getDiemGK()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemGK()}"></td>
-                                                    <td th:style="${kqht.getDiemTH()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemTH()}"></td>
-                                                    <td th:style="${kqht.getDiemCK()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemCK()}"></td>
-                                                    <td th:style="${kqht.getDiemHe10()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemHe10()}"></td>
-                                                    <td th:style="${kqht.getDiemHe4()} <= 5.0 ? 'color: red' : 'color: black'"
-                                                        th:text="${kqht.getDiemHe4()}"></td>
+                                                    <td class="diemTK1" th:if="${kqht.getDiemTK1()} != null" th:classappend="${kqht.getDiemTK1()} <= 5.0 ? 'diemred' : ''" th:text="${kqht.getDiemTK1()}"></td>
+                                                    <td th:if="${kqht.getDiemTK1()} == null"></td>
+                                                    <td class="diemTK2" th:if="${kqht.getDiemTK2()} != null" th:classappend="${kqht.getDiemTK2()} <= 5.0 ? 'diemred' : ''"  th:text="${kqht.getDiemTK2()}"></td>
+                                                    <td th:if="${kqht.getDiemTK2()} == null"></td>
+                                                    <td class="diemTK3" th:if="${kqht.getDiemTK3()} != null" th:classappend="${kqht.getDiemTK3()} <= 5.0 ? 'diemred' : ''"  th:text="${kqht.getDiemTK3()}"></td>
+                                                    <td th:if="${kqht.getDiemTK3()} == null"></td>
+                                                    <td class="diemGK" th:if="${kqht.getDiemGK()} != null" th:classappend="${kqht.getDiemGK()} <= 5.0 ? 'diemred' : ''"  th:text="${kqht.getDiemGK()}"></td>
+                                                    <td th:if="${kqht.getDiemGK()} == null"></td>
+                                                    <td class="diemTH1" th:if="${kqht.getDiemTH1()} != null" th:classappend="${kqht.getDiemTH1()} <= 5.0 ? 'diemred' : ''" th:text="${kqht.getDiemTH1()}"></td>
+                                                    <td th:if="${kqht.getDiemTH1()} == null"></td>
+                                                    <td class="diemTH2" th:if="${kqht.getDiemTH2()} != null" th:classappend="${kqht.getDiemTH2()} <= 5.0 ? 'diemred' : ''" th:text="${kqht.getDiemTH2()}"></td>
+                                                    <td th:if="${kqht.getDiemTH2()} == null"></td>
+                                                    <td class="diemCK" th:if="${kqht.getDiemCK()} != null" th:classappend="${kqht.getDiemCK()} <= 5.0 ? 'diemred' : ''" th:text="${kqht.getDiemCK()}"></td>
+                                                    <td th:if="${kqht.getDiemCK()} == null"></td>
+                                                    <td class="diemHe10" th:if="${kqht.getDiemHe10()} != null" th:classappend="${kqht.getDiemHe10()} <= 5.0 ? 'diemred' : ''" th:text="${kqht.getDiemHe10()}"></td>
+                                                    <td th:if="${kqht.getDiemHe10()} == null"></td>
+                                                    <td class="diemHe4" th:text="${kqht.getDiemHe4()}"></td>
+                                                    <td th:if="${kqht.getDiemHe10()} == null"></td>
                                                     <td th:style="${kqht.getDiemChu()} == 'F' ? 'color: red' : 'color: black'"
                                                         th:text="${kqht.getDiemChu()}"></td>
                                                     <td th:style="${kqht.getXepLoai()} == 'Kém' ? 'color: red' : 'color: black'"
