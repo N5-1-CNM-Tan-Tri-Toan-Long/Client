@@ -9,6 +9,14 @@
             color: red;
             cursor: pointer;
         }
+        .title-color{
+            color: #1da1f2;
+            font-size: 14px;
+            text-align: center;
+            vertical-align: middle !important;
+            padding: 16px 5px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
@@ -29,10 +37,19 @@
                     <div class="sparkline12-list">
                         <div class="sparkline12-hd mg-b-30">
                             <div class=" main-sparkline12-hd">
-                                <h1>Kết Quả Học Tập</h1>
-                                <button type="button" class="btn btn-dark"
-                                        th:onclick="window.open('/ket-qua-hoc-tap/in-lich')"> In lịch
-                                </button>
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                        <h1>Kết Quả Học Tập</h1>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <button type="button" class="btn btn btn-success btn-md"
+                                                th:onclick="window.open('/ket-qua-hoc-tap/in-lich')">
+                                            <span class="glyphicon glyphicon-print"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -43,30 +60,30 @@
                                         <table class="table table-bordered" width="100%">
                                             <thead>
                                             <tr class="active">
-                                                <th rowspan="2" style="min-width: 20px">STT</th>
-                                                <th rowspan="2" style="min-width: 150px; text-align: center">Mã lớp học
+                                                <th class="title-color" rowspan="2" style="min-width: 20px;">STT</th>
+                                                <th class="title-color" rowspan="2" style="min-width: 150px;">Mã lớp học
                                                     phần
                                                 </th>
-                                                <th rowspan="2" style="min-width: 200px; text-align: center">Tên môn
+                                                <th class="title-color" rowspan="2" style="min-width: 200px;">Tên môn
                                                     học/học phần
                                                 </th>
-                                                <th rowspan="2">Số tín chỉ</th>
-                                                <th colspan="3">Thường kỳ</th>
-                                                <th rowspan="2">Giữa kỳ</th>
-                                                <th colspan="2">Thực hành</th>
-                                                <th rowspan="2">Cuối kỳ</th>
-                                                <th rowspan="2">Điểm tổng kết</th>
-                                                <th rowspan="2">Thang điểm 4</th>
-                                                <th rowspan="2">Điểm chữ</th>
-                                                <th rowspan="2">Xếp loại</th>
-                                                <th rowspan="2">Ghi chú</th>
+                                                <th class="title-color" rowspan="2">Số tín chỉ</th>
+                                                <th class="title-color" colspan="3">Thường kỳ</th>
+                                                <th class="title-color" rowspan="2">Giữa kỳ</th>
+                                                <th class="title-color" colspan="2">Thực hành</th>
+                                                <th class="title-color" rowspan="2">Cuối kỳ</th>
+                                                <th class="title-color" rowspan="2">Điểm tổng kết</th>
+                                                <th class="title-color" rowspan="2">Thang điểm 4</th>
+                                                <th class="title-color" rowspan="2">Điểm chữ</th>
+                                                <th class="title-color" rowspan="2">Xếp loại</th>
+                                                <th class="title-color" rowspan="2">Ghi chú</th>
                                             </tr>
                                             <tr class="active">
-                                                <th>1</th>
-                                                <th>2</th>
-                                                <th>3</th>
-                                                <th>1</th>
-                                                <th>2</th>
+                                                <th class="title-color">1</th>
+                                                <th class="title-color">2</th>
+                                                <th class="title-color">3</th>
+                                                <th class="title-color">1</th>
+                                                <th class="title-color">2</th>
                                             </tr>
 
 
