@@ -41,13 +41,14 @@ public class DangKyHocPhanController {
     private KetQuaHocTapService ketQuaHocTapService;
 
     private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
-
+    private Set<HocPhanDaDangKy> list;
+    private Long maHocKy;
 
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         if (maHK != null) {
-            Set<HocPhanDaDangKy> list = new HashSet<>();
+            list = new HashSet<>();
             lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
                 if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHK)
                     list.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
@@ -69,7 +70,8 @@ public class DangKyHocPhanController {
             model.addAttribute("danhsachHP", listHP);
         }
         model.addAttribute("HKLHP", hocKyLHPS(maSV));
-        model.addAttribute("maHK", maHK);
+        maHocKy = maHK;
+        model.addAttribute("maHK", maHocKy);
         model.addAttribute("TrangHienTai", "Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
     }
@@ -250,5 +252,15 @@ public class DangKyHocPhanController {
                 return true;
         }
         return false;
+    }
+
+    @GetMapping("/in-lich")
+    public String InLHPDaDK(Model model, HttpSession session) {
+        String maSV = (String) session.getAttribute("maSV");
+        model.addAttribute("sinhvien", sinhVienService.findById(maSV));
+        model.addAttribute("listHocPhanDaDK", list);
+        model.addAttribute("HKLHP", hocKyLHPS(maSV));
+        model.addAttribute("maHK", maHocKy);
+        return "in-lop-hoc-phan";
     }
 }

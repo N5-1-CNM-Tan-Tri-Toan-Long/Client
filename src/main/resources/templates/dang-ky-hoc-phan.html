@@ -3,7 +3,7 @@
 <head th:replace="SV_Fragment :: head"/>
 <head>
     <meta charset="UTF-8">
-    <title>Trang Lớp Học</title>
+    <title>Đăng ký học phần</title>
     <!-- modals CSS -->
     <link rel="stylesheet" th:href="@{/css/modals.css}">
 </head>
@@ -295,7 +295,17 @@
                     <div class="sparkline13-list">
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
-                                <h1>Lớp học phần đã đăng ký trong học kỳ này</h1>
+                                <div class="row">
+                                  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                      <h1>Lớp học phần đã đăng ký trong học kỳ này</h1>
+                                  </div>
+                                    <div style="float: left" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <button th:onclick="window.open('/hoc-phan/dang-ky-hoc-phan/in-lich')"
+                                                style="background-color: #1da1f2; height: 25px; border: none; border-radius: 3px; color: #fff">
+                                            <i class="fa fa-print"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -315,12 +325,15 @@
                         </tr>
                         </thead>
                         <tbody id="table-lhpdadk" th:each="hocPhan, i : ${listHocPhanDaDK}">
+                        <tr th:unless="${listHocPhanDaDK}">
+                            <td colspan="9">Không tìm thấy lớp học phần đã đăng ký</td>
+                        </tr>
                         <tr>
                             <td th:text="${i.index+1}"></td>
                             <td th:text="${hocPhan.maLopHocPhan}"></td>
                             <td th:text="${hocPhan.tenLopHocPhan}"></td>
                             <td th:text="${hocPhan.lopHocDuKien}"></td>
-                            <td th:text="${hocPhan.soTC}">3</td>
+                            <td th:text="${hocPhan.soTC}"></td>
                             <td th:text="${hocPhan.ngayDangKy}"></td>
                             <td th:text="${hocPhan.trangThai}"></td>
                             <td>
@@ -369,7 +382,7 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <a data-dismiss="modal">Cancel</a>
+                                <a style="cursor: pointer" data-dismiss="modal">Cancel</a>
                             </div>
                         </div>
                     </div>

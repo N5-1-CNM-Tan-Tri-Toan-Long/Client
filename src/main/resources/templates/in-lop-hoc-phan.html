@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <title>In Lớp Học Phần</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" rel="stylesheet"
+          media="print" />
+    <!-- modals CSS -->
+    <link rel="stylesheet" th:href="@{/css/modals.css}">
+    <style>
+        @media print {
+            .visible-print {
+                display: inherit !important;
+            }
+
+            .hidden-print {
+                display: none !important;
+            }
+        }
+    </style>
+    <script>
+        setTimeout(window.print(), 1000);
+
+    </script>
+</head>
+<head th:replace="SV_Fragment :: style-head"/>
+<body>
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline13-list">
+                        <div class="sparkline13-hd">
+                            <div class="main-sparkline13-hd">
+                                <div class="row">
+                                    <h2 style="text-align:  center">HỌC PHẦN ĐÃ ĐĂNG KÝ</h2>
+                                    <div style="text-align:  center" th:each="hk: ${HKLHP}">
+                                        <h1 th:if="${hk.getMaHK() == maHK}"
+                                            th:text="'Học kỳ ' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
+                                        </h1>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <p>Họ và tên: <span th:text="${sinhvien.getTenSV()}"></span></p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <p>MSSV: <span th:text="${sinhvien.getMaSV()}"></span></p>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                        <p>Lớp học: <span th:text="${sinhvien.getLopHoc().getTenLop()}"></span></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="hidden" class="btn btn-dark" th:onload="window.print()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <table class="table table-bordered" width="100%">
+                        <thead>
+                        <tr class="active">
+                            <th>STT</th>
+                            <th>Mã lớp học phần</th>
+                            <th>Tên môn học/học phần</th>
+                            <th>Lớp học dự kiến</th>
+                            <th>TC</th>
+                            <th>Ngày ĐK</th>
+                            <th>Trạng thái Lớp học phần</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-lhpdadk" th:each="hocPhan, i : ${listHocPhanDaDK}">
+                        <tr>
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${hocPhan.maLopHocPhan}"></td>
+                            <td th:text="${hocPhan.tenLopHocPhan}"></td>
+                            <td th:text="${hocPhan.lopHocDuKien}"></td>
+                            <td th:text="${hocPhan.soTC}"></td>
+                            <td th:text="${hocPhan.ngayDangKy}"></td>
+                            <td th:text="${hocPhan.trangThai}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>In Lịch Học</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" rel="stylesheet"
+          media="print" />
+    <title>In kết quả học tập</title>
     <style>
         @media print {
             .visible-print {
@@ -14,10 +16,30 @@
             .hidden-print {
                 display: none !important;
             }
+            .diemred{
+                color: red;
+                cursor: pointer;
+            }
+            .title-color{
+                color: #1da1f2;
+                font-size: 14px;
+                text-align: center;
+                vertical-align: middle !important;
+                padding: 16px 5px;
+                font-weight: 600;
+            }
         }
         .diemred{
             color: red;
             cursor: pointer;
+        }
+        .title-color{
+            color: #1da1f2;
+            font-size: 14px;
+            text-align: center;
+            vertical-align: middle !important;
+            padding: 16px 5px;
+            font-weight: 600;
         }
     </style>
     <script>
@@ -34,9 +56,18 @@
                 <div class="sparkline12-list">
                     <div class="sparkline12-hd mg-b-30">
                         <div class="main-sparkline12-hd">
-                            <h1>Kết Quả Học Tập</h1>
-                            <p>MSSV: <span th:text="${sinhvien.getMaSV()}"></span></p>
-                            <p>Họ và tên: <span th:text="${sinhvien.getTenSV()}"></span></p>
+                            <div class="row">
+                                <h2 style="text-align: center">Kết Quả Học Tập</h2>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <p>Họ và tên: <span th:text="${sinhvien.getTenSV()}"></span></p>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <p>MSSV: <span th:text="${sinhvien.getMaSV()}"></span></p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <p>Lớp học: <span th:text="${sinhvien.getLopHoc().getTenLop()}"></span></p>
+                                </div>
+                            </div>
                             <input type="hidden" class="btn btn-dark" th:onload="window.print()"
                             th:onfocus="window.print()">
                         </div>
@@ -48,33 +79,31 @@
                                     <table class="table table-bordered" width="100%">
                                         <thead>
                                         <tr class="active">
-                                            <th rowspan="2" style="min-width: 20px">STT</th>
-                                            <th rowspan="2" style="min-width: 150px; text-align: center">Mã lớp học
+                                            <th class="title-color" rowspan="2" style="min-width: 20px;">STT</th>
+                                            <th class="title-color" rowspan="2" style="min-width: 150px;">Mã lớp học
                                                 phần
                                             </th>
-                                            <th rowspan="2" style="min-width: 200px; text-align: center">Tên môn
+                                            <th class="title-color" rowspan="2" style="min-width: 200px;">Tên môn
                                                 học/học phần
                                             </th>
-                                            <th rowspan="2">Số tín chỉ</th>
-                                            <th colspan="3">Thường kỳ</th>
-                                            <th rowspan="2">Giữa kỳ</th>
-                                            <th colspan="2">Thực hành</th>
-                                            <th rowspan="2">Cuối kỳ</th>
-                                            <th rowspan="2">Điểm tổng kết</th>
-                                            <th rowspan="2">Thang điểm 4</th>
-                                            <th rowspan="2">Điểm chữ</th>
-                                            <th rowspan="2">Xếp loại</th>
-                                            <th rowspan="2">Ghi chú</th>
+                                            <th class="title-color" rowspan="2">Số tín chỉ</th>
+                                            <th class="title-color" colspan="3">Thường kỳ</th>
+                                            <th class="title-color" rowspan="2">Giữa kỳ</th>
+                                            <th class="title-color" colspan="2">Thực hành</th>
+                                            <th class="title-color" rowspan="2">Cuối kỳ</th>
+                                            <th class="title-color" rowspan="2">Điểm tổng kết</th>
+                                            <th class="title-color" rowspan="2">Thang điểm 4</th>
+                                            <th class="title-color" rowspan="2">Điểm chữ</th>
+                                            <th class="title-color" rowspan="2">Xếp loại</th>
+                                            <th class="title-color" rowspan="2">Ghi chú</th>
                                         </tr>
                                         <tr class="active">
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>1</th>
-                                            <th>2</th>
+                                            <th class="title-color">1</th>
+                                            <th class="title-color">2</th>
+                                            <th class="title-color">3</th>
+                                            <th class="title-color">1</th>
+                                            <th class="title-color">2</th>
                                         </tr>
-
-
                                         </thead>
                                         <tbody class="scroll">
                                         <div th:each="hksv, status: ${HKSV}">
