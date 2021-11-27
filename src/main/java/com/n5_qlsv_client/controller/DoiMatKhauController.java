@@ -49,14 +49,19 @@ public class DoiMatKhauController {
         String maSV = (String) session.getAttribute("maSV");
         SinhVien sinhVien = sinhVienService.findById(maSV);
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
-        if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword()) && newPassword.equals(rePassword)){
-            sinhVien.setPassword(new BCryptPasswordEncoder().encode(newPassword));
-            sinhVienService.saveSinhVien(sinhVien);
-            redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thành công!");
-            redirectAttributes.addFlashAttribute("suc_err", "success");
+        if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword())){
+            if(newPassword.equals(rePassword)){
+                sinhVien.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+                sinhVienService.saveSinhVien(sinhVien);
+                redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thành công!");
+                redirectAttributes.addFlashAttribute("suc_err", "success");
+            }else {
+                redirectAttributes.addFlashAttribute("mess", "Mật khẩu mới và xác nhận không khớp!");
+                redirectAttributes.addFlashAttribute("suc_err", "warning");
+            }
         }else {
-            redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thất bại!");
-            redirectAttributes.addFlashAttribute("suc_err", "error");
+            redirectAttributes.addFlashAttribute("mess", "Mật khẩu cũ không đúng!");
+            redirectAttributes.addFlashAttribute("suc_err", "warning");
         }
         return "redirect:/doi-mat-khau";
     }
