@@ -46,20 +46,15 @@ public class DoiMatKhauController {
                                  @RequestParam(value = "newpassword", required = false) String newPassword,
                                  @RequestParam(value = "repassword", required = false) String rePassword,
                                  RedirectAttributes redirectAttributes, Principal principal){
-        System.out.println(oldPassword);
-        System.out.println(newPassword);
-        System.out.println(rePassword);
         String maSV = (String) session.getAttribute("maSV");
         SinhVien sinhVien = sinhVienService.findById(maSV);
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword()) && newPassword.equals(rePassword)){
             sinhVien.setPassword(new BCryptPasswordEncoder().encode(newPassword));
-            System.out.println("Thành công");
             sinhVienService.saveSinhVien(sinhVien);
             redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thành công!");
             redirectAttributes.addFlashAttribute("suc_err", "success");
         }else {
-            System.out.println("Thất bại");
             redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thất bại!");
             redirectAttributes.addFlashAttribute("suc_err", "error");
         }
