@@ -42,6 +42,9 @@
 </head>
 <!-- Fragment Script-->
 <div th:fragment="script">
+    <!-- toast
+============================================ -->
+    <script th:src="@{/js/toast_notification.js}"></script>
     <!-- jquery -->
     <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
     <!-- bootstrap JS -->
@@ -80,6 +83,7 @@
     <script th:src="@{/js/main.js}"></script>
     <!-- tawk chat JS -->
     <script th:src="@{/js/tawk-chat.js}"></script>
+
 </div>
 <!-- Fragment Left Menu-->
 <div th:fragment="frag_menu_left" class="left-sidebar-pro">
@@ -199,7 +203,7 @@
                                             <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                 <li><a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>Thông Tin Cá Nhân</a>
                                                 </li>
-                                                <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>Đổi Mật Khẩu</a>
+                                                <li><a href="/doi-mat-khau"><span class="edu-icon edu-user-rounded author-log-ic"></span>Đổi Mật Khẩu</a>
                                                 </li>
                                                 <li><a th:if="${#request.userPrincipal != null}"
                                                        th:href="@{/logout}"><span
