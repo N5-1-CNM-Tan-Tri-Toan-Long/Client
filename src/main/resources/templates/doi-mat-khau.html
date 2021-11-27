@@ -54,11 +54,10 @@
                                                class="form-control example3" name="repassword" id="repassword"
                                                placeholder="Xác nhận lại mật khẩu">
                                     </div>
-                                    <div class="form-group mg-b-pass">
-                                        <div class="pwstrength_viewport_verdict text-strong-password"></div>
-                                    </div>
                                     <div class="form-group">
                                         <div class="row">
+                                            <div class="col-lg-10 col-md-10 col-sm-10">
+                                            </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2">
                                                 <input type="submit" class="btn btn-custon-four btn-primary"
                                                        value="Lưu">
@@ -76,11 +75,6 @@
     <!--    Footer-->
     <!--    <div th:replace="SV_Fragment :: frag_footer"/>-->
 </div>
-<!-- pwstrength JS
-      ============================================ -->
-<script th:src="@{js/password-meter/pwstrength-bootstrap.min.js}"></script>
-<script th:src="@{js/password-meter/zxcvbn.js}"></script>
-<script th:src="@{js/password-meter/password-meter-active.js}"></script>
 <!-- Script-->
 <div th:replace="SV_Fragment :: script"/>
 </body>
