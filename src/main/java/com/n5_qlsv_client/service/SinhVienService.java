@@ -12,4 +12,7 @@ public interface SinhVienService {
     List<SinhVien> getAllSinhViensByPageAndSize(int pageIndex, int pageSize);
 
     SinhVien findById(String ma_sv);
+
+    void saveSinhVien(SinhVien sinhVien);
+
 }

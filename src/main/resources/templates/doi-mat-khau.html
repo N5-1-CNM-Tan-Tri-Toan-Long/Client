@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="SV_Fragment :: head"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Đổi mật khẩu</title>
+    <style>
+        .red_color {
+            color: red;
+        }
+        .toast{
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 2px;
+            min-width: 350px;
+            max-width: 400px;
+            border-left: 4px solid;
+            padding: 20px 0;
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+            transition: all linear .5s;
+        }
+        @keyframes fadeOut {
+            to{
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(calc(100% + 32px));
+            }
+            to{
+                opacity: 1;
+                transform: translateX(0);
+
+            }
+        }
+
+        #toast{
+            position: fixed;
+            top: 160px;
+            right: 16px;
+            z-index: 99999;
+        }
+        .toast--success {
+            border-color: #47d864;
+
+        }
+        .toast--success .toast__icon {
+            color: #47d864;
+        }
+        .toast--info {
+            border-color: #2f86eb;
+        }
+        .toast--info .toast__icon {
+            color: #2f86eb;
+        }
+        .toast--warning {
+            border-color: #ffc021;
+        }
+        .toast--warning .toast__icon {
+            color: #ffc021;
+        }
+        .toast--error {
+            border-color: #ff623d;
+        }
+        .toast--error .toast__icon {
+            color: #ff623d;
+        }
+        .toast + .toast {
+            margin-top: 24px;
+        }
+        .toast__icon {
+            font-size: 24px;
+        }
+        .toast__icon,
+        .toast__close {
+            padding: 0 16px;
+        }
+
+        .toast__body{
+            flex-grow: 1;
+        }
+        .toast__title{
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .toast__msg{
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        .toast__close{
+            font-size: 20px;
+            color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .toast__close:hover {
+            color: rgba(0, 0, 0, 0.3);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<head th:replace="SV_Fragment :: style-head"/>
+
+<body onload="showToast()">
+<!-- Start Left menu area -->
+<div th:replace="SV_Fragment :: frag_menu_left"/>
+<div class="all-content-wrapper">
+    <!--    Logo header mobile -->
+    <div th:replace="SV_Fragment ::frag_icon_mobile"/>
+    <!--    Header area -->
+    <div th:replace="SV_Fragment :: frag_header"/>
+    <!-- Start Toast area -->
+    <div id="toast">
+    </div>
+    <span id="mes" hidden th:text="${mess}"></span>
+    <span id="suc_err" hidden th:text="${suc_err}"></span>
+    <!-- End Toast area -->
+    <!-- Single pro tab review Start-->
+    <div class="password-meter-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                    <div style="border-radius: 6px" class="sparkline12-list mg-t-30 responsive-mg-b-0">
+                        <div class="sparkline10-hd">
+                            <div class="main-sparkline10-hd">
+                                <h1>Đổi <span class="password-mt-none">Mật</span> Khẩu</h1>
+                            </div>
+                        </div>
+                        <div class="sparkline10-graph">
+                            <div id="pwd-container3">
+                                <form action="/doi-mat-khau" method="post">
+                                    <div class="form-group">
+                                        <label for="oldpassword">Mật khẩu cũ<span class="red_color">(*)</span></label>
+                                        <input type="text" required="required" th:name="oldpassword"
+                                               class="form-control" id="oldpassword" placeholder="Nhập mật khẩu cũ">
+                                    </div>
+                                    <div class="form-group" head-strong-password>
+                                        <label for="newpassword">Mật khẩu mới<span class="red_color">(*)</span></label>
+                                        <input type="text" required="required" th:name="newpassword"
+                                               class="form-control example3" name="newpassword" id="newpassword"
+                                               placeholder="Nhập mật khẩu mới">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="repassword">Xác nhận mật khẩu mới<span class="red_color">(*)</span></label>
+                                        <input type="text" required="required" th:name="repassword"
+                                               class="form-control example3" name="repassword" id="repassword"
+                                               placeholder="Xác nhận lại mật khẩu">
+                                    </div>
+                                    <div class="form-group mg-b-pass">
+                                        <div class="pwstrength_viewport_verdict text-strong-password"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                                <input type="submit" class="btn btn-custon-four btn-primary"
+                                                       value="Lưu">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Footer-->
+    <!--    <div th:replace="SV_Fragment :: frag_footer"/>-->
+</div>
+<!-- pwstrength JS
+      ============================================ -->
+<script th:src="@{js/password-meter/pwstrength-bootstrap.min.js}"></script>
+<script th:src="@{js/password-meter/zxcvbn.js}"></script>
+<script th:src="@{js/password-meter/password-meter-active.js}"></script>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
+</body>
+</html>

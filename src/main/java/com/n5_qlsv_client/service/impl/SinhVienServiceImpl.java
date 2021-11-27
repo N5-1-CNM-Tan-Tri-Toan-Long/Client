@@ -47,4 +47,13 @@ public class SinhVienServiceImpl implements SinhVienService {
         SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
         return sinhVien;
     }
+
+    @Override
+    public void saveSinhVien(SinhVien sinhVien) {
+        String ma_sv = sinhVien.getMaSV();
+        if (ma_sv == "") {
+        }else {
+            restTemplate.put(url + "/" + ma_sv, sinhVien);
+        }
+    }
 }
