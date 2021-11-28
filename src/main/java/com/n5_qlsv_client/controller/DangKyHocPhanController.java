@@ -62,7 +62,7 @@ public class DangKyHocPhanController {
             });
             model.addAttribute("listHocPhanDaDK", list);
 
-            List<HocPhan> listHP = new ArrayList<>();
+            Set<HocPhan> listHP = new HashSet<>();
             hocPhanService.findHPByMaHK(maHK).forEach(hocPhan -> {
                 if (checkHocPhanTrongList(hocPhan.getMaHocPhan(), list))
                     listHP.add(hocPhan);
