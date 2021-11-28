@@ -34,6 +34,9 @@
     <!-- toast CSS
     ============================================ -->
     <link th:rel="stylesheet" th:href="@{/css/toast_notification.css}">
+    <!-- toast CSS
+   ============================================ -->
+    <link th:rel="stylesheet" th:href="@{/css/input.css}">
 </head>
 <head th:fragment="style-head">
     <!-- style CSS -->
@@ -45,8 +48,9 @@
 </head>
 <!-- Fragment Script-->
 <div th:fragment="script">
-    <!-- toast
-============================================ -->
+    <!-- input -->
+    <script th:src="@{/js/input.js}"></script>
+    <!-- toast -->
     <script th:src="@{/js/toast_notification.js}"></script>
     <!-- jquery -->
     <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
@@ -124,7 +128,7 @@
                             </li>
                             <li><a title="Add Professor" href="/lich-theo-tuan"><span class="mini-sub-pro">Lịch Theo Tuần</span></a>
                             </li>
-                            <li><a title="Edit Professor" href="/lop-hoc"><span class="mini-sub-pro">Lớp Học</span></a>
+                            <li><a title="Edit Professor" href="/tinh-diem-mon-hoc"><span class="mini-sub-pro">Tính Điểm Môn Học</span></a>
                             </li>
                         </ul>
                     </li>
