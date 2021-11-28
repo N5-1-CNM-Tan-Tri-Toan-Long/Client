@@ -89,10 +89,10 @@ public class DangKyHocPhanController {
         return hocKyList;
     }
 
-    private boolean checkHocPhanTrongList(String maMonHoc, Set<HocPhanDaDangKy> list) {
+    private boolean checkHocPhanTrongList(String maHP, Set<HocPhanDaDangKy> list) {
         AtomicBoolean ketQua = new AtomicBoolean(true);
         list.forEach(hocPhanDaDangKy -> {
-            if (hocPhanDaDangKy.getMaHocPhan().equals(maMonHoc))
+            if (hocPhanDaDangKy.getMaHocPhan().equals(maHP))
                 ketQua.set(false);
         });
         return ketQua.get();

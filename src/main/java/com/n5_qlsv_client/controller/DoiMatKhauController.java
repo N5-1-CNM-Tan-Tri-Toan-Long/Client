@@ -30,6 +30,8 @@ public class DoiMatKhauController {
     private UserDetailsService userDetailsService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping
     public String doiMatKhau(Model model, HttpSession session){
         String maSV = (String) session.getAttribute("maSV");
@@ -49,9 +51,9 @@ public class DoiMatKhauController {
         String maSV = (String) session.getAttribute("maSV");
         SinhVien sinhVien = sinhVienService.findById(maSV);
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
-        if (bCryptPasswordEncoder.matches(oldPassword, user.getPassword())){
+        if (passwordEncoder.matches(oldPassword, user.getPassword())){
             if(newPassword.equals(rePassword)){
-                sinhVien.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+                sinhVien.setPassword(passwordEncoder.encode(newPassword));
                 sinhVienService.saveSinhVien(sinhVien);
                 redirectAttributes.addFlashAttribute("mess", "Đổi mật khẩu thành công!");
                 redirectAttributes.addFlashAttribute("suc_err", "success");
