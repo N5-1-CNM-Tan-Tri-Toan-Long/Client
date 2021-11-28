@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/form/all-type-forms.css">
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
-<body>
+<body onload="showToast()">
 <!-- Start Left menu area -->
 <div th:replace="SV_Fragment :: frag_menu_left"/>
 <!-- Content area -->
@@ -17,6 +17,14 @@
     <div th:replace="SV_Fragment ::frag_icon_mobile"/>
     <!--    Header area -->
     <div th:replace="SV_Fragment :: frag_header"/>
+
+    <!-- Start Toast area -->
+    <div id="toast">
+    </div>
+    <span id="mes" hidden th:text="${mess}"></span>
+    <span id="suc_err" hidden th:text="${suc_err}"></span>
+    <!-- End Toast area -->
+
     <!-- Single pro tab review Start-->
     <div class="single-pro-review-area mt-t-30 mg-b-15">
         <div class="container-fluid">
@@ -24,7 +32,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="profile-info-inner">
                         <div class="profile-img">
-                            <img src="img/profile/user.png" alt="" />
+<!--                            <img src="img/profile/user.png" width="100px" alt="" />-->
                         </div>
                         <div class="profile-details-hr">
                             <div class="row">
@@ -60,7 +68,7 @@
                         <ul id="myTabedu1" class="tab-review-design">
                             <li class="active"><a href="#description">Thông tin học vấn</a></li>
                             <li><a href="#reviews"> Thông tin cá nhân</a></li>
-                            <li><a href="#INFORMATION">Cập nhật thông tin</a></li>
+                            <li><a href="#INFORMATION">Cập nhật thông tin cá nhân</a></li>
                         </ul>
                         <div id="myTabContent" class="tab-content custom-product-edit st-prf-pro">
                             <div class="product-tab-list tab-pane fade active in" id="description">
@@ -193,17 +201,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                     <div class="address-hr biography">
-                                                        <p><b>Số điện thoại</b><br />...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="address-hr biography">
                                                         <p><b>Họ tên Mẹ </b><br /> ...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="address-hr biography">
-                                                        <p><b>Số điện thoại</b><br />...</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,24 +212,60 @@
                             <div class="product-tab-list tab-pane fade" id="INFORMATION">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <form action="/cap-nhat-thong-tin" method="post">
+                                        <form th:action="@{/thong-tin-sinh-vien}" method="post" th:object="${sinhvien}">
                                             <div class="review-content-section">
                                                 <div class="row">
                                                     <div class="col-lg-12">
+                                                        <input hidden type="text" th:field="*{maSV}">
+                                                        <input type="hidden" th:field="*{password}">
+                                                        <input type="hidden" th:field="*{roleName}">
+                                                        <input type="hidden" th:field="*{{ngayVaoTruong}}">
+                                                        <input type="hidden" th:field="*{bacDaoTao}">
+                                                        <input type="hidden" th:field="*{lopHoc.maLop}">
+                                                        <input type="hidden" th:field="*{chuyenNganh.maChuyenNganh}">
+                                                        <input type="hidden" th:field="*{khoa.maKhoa}">
+                                                        <input type="hidden" th:field="*{tenSV}">
                                                         <div class="form-group">
-                                                            <input name="number" type="text" class="form-control" placeholder="Họ tên">
+                                                            <label>Căn cước / CMND</label>
+                                                            <input type="text" class="form-control" value="" th:field="*{soCMND}">
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="tel" class="form-control" placeholder="Số điện thoại">
+                                                            <label>Giới tính</label>
+                                                            <div style="margin-top: 10px;">
+                                                                <input type="radio" value="" th:field="*{gioiTinh}"
+                                                                       th:value="true">&nbsp;Nam
+                                                                &nbsp;&nbsp;
+                                                                <input type="radio" value="" th:field="*{gioiTinh}"
+                                                                       th:value="false">&nbsp;Nữ
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="date" class="form-control" placeholder="Ngày sinh">
+                                                            <label>Số điện thoại</label>
+                                                            <div><input type="text" value="" th:field="*{soDienThoai}"
+                                                                        class="form-control" placeholder="Ví dụ: XXXX XXX XXX">
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="email" class="form-control" placeholder="Email">
+                                                            <label>Ngày sinh</label>
+                                                            <div>
+                                                                <input type="date" value="" th:field="*{{ngaySinh}}"
+                                                                       class="form-control">
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Địa chỉ">
+                                                            <label>Email</label>
+                                                            <div>
+                                                                <input type="text" value="" th:field="*{email}"
+                                                                       class="form-control" placeholder="Ví dụ: abc@gmail.com">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Địa chỉ</label>
+                                                            <div>
+                                                                <input type="text" value="" th:field="*{diaChi}"
+                                                                       class="form-control"
+                                                                       placeholder="Ví dụ: 123/45 tên đường, quận, phường, tỉnh ">
+                                                            </div>
                                                         </div>
 <!--                                                        <div class="file-upload-inner ts-forms">-->
 <!--                                                            <div class="input prepend-big-btn">-->

@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**").permitAll()
 
                 //Trang chỉ dành cho admin
-                .antMatchers("/*").access("hasRole('ROLE_USER')")
+                .antMatchers("/*").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 
                 //Trang không đúng role sẽ bắt lỗi
                 .and()
