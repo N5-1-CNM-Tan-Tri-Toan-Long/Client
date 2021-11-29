@@ -72,7 +72,6 @@ public class DangKyHocPhanController {
         model.addAttribute("HKLHP", hocKyLHPS(maSV));
         maHocKy = maHK;
         model.addAttribute("maHK", maHocKy);
-        model.addAttribute("TrangHienTai", "Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
     }
 
@@ -141,6 +140,9 @@ public class DangKyHocPhanController {
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
         lichHocSinhVien.setNgayDangKyHP(new Date());
 
+        if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
         if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV(maSV), nhomTH).size() > 0)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
@@ -177,16 +179,20 @@ public class DangKyHocPhanController {
 
     @PostMapping("/kiem-tra-trung")
     @ResponseBody
-    public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH,
+    public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH,
                                                   HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
+        Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
+        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký",null,null,null,null));
+        if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
+            return hocPhanTrungs;
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
         List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         return kiemTraLichTrung(listCTHP, listLH, nhomTH);
     }
 
-    private List<HocPhanTrung> kiemTraLichTrung(List<ChiTietLopHocPhan> listCTHP, List<LichHocSinhVien> listLH, int nhomTH) {
-        List<HocPhanTrung> hocPhanTrungs = new ArrayList<>();
+    private Set<HocPhanTrung> kiemTraLichTrung(List<ChiTietLopHocPhan> listCTHP, List<LichHocSinhVien> listLH, int nhomTH) {
+        Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         listCTHP.forEach(chiTietLopHocPhan -> {
             listLH.forEach(lichHocSinhVien -> {
                 if (kiemTraNgayBatDau(chiTietLopHocPhan.getNgayBatDau(), lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau(),
