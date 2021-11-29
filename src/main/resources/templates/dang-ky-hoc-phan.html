@@ -277,6 +277,7 @@
                                                 document.getElementById('btn-dangky').disabled = false;
                                             }
                                             var table = document.getElementById('tableHocPhanTrung');
+                                            table.innerHTML = '';
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
                                                 row = `<tr><td>${data[i].monHoc}</td><td>${data[i].tietHoc}</td><td>${data[i].coSoPhong}</td><td>${data[i].giaoVien}</td><td>${data[i].ngayHoc}</td></tr>`;
