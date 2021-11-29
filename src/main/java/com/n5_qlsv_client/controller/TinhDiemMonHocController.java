@@ -44,18 +44,21 @@ public class TinhDiemMonHocController {
         int soTC = soTCLT + soTCTH;
         double diemTongKet = 0;
         if(diemTH1 == null && diemTH2 == null){ // môn không có thực hành
-            diemTongKet = (double) Math.round(diemHe10 * 10) / 10;
+            double diemHe10LT = (double) Math.round(diemHe10 * 100) / 100;
+            diemTongKet = (double) Math.round(diemHe10LT * 10) / 10;
             model.addAttribute("diemTongKet", diemTongKet);
         }else { // môn có thực hành
             if(diemTH1 != null){
                 if(diemTH2 == null){
                     double diemMonTH = ((diemHe10 * soTCLT) + (diemTH1 * soTCTH)) / soTC;
-                    diemTongKet = (double) Math.round(diemMonTH * 10) / 10;
+                    double diemMotMonTH = (double) Math.round(diemMonTH * 100) / 100;
+                    diemTongKet = (double) Math.round(diemMotMonTH * 10) / 10;
                     model.addAttribute("diemTongKet", diemTongKet);
                 }else {
                     double diemTBTH = (diemTH1 + diemTH2)/2;
                     double diemMonTH = ((diemHe10 * soTCLT) + (diemTBTH * soTCTH)) / soTC;
-                    diemTongKet = (double) Math.round(diemMonTH * 10) / 10;
+                    double diemHaiMonTH = (double) Math.round(diemMonTH * 100) / 100;
+                    diemTongKet = (double) Math.round(diemHaiMonTH * 10) / 10;
                     model.addAttribute("diemTongKet", diemTongKet);
                 }
             }
