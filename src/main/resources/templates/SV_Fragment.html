@@ -3,7 +3,7 @@
 <!-- Fragment Head-->
 <head th:fragment="head">
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="https://media.iuh.edu.vn/Media/2_sviuh/Images/icon65d669c1-0-e.ico" />
+    <link rel="shortcut icon" href="https://media.iuh.edu.vn/Media/2_sviuh/Images/icon65d669c1-0-e.ico"/>
     <!--    Link google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!--    Link bootstrap-->
@@ -80,6 +80,8 @@
     <script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
     <!-- morrisjs JS -->
     <script th:src="@{/js/morrisjs/raphael-min.js}"></script>
+    <script th:src="@{/js/morrisjs/morris.js}"></script>
+    <script th:src="@{/js/morrisjs/morris-active.js}"></script>
     <!-- morrisjs JS -->
     <script th:src="@{/js/sparkline/jquery.sparkline.min.js}"></script>
     <script th:src="@{/js/sparkline/jquery.charts-sparkline.js}"></script>
@@ -88,6 +90,7 @@
     <script th:src="@{/js/plugins.js}"></script>
     <!-- main JS -->
     <script th:src="@{/js/main.js}"></script>
+
 
 </div>
 <!-- Fragment Left Menu-->
@@ -114,17 +117,17 @@
                         <ul class="submenu-angle" aria-expanded="true">
                             <li><a title="Dashboard v.1" th:href="@{/thong-tin-sinh-vien}"><span
                                     class="mini-sub-pro">Thông Tin Sinh Viên</span></a></li>
-<!--                            <li><a title="Dashboard v.2" href="#"><span-->
-<!--                                    class="mini-sub-pro">Ghi Chú Nhắc Nhở</span></a></li>-->
-<!--                            <li><a title="Analytics" href="/thong-tin-ngan-hang"><span-->
-<!--                                    class="mini-sub-pro">Ngân Hàng</span></a></li>-->
+                            <!--                            <li><a title="Dashboard v.2" href="#"><span-->
+                            <!--                                    class="mini-sub-pro">Ghi Chú Nhắc Nhở</span></a></li>-->
+                            <!--                            <li><a title="Analytics" href="/thong-tin-ngan-hang"><span-->
+                            <!--                                    class="mini-sub-pro">Ngân Hàng</span></a></li>-->
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="/ket-qua-hoc-tap" aria-expanded="false">
                             <span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Học Tập </span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Professors" th:href="@{/ket-qua-hoc-tap}"><span class="mini-sub-pro">Kết Quả Học Tập</span></a>
+                            <li><a title="All Professors" th:href="@{/ket-qua-hoc-tap}"><span class="mini-sub-pro">Kết Quả Học Tập</span></a>
                             </li>
                             <li><a title="Add Professor" href="/lich-theo-tuan"><span class="mini-sub-pro">Lịch Theo Tuần</span></a>
                             </li>
@@ -142,18 +145,18 @@
                                     class="mini-sub-pro">Đăng Ký Học Phần</span></a></li>
                         </ul>
                     </li>
-<!--                    <li>-->
-<!--                        <a class="has-arrow" href="all-courses.html" aria-expanded="false">-->
-<!--                            <span class="educate-icon educate-form icon-wrap"></span><span class="mini-click-non">Học Phí </span></a>-->
-<!--                        <ul class="submenu-angle" aria-expanded="false">-->
-<!--                            <li><a title="All Courses" href="all-courses.html"><span-->
-<!--                                    class="mini-sub-pro">Tra Cứu Công Nợ</span></a></li>-->
-<!--                            <li><a title="Add Courses" href="add-course.html"><span-->
-<!--                                    class="mini-sub-pro">Thanh Toán</span></a></li>-->
-<!--                            <li><a title="Add Courses" href="add-course.html"><span-->
-<!--                                    class="mini-sub-pro">Phiếu Thu Tổng Hợp</span></a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a class="has-arrow" href="all-courses.html" aria-expanded="false">-->
+                    <!--                            <span class="educate-icon educate-form icon-wrap"></span><span class="mini-click-non">Học Phí </span></a>-->
+                    <!--                        <ul class="submenu-angle" aria-expanded="false">-->
+                    <!--                            <li><a title="All Courses" href="all-courses.html"><span-->
+                    <!--                                    class="mini-sub-pro">Tra Cứu Công Nợ</span></a></li>-->
+                    <!--                            <li><a title="Add Courses" href="add-course.html"><span-->
+                    <!--                                    class="mini-sub-pro">Thanh Toán</span></a></li>-->
+                    <!--                            <li><a title="Add Courses" href="add-course.html"><span-->
+                    <!--                                    class="mini-sub-pro">Phiếu Thu Tổng Hợp</span></a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                 </ul>
             </nav>
         </div>
@@ -164,7 +167,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="logo-pro">
-                <a href="/"><img class="main-logo" th:src="@{../img/logo/logo.png}" alt="" /></a>
+                <a href="/"><img class="main-logo" th:src="@{../img/logo/logo.png}" alt=""/></a>
             </div>
         </div>
     </div>
@@ -179,36 +182,43 @@
                         <div class="row">
                             <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                 <div class="menu-switcher-pro">
-                                    <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                    <button type="button" id="sidebarCollapse"
+                                            class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                                         <i class="educate-icon educate-nav"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
                                 <div class="header-top-menu tabl-d-n">
-<!--                                    <ul class="nav navbar-nav mai-top-nav">-->
-<!--                                        <li class="nav-item"><a href="/" class="nav-link">Trang Chủ</a>-->
-<!--                                        </li>-->
-<!--                                        <li class="nav-item"><a href="#" class="nav-link">Tin Tức</a>-->
-<!--                                        </li>-->
-<!--                                        <li class="nav-item"><a href="#" class="nav-link">Hỗ Trợ</a>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
+                                    <!--                                    <ul class="nav navbar-nav mai-top-nav">-->
+                                    <!--                                        <li class="nav-item"><a href="/" class="nav-link">Trang Chủ</a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li class="nav-item"><a href="#" class="nav-link">Tin Tức</a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li class="nav-item"><a href="#" class="nav-link">Hỗ Trợ</a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                    </ul>-->
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                 <div class="header-right-info">
                                     <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                        <li class="nav-item" style="padding-top: 5px">
-                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-<!--                                                <img th:src="@{/img/student/1.jpg}" alt="avatar" />-->
+                                        <li class="nav-item" style="padding-top: 5px; ">
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                               class="nav-link dropdown-toggle" style="margin-right: 20px">
+                                                <!--                                                <img th:src="@{/img/student/1.jpg}" alt="avatar" />-->
                                                 <span class="admin-name" th:utext="${session.tensinhvien}"></span>
                                                 <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                             </a>
-                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                <li><a href="/thong-tin-sinh-vien"><span class="edu-icon edu-home-admin author-log-ic"></span>Thông Tin Cá Nhân</a>
+                                            <ul role="menu"
+                                                class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                <li><a href="/thong-tin-sinh-vien"><span
+                                                        class="edu-icon edu-home-admin author-log-ic"></span>Thông Tin
+                                                    Cá Nhân</a>
                                                 </li>
-                                                <li><a href="/doi-mat-khau"><span class="edu-icon edu-user-rounded author-log-ic"></span>Đổi Mật Khẩu</a>
+                                                <li><a href="/doi-mat-khau"><span
+                                                        class="edu-icon edu-user-rounded author-log-ic"></span>Đổi Mật
+                                                    Khẩu</a>
                                                 </li>
                                                 <li><a th:if="${#request.userPrincipal != null}"
                                                        th:href="@{/logout}"><span
@@ -235,17 +245,19 @@
                         <nav id="dropdown">
                             <ul class="mobile-menu-nav">
                                 <li><a href="events.html">Trang Chủ</a></li>
-                                <li><a data-toggle="collapse" data-target="#demoevent" href="#">Thông Tin Chung <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                <li><a data-toggle="collapse" data-target="#demoevent" href="#">Thông Tin Chung <span
+                                        class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                     <ul id="demoevent" class="collapse dropdown-header-top">
                                         <li><a th:href="@{/thong-tin-sinh-vien}">Thông Tin Sinh Viên</a>
                                         </li>
-<!--                                        <li><a href="add-professor.html">Ghi Chú Nhắc Nhở</a>-->
-<!--                                        </li>-->
-<!--                                        <li><a href="edit-professor.html">Ngân Hàng</a>-->
-<!--                                        </li>-->
+                                        <!--                                        <li><a href="add-professor.html">Ghi Chú Nhắc Nhở</a>-->
+                                        <!--                                        </li>-->
+                                        <!--                                        <li><a href="edit-professor.html">Ngân Hàng</a>-->
+                                        <!--                                        </li>-->
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#demopro" href="#">Học Tập <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                <li><a data-toggle="collapse" data-target="#demopro" href="#">Học Tập <span
+                                        class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                     <ul id="demopro" class="collapse dropdown-header-top">
                                         <li><a href="all-students.html">Kết Quả Học Tập</a>
                                         </li>
@@ -255,7 +267,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#democrou" href="#">Đăng Ký Học Phần <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                <li><a data-toggle="collapse" data-target="#democrou" href="#">Đăng Ký Học Phần <span
+                                        class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                     <ul id="democrou" class="collapse dropdown-header-top">
                                         <li><a href="all-courses.html">Học Phần Khung</a>
                                         </li>
@@ -263,7 +276,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#demolibra" href="#">Học Phí <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                <li><a data-toggle="collapse" data-target="#demolibra" href="#">Học Phí <span
+                                        class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                     <ul id="demolibra" class="collapse dropdown-header-top">
                                         <li><a href="library-assets.html">Tra Cứu Công Nợ</a>
                                         </li>
@@ -281,37 +295,37 @@
         </div>
     </div>
     <!-- Mobile Menu end -->
-<!--    <div class="breadcome-area">-->
-<!--        <div class="container-fluid">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-<!--                    <div class="breadcome-list">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-<!--                                <div class="breadcome-heading">-->
-<!--                                    <form role="search" class="sr-input-func">-->
-<!--                                        <input type="text" placeholder="Tìm kiếm..." class="search-int form-control">-->
-<!--                                        <a href="#"><i class="fa fa-search"></i></a>-->
-<!--                                    </form>-->
+    <!--    <div class="breadcome-area">-->
+    <!--        <div class="container-fluid">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+    <!--                    <div class="breadcome-list">-->
+    <!--                        <div class="row">-->
+    <!--                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+    <!--                                <div class="breadcome-heading">-->
+    <!--                                    <form role="search" class="sr-input-func">-->
+    <!--                                        <input type="text" placeholder="Tìm kiếm..." class="search-int form-control">-->
+    <!--                                        <a href="#"><i class="fa fa-search"></i></a>-->
+    <!--                                    </form>-->
 
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
-<!--                                <ul class="breadcome-menu">-->
-<!--                                    <li><a href="/">Trang Chủ</a> <span class="bread-slash">/</span>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                    &lt;!&ndash;/*@thymesVar id="TrangHienTai" type="java"*/&ndash;&gt;-->
-<!--                                    <span class="bread-blod" th:text="${TrangHienTai}"></span>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">-->
+    <!--                                <ul class="breadcome-menu">-->
+    <!--                                    <li><a href="/">Trang Chủ</a> <span class="bread-slash">/</span>-->
+    <!--                                    </li>-->
+    <!--                                    <li>-->
+    <!--                                    &lt;!&ndash;/*@thymesVar id="TrangHienTai" type="java"*/&ndash;&gt;-->
+    <!--                                    <span class="bread-blod" th:text="${TrangHienTai}"></span>-->
+    <!--                                    </li>-->
+    <!--                                </ul>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 
 <!-- Fragment Footer-->
