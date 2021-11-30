@@ -47,8 +47,6 @@ function toast({
                 </div>
                 `;
         main.appendChild(toast);
-
-
     }
 }
 
@@ -56,7 +54,7 @@ var mess = document.getElementById("mes");
 var suc_err = document.getElementById("suc_err");
 var time = 3500;
 
-if(mess.textContent == ''){
+if(mess.textContent === ''){
     time = -3500;
 }
 

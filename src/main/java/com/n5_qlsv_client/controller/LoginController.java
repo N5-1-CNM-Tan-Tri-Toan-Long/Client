@@ -1,11 +1,10 @@
 package com.n5_qlsv_client.controller;
 
 import com.n5_qlsv_client.model.HocKyLHP;
+import com.n5_qlsv_client.model.KetQuaHocTap;
 import com.n5_qlsv_client.model.LopHocPhanTheoHK;
 import com.n5_qlsv_client.model.SinhVien;
-import com.n5_qlsv_client.service.HocKyService;
-import com.n5_qlsv_client.service.LichHocSinhVienService;
-import com.n5_qlsv_client.service.SinhVienService;
+import com.n5_qlsv_client.service.*;
 import com.n5_qlsv_client.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +18,8 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 @RequestMapping("/")
@@ -29,8 +30,15 @@ public class LoginController {
 
     @Autowired
     private HocKyService hocKyService;
+
     @Autowired
     private LichHocSinhVienService lichHocSinhVienService;
+
+    @Autowired
+    private ChuyenNganhService chuyenNganhService;
+
+    @Autowired
+    private KetQuaHocTapService ketQuaHocTapService;
     SinhVien sinhVien;
     @GetMapping
     public String adminPage(Model model, Principal principal, HttpSession session,
@@ -44,10 +52,31 @@ public class LoginController {
         session.setAttribute("tensinhvien", sinhVien.getTenSV());
         model.addAttribute("sinhvien", sinhVien);
         model.addAttribute("maHK", maHK);
-//        if (maHK != null){
-//            model.addAttribute("danhSachLHP", lopHocPhanTheoHKS(maHK));
-//        }
         model.addAttribute("HocKyLHP", hocKyLHPS(sinhVien.getMaSV()));
+
+        //So tc sinh vien da hoc
+        AtomicInteger soTC = new AtomicInteger();// Số tín chỉ theo chuyên ngành
+        chuyenNganhService.getAllChuyenNganhs().forEach(chuyenNganh -> {
+            if (chuyenNganh.getTenChuyenNganh().equals(sinhVien.getChuyenNganh().getTenChuyenNganh())){
+                soTC.set(chuyenNganh.getSoTC());
+            }
+        });
+        model.addAttribute("soTCTheoCN", soTC);
+        //So tin chỉ đã học.
+        int soTCDaHoc = 0;
+        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(sinhVien.getMaSV());
+        List<Integer> ketQuaHocTaps1 = new ArrayList<>();
+            for (KetQuaHocTap ketQuaHocTap : ketQuaHocTaps){
+                int i = ketQuaHocTap.getLopHocPhan().getHocPhan().getSoTCLT() + ketQuaHocTap.getLopHocPhan().getHocPhan().getSoTCTH();
+                ketQuaHocTaps1.add(i);
+            }
+            // Cộng các tín chỉ lấy được trong mảng
+            for (int num : ketQuaHocTaps1){
+                soTCDaHoc += num;
+            }
+        model.addAttribute("soTCDaHoc", soTCDaHoc);
+            // tính phần trăm
+
         return "index";
     }
 
@@ -76,6 +105,8 @@ public class LoginController {
         });
         return hocKyList;
     }
+
+    //Lấy học kỳ hiện tại
 
     public LocalDate convertToLocalDate(Date dateToConvert) {
         return dateToConvert.toInstant()
