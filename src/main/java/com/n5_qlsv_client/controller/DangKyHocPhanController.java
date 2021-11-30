@@ -146,7 +146,7 @@ public class DangKyHocPhanController {
         if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV(maSV), nhomTH).size() > 0)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
-        if (hienTai + 1 >= toiDa)
+        if (hienTai + 1 > toiDa)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
         lopHocPhan.setSoLuongDangKyHienTai(hienTai + 1);
         lopHocPhanService.saveLopHocPhan(lopHocPhan);
