@@ -56,7 +56,12 @@
 			// },
 			tooltips: {
 				mode: 'index',
-				intersect: true
+				intersect: false
+			},
+			title: {
+				display: true,
+				position: 'right',
+				text: 'Custom Chart Title'
 			},
 			scales: {
 				yAxes: [{
