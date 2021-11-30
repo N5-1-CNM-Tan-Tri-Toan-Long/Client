@@ -162,7 +162,7 @@ public class DangKyHocPhanController {
     }
 
     @GetMapping(value = "/xoa-dang-ky")
-    public String deleteLHSV(@RequestParam("maLHP") long maLHP, HttpSession session) {
+    public String deleteLHSV(@RequestParam("maLHP") long maLHP, @RequestParam("maHocKy") long maHK, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
@@ -174,16 +174,16 @@ public class DangKyHocPhanController {
                 lichHocSinhVienService.deleteLHSV(lichHocSinhVien.getMaLHSV());
             }
         });
-        return "redirect:/hoc-phan/dang-ky-hoc-phan";
+        return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
     }
 
     @PostMapping("/kiem-tra-trung")
     @ResponseBody
-    public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH,
-                                                  HttpSession session) {
+    public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam(name = "nhomTH",
+            defaultValue = "0") int nhomTH, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
-        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký",null,null,null,null));
+        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", null, null, null, null));
         if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
             return hocPhanTrungs;
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
