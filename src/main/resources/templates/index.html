@@ -230,20 +230,31 @@
                         </div>
                         <div class="row">
                             <div style="color: #3760e6">
-                                <h5 style="float: left">Tổng : 154 tín chỉ <br>
+                                <h5 style="float: left">Tổng: <span id="soTCTheoCN" th:text="${soTCTheoCN}"></span> tín chỉ <br>
                                     <div style="text-align: center">100%</div>
                                 </h5>
                             </div>
                             <div style="color: #0dbd37">
-                                <h5 style="float: right">Đã học : 131 tín chỉ <br>
-                                    <div style="text-align: center">85%</div>
+                                <h5 style="float: right">Đã học : <span id="soTCDaHoc" th:text="${soTCDaHoc}"></span> tín chỉ <br>
+                                    <div style="text-align: center"><span id="phanTram"></span></div>
                                 </h5>
                             </div>
                         </div>
+<!--                        Tính phần trăm học phần-->
+                        <script>
+                            $(document).ready(function () {
+                                var soTCTheoCN = $('#soTCTheoCN').text();
+                                var soTCDaHoc = $('#soTCDaHoc').text();
+                                var phanTram = (soTCDaHoc / soTCTheoCN) * 100;
+                                phanTram = phanTram.toFixed();
+                                $('#phanTram').text(phanTram + '%');
+                            });
+
+                        </script>
                         <div style="text-align: center">
                             <div id="chart"></div>
                         </div>
-                        <h4 style="text-align: center">131/154</h4>
+                        <h4 style="text-align: center"><span th:text="${soTCDaHoc}"></span>/<span th:text="${soTCTheoCN}"></span></h4>
                     </div>
                 </div>
 
@@ -270,7 +281,7 @@
                                 <span id="soTC" style="float: right" class="text-center"></span>
                             </div>
                             <div class="table-responsive wd-tb-cr" id="style-1">
-                                <div style="height: 280px" class="scrollbar" >
+                                <div style="height: 260px" class="scrollbar" >
                                     <table class="table table-striped">
                                         <tbody id="tableLopHocPhanTheoHK">
                                         </tbody>
@@ -297,9 +308,9 @@
                                             for (var i = 0; i < data.length; i++) {
                                                 LHP.innerHTML = `<span>Môn học/học phần</span>`;
                                                 soTC.innerHTML = `<span style="float: right" class="text-center">Số tín chỉ</span>`
-                                                row = `<tr><td>${data[i].maLHP}<br>${data[i].tenLHP}</td><td>${data[i].soTC}</td></tr>`;
+                                                row = `<tr><td><span class="text-success font-bold">${data[i].maLHP}</span><br>${data[i].tenLHP}</td><td>${data[i].soTC}</td></tr>`;
                                                 table.innerHTML += row;
-                                                if (data[i].maLHP == 0) {
+                                                if (data[i].maLHP === 0) {
                                                     table.innerHTML = '';
                                                     LHP.innerHTML = '';
                                                     soTC.innerHTML = '';
