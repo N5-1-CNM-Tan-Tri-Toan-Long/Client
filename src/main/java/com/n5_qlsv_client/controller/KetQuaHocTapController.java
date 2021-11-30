@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/ket-qua-hoc-tap")
@@ -39,7 +38,19 @@ public class KetQuaHocTapController {
         model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);
         model.addAttribute("HK", hocKyService.getAllHocKys());
+        // tra ve danh sach ma hoc
         model.addAttribute("HKSV", maHKTheoKQHT.getMaHKTheoKQHT(maSV));
+
+//        List<Long> maHKTheoKQHT1 = maHKTheoKQHT.getMaHKTheoKQHT(maSV);
+//        Set<KetQuaHocTap> ketQuaHocTaps1 = new HashSet<>();
+//        for (Long hocKy : maHKTheoKQHT1){
+//            for (KetQuaHocTap ketQuaHocTap : ketQuaHocTaps){
+//                if (ketQuaHocTap.getLopHocPhan().getHocKy().getMaHK() == hocKy){
+//                    ketQuaHocTaps1.add(ketQuaHocTap);
+//                }
+//            }
+//        }
+//        model.addAttribute("stt", ketQuaHocTaps1.size());
         return "ket-qua-hoc-tap";
     }
 

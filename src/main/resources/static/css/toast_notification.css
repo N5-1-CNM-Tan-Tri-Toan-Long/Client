@@ -3,8 +3,8 @@
     align-items: center;
     background-color: #fff;
     border-radius: 2px;
-    min-width: 400px;
-    max-width: 450px;
+    min-width: 350px;
+    max-width: 400px;
     border-left: 4px solid;
     padding: 20px 0;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
@@ -30,12 +30,10 @@
 
 #toast{
     position: fixed;
-    top: 160px;
+    top: 90px;
     right: 16px;
     z-index: 99999;
 }
-
-
 
 .toast--success {
     border-color: #47d864;

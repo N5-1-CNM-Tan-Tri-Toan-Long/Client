@@ -1,4 +1,8 @@
-var like = 100, unlike = 85;
+
+var soTCTheoCN = $('#soTCTheoCN').text();
+var soTCDaHoc = $('#soTCDaHoc').text();
+
+var like = soTCTheoCN, unlike = soTCDaHoc;
 
 var ratioLike = like / 100;
 var ratioUnLike = unlike / 100;
