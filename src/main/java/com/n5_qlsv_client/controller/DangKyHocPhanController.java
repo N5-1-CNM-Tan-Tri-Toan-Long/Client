@@ -72,7 +72,6 @@ public class DangKyHocPhanController {
         model.addAttribute("HKLHP", hocKyLHPS(maSV));
         maHocKy = maHK;
         model.addAttribute("maHK", maHocKy);
-        model.addAttribute("TrangHienTai", "Đăng Ký Học Phần");
         return "dang-ky-hoc-phan";
     }
 
@@ -141,10 +140,13 @@ public class DangKyHocPhanController {
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
         lichHocSinhVien.setNgayDangKyHP(new Date());
 
+        if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
         if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV(maSV), nhomTH).size() > 0)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
-        if (hienTai + 1 >= toiDa)
+        if (hienTai + 1 > toiDa)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
         lopHocPhan.setSoLuongDangKyHienTai(hienTai + 1);
         lopHocPhanService.saveLopHocPhan(lopHocPhan);
@@ -160,7 +162,7 @@ public class DangKyHocPhanController {
     }
 
     @GetMapping(value = "/xoa-dang-ky")
-    public String deleteLHSV(@RequestParam("maLHP") long maLHP, HttpSession session) {
+    public String deleteLHSV(@RequestParam("maLHP") long maLHP, @RequestParam("maHocKy") long maHK, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
@@ -172,21 +174,25 @@ public class DangKyHocPhanController {
                 lichHocSinhVienService.deleteLHSV(lichHocSinhVien.getMaLHSV());
             }
         });
-        return "redirect:/hoc-phan/dang-ky-hoc-phan";
+        return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
     }
 
     @PostMapping("/kiem-tra-trung")
     @ResponseBody
-    public List<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam("nhomTH") int nhomTH,
-                                                  HttpSession session) {
+    public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam(name = "nhomTH",
+            defaultValue = "0") int nhomTH, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
+        Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
+        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", null, null, null, null));
+        if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
+            return hocPhanTrungs;
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
         List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
         return kiemTraLichTrung(listCTHP, listLH, nhomTH);
     }
 
-    private List<HocPhanTrung> kiemTraLichTrung(List<ChiTietLopHocPhan> listCTHP, List<LichHocSinhVien> listLH, int nhomTH) {
-        List<HocPhanTrung> hocPhanTrungs = new ArrayList<>();
+    private Set<HocPhanTrung> kiemTraLichTrung(List<ChiTietLopHocPhan> listCTHP, List<LichHocSinhVien> listLH, int nhomTH) {
+        Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         listCTHP.forEach(chiTietLopHocPhan -> {
             listLH.forEach(lichHocSinhVien -> {
                 if (kiemTraNgayBatDau(chiTietLopHocPhan.getNgayBatDau(), lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau(),

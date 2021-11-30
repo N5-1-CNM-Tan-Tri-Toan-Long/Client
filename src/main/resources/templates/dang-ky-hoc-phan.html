@@ -90,7 +90,7 @@
                                 <i style="color: red; font-size: 20px" class="fa fa-times-circle"></i>
                             </td>
                             <td></td>
-                            <td  style="text-align: center" >
+                            <td style="text-align: center">
                                 <button type="button" class="btn btn-custon-two btn-success"
                                         th:onclick="xemLopHocPhan([[${hp.maHocPhan}]],[[${maHK}]])">Đăng Ký
                                 </button>
@@ -270,13 +270,15 @@
                                         },
                                         success: function (data) {
                                             removeLoadingMark();
-                                            if (data.length > 0)
+                                            if (data.length > 0) {
                                                 document.getElementById('titleHocPhanTrung').innerHTML = "Đã có học phần trùng";
-                                            else {
+                                                document.getElementById('btn-dangky').disabled = true;
+                                            } else {
                                                 document.getElementById('titleHocPhanTrung').innerHTML = "Không có học phần trùng";
                                                 document.getElementById('btn-dangky').disabled = false;
                                             }
                                             var table = document.getElementById('tableHocPhanTrung');
+                                            table.innerHTML = '';
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
                                                 row = `<tr><td>${data[i].monHoc}</td><td>${data[i].tietHoc}</td><td>${data[i].coSoPhong}</td><td>${data[i].giaoVien}</td><td>${data[i].ngayHoc}</td></tr>`;
@@ -296,9 +298,9 @@
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
                                 <div class="row">
-                                  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-                                      <h1>Lớp học phần đã đăng ký trong học kỳ này</h1>
-                                  </div>
+                                    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                        <h1>Lớp học phần đã đăng ký trong học kỳ này</h1>
+                                    </div>
                                     <div style="float: left" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                         <button th:onclick="window.open('/hoc-phan/dang-ky-hoc-phan/in-lich')"
                                                 style="background-color: #1da1f2; height: 25px; border: none; border-radius: 3px; color: #fff">
@@ -344,7 +346,7 @@
                             <td>
                                 <form action="/hoc-phan/dang-ky-hoc-phan/xoa-dang-ky" method="get">
                                     <input type="hidden" name="maLHP" th:value="${hocPhan.maLopHocPhan}">
-                                    <!--                                    <input type="hidden" name="maHocKy" th:value="[[${maHK}]]">-->
+                                    <input type="hidden" name="maHocKy" th:value="${maHK}">
                                     <input type="submit" class="btn btn-custon-four btn-danger" value="Xoá">
                                 </form>
                             </td>
