@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <!-- Chart CSS -->
     <link rel="stylesheet" href="css/c3/c3.min.css">
-    <title>Sinh Vien Page</title>
+    <title>Trang sinh viên</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -63,7 +64,7 @@
                             <div class="row" style="margin-top: 142px;">
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <div class="cards-dtn">
-                                        <img src="img/profile/tan.jpg" alt="" srcset="" width="10%" height="10%" >
+                                        <img src="img/profile/tan.jpg" alt="" srcset="" width="10%" height="10%">
                                         <br><br>
                                         <h3><span>Trần Thái Minh Tân</span></h3>
                                         <p>18032771</p>
@@ -71,7 +72,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <div class="cards-dtn">
-                                        <img src="img/profile/toan.jpg" alt="" srcset="" width="10%" height="10%" >
+                                        <img src="img/profile/toan.jpg" alt="" srcset="" width="10%" height="10%">
                                         <br><br>
                                         <h3><span>Phùng Thanh Toàn</span></h3>
                                         <p>18031361</p>
@@ -79,7 +80,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <div class="cards-dtn">
-                                        <img src="img/profile/tri.jpg" alt="" srcset="" width="10%" height="10%" >
+                                        <img src="img/profile/tri.jpg" alt="" srcset="" width="10%" height="10%">
                                         <br><br>
                                         <h3><span>Nguyễn Ngọc Trí</span></h3>
                                         <p>18025281</p>
@@ -87,7 +88,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                     <div class="cards-dtn">
-                                        <img src="img/profile/long.jpg" alt="" srcset="" width="10%" height="10%" >
+                                        <img src="img/profile/long.jpg" alt="" srcset="" width="10%" height="10%">
                                         <br><br>
                                         <h3><span>Trương Nhật Long</span></h3>
                                         <p>18036331</p>
@@ -104,7 +105,7 @@
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/calendar.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/calendar.png" alt="" srcset="" width="40%" height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Lịch theo tuần</h4>
@@ -114,12 +115,13 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 236px; height: 165px; margin-left: -20px">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                     style="width: 236px; height: 165px; margin-left: -20px">
                     <a href="#">
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/dangkyhocphan.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/dangkyhocphan.png" alt="" srcset="" width="40%" height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Đăng ký học phần</h4>
@@ -129,42 +131,44 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 236px; height: 165px; margin-left: -20px">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                     style="width: 236px; height: 165px; margin-left: -20px">
                     <a href="#">
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/chuongtrinhkhung.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/chuongtrinhkhung.png" alt="" srcset="" width="40%"
+                                         height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Chương trình khung</h4>
                                 </div>
-
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 236px; height: 165px; margin-left: -20px">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                     style="width: 236px; height: 165px; margin-left: -20px">
                     <a href="#">
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/lichtheotiendo.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/lichtheotiendo.png" alt="" srcset="" width="40%" height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Lịch theo tiến độ</h4>
                                 </div>
-
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 236px; height: 165px; margin-left: -20px">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                     style="width: 236px; height: 165px; margin-left: -20px">
                     <a href="#">
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/tinhdiem.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/tinhdiem.png" alt="" srcset="" width="40%" height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Tính điểm</h4>
@@ -174,12 +178,13 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 236px; height: 165px; margin-left: -20px">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                     style="width: 236px; height: 165px; margin-left: -20px">
                     <a href="#">
                         <div class="hpanel widget-int-shape responsive-mg-b-30" style="border-radius: 10px">
                             <div class="panel-body">
                                 <div style="text-align: center; margin-bottom: 20px">
-                                    <img src="img/profile/remind.png" alt="" srcset="" width="40%" height="40%" >
+                                    <img src="img/profile/remind.png" alt="" srcset="" width="40%" height="40%">
                                 </div>
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Nhắc nhở</h4>
@@ -196,17 +201,18 @@
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
                          style="margin-top: 1px; width: 500px; height: 350px; border-radius: 10px">
                         <div class="alert-title col-lg-12" style="margin-bottom: 30px">
-                                <div class="col-lg-6">
-                                    <h2 style="font-weight: bold; font-size: 25px">Kết quả học tập</h2>
-                                </div>
-                                <div class="col-lg-6" style="margin-top: 14px">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                    </select>
-                                </div>
+                            <div class="col-lg-6">
+                                <h2 style="font-weight: bold; font-size: 25px">Kết quả học tập</h2>
+                            </div>
+                            <div class="col-lg-6" style="margin-top: 14px">
+                                <select class="form-control">
+                                    <option value="">Chọn học kỳ</option>
+                                    <!--                                        <option th:each="hk: ${HocKyLHP}"-->
+                                    <!--                                                th:value="${hk.getMaHK()}"-->
+                                    <!--                                                th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">-->
+                                    <!--                                        </option>-->
+                                </select>
+                            </div>
                         </div>
                         <div id="bar1-chart" style="margin-left: -70px;">
                             <canvas id="barchart1"></canvas>
@@ -218,7 +224,7 @@
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
                          style="margin-top: 1px; width: 320px; height: 350px; margin-left: 70px; border-radius: 10px ">
                         <div class="alert-title">
-                                <h2 style="font-weight: bold; font-size: 25px">Tiến độ học tập</h2>
+                            <h2 style="font-weight: bold; font-size: 25px">Tiến độ học tập</h2>
                         </div>
                     </div>
                 </div>
@@ -231,14 +237,65 @@
                                 <h2 style="font-weight: bold; font-size: 25px">Lớp học phần</h2>
                             </div>
                             <div class="col-lg-6" style="margin-top: 14px">
-                                <select name="" id="" class="form-control"  >
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
+                                <select id="cboChonHocKyLHP" name="cboChonHocKyLHP" class="form-control">
+                                    <option value="0">Chọn học kỳ</option>
+                                    <option th:each="hk: ${HocKyLHP}"
+                                            th:value="${hk.getMaHK()}"
+                                            th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
+                                    </option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="hpanel shadow-inner responsive-mg-b-10">
+                                <div class="panel-body">
+                                    <div class="table-responsive wd-tb-cr" style="overflow: hidden; outline: none">
+                                        <div>
+                                            <span id="monHoc"></span>
+                                            <span id="soTC" style="float: right" class="text-center"></span>
+                                        </div>
+                                        <table class="table table-striped">
+                                            <tbody id="tableLopHocPhanTheoHK" class="scroll">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('#cboChonHocKyLHP').on('change', function () {
+                                    var maHK = $(this).val();
+                                    $.ajax({
+                                        url: "/LHPInHK",
+                                        type: 'POST',
+                                        data: jQuery.param({maHK: maHK}),
+                                        success: function (data) {
+                                            var LHP = document.getElementById('monHoc');
+                                            var soTC = document.getElementById('soTC');
+                                            var table = document.getElementById('tableLopHocPhanTheoHK');
+                                            table.innerHTML = '';
+                                            LHP.innerHTML = '';
+                                            soTC.innerHTML = '';
+                                            var row = '';
+                                            for (var i = 0; i < data.length; i++) {
+                                                LHP.innerHTML = `<span>Môn học/học phần</span>`;
+                                                soTC.innerHTML = `<span style="float: right" class="text-center">Số tín chỉ</span>`
+                                                row = `<tr><td>${data[i].maLHP}<br>${data[i].tenLHP}</td><td>${data[i].soTC}</td></tr>`;
+                                                table.innerHTML += row;
+                                                if (data[i].maLHP == 0) {
+                                                    table.innerHTML = '';
+                                                    LHP.innerHTML = '';
+                                                    soTC.innerHTML = '';
+                                                }
+                                            }
+                                        }
+                                    });
+
+
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
