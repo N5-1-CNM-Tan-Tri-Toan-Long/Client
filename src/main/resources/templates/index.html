@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <!-- Chart CSS -->
     <link rel="stylesheet" href="css/c3/c3.min.css">
-    <title>Sinh Vien Page</title>
+    <title>Trang sinh viên</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -196,17 +197,18 @@
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
                          style="margin-top: 1px; width: 500px; height: 350px; border-radius: 10px">
                         <div class="alert-title col-lg-12" style="margin-bottom: 30px">
-                                <div class="col-lg-6">
-                                    <h2 style="font-weight: bold; font-size: 25px">Kết quả học tập</h2>
-                                </div>
-                                <div class="col-lg-6" style="margin-top: 14px">
-                                    <select class="form-control">
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                        <option value="">Toán cao cấp A1</option>
-                                    </select>
-                                </div>
+                            <div class="col-lg-6">
+                                <h2 style="font-weight: bold; font-size: 25px">Kết quả học tập</h2>
+                            </div>
+                            <div class="col-lg-6" style="margin-top: 14px">
+                                <select class="form-control">
+                                    <option value="">Chọn học kỳ</option>
+                                    <!--                                        <option th:each="hk: ${HocKyLHP}"-->
+                                    <!--                                                th:value="${hk.getMaHK()}"-->
+                                    <!--                                                th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">-->
+                                    <!--                                        </option>-->
+                                </select>
+                            </div>
                         </div>
                         <div id="bar1-chart" style="margin-left: -70px;">
                             <canvas id="barchart1"></canvas>
@@ -247,14 +249,65 @@
                                 <h2 style="font-weight: bold; font-size: 25px">Lớp học phần</h2>
                             </div>
                             <div class="col-lg-6" style="margin-top: 14px">
-                                <select name="" id="" class="form-control">
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
-                                    <option value="">Toán cao cấp A1</option>
+                                <select id="cboChonHocKyLHP" name="cboChonHocKyLHP" class="form-control">
+                                    <option value="0">Chọn học kỳ</option>
+                                    <option th:each="hk: ${HocKyLHP}"
+                                            th:value="${hk.getMaHK()}"
+                                            th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
+                                    </option>
                                 </select>
                             </div>
                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="hpanel shadow-inner responsive-mg-b-10">
+                                <div class="panel-body">
+                                    <div class="table-responsive wd-tb-cr" style="overflow: hidden; outline: none">
+                                        <div>
+                                            <span id="monHoc"></span>
+                                            <span id="soTC" style="float: right" class="text-center"></span>
+                                        </div>
+                                        <table class="table table-striped">
+                                            <tbody id="tableLopHocPhanTheoHK" class="scroll">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('#cboChonHocKyLHP').on('change', function () {
+                                    var maHK = $(this).val();
+                                    $.ajax({
+                                        url: "/LHPInHK",
+                                        type: 'POST',
+                                        data: jQuery.param({maHK: maHK}),
+                                        success: function (data) {
+                                            var LHP = document.getElementById('monHoc');
+                                            var soTC = document.getElementById('soTC');
+                                            var table = document.getElementById('tableLopHocPhanTheoHK');
+                                            table.innerHTML = '';
+                                            LHP.innerHTML = '';
+                                            soTC.innerHTML = '';
+                                            var row = '';
+                                            for (var i = 0; i < data.length; i++) {
+                                                LHP.innerHTML = `<span>Môn học/học phần</span>`;
+                                                soTC.innerHTML = `<span style="float: right" class="text-center">Số tín chỉ</span>`
+                                                row = `<tr><td>${data[i].maLHP}<br>${data[i].tenLHP}</td><td>${data[i].soTC}</td></tr>`;
+                                                table.innerHTML += row;
+                                                if (data[i].maLHP == 0) {
+                                                    table.innerHTML = '';
+                                                    LHP.innerHTML = '';
+                                                    soTC.innerHTML = '';
+                                                }
+                                            }
+                                        }
+                                    });
+
+
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
