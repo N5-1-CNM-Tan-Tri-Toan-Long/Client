@@ -209,10 +209,10 @@
                             <div class="col-lg-7" style="margin-top: 14px">
                                 <select class="form-control">
                                     <option value="">Chọn học kỳ</option>
-                                    <!--                                        <option th:each="hk: ${HocKyLHP}"-->
-                                    <!--                                                th:value="${hk.getMaHK()}"-->
-                                    <!--                                                th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">-->
-                                    <!--                                        </option>-->
+                                    <option th:each="hk: ${HocKyLHP}"
+                                            th:value="${hk.getMaHK()}"
+                                            th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -230,17 +230,19 @@
                         </div>
                         <div class="row">
                             <div style="color: #3760e6">
-                                <h5 style="float: left">Tổng: <span id="soTCTheoCN" th:text="${soTCTheoCN}"></span> tín chỉ <br>
+                                <h5 style="float: left">Tổng: <span id="soTCTheoCN" th:text="${soTCTheoCN}"></span> tín
+                                    chỉ <br>
                                     <div style="text-align: center">100%</div>
                                 </h5>
                             </div>
                             <div style="color: #0dbd37">
-                                <h5 style="float: right">Đã học : <span id="soTCDaHoc" th:text="${soTCDaHoc}"></span> tín chỉ <br>
+                                <h5 style="float: right">Đã học : <span id="soTCDaHoc" th:text="${soTCDaHoc}"></span>
+                                    tín chỉ <br>
                                     <div style="text-align: center"><span id="phanTram"></span></div>
                                 </h5>
                             </div>
                         </div>
-<!--                        Tính phần trăm học phần-->
+                        <!--                        Tính phần trăm học phần-->
                         <script>
                             $(document).ready(function () {
                                 var soTCTheoCN = $('#soTCTheoCN').text();
@@ -254,7 +256,8 @@
                         <div style="text-align: center">
                             <div id="chart"></div>
                         </div>
-                        <h4 style="text-align: center"><span th:text="${soTCDaHoc}"></span>/<span th:text="${soTCTheoCN}"></span></h4>
+                        <h4 style="text-align: center"><span th:text="${soTCDaHoc}"></span>/<span
+                                th:text="${soTCTheoCN}"></span></h4>
                     </div>
                 </div>
 
@@ -281,7 +284,7 @@
                                 <span id="soTC" style="float: right" class="text-center"></span>
                             </div>
                             <div class="table-responsive wd-tb-cr" id="style-1">
-                                <div style="height: 260px" class="scrollbar" >
+                                <div style="height: 260px" class="scrollbar">
                                     <table class="table table-striped">
                                         <tbody id="tableLopHocPhanTheoHK">
                                         </tbody>
