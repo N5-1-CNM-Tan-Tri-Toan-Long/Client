@@ -28,79 +28,96 @@
                                         <h2>Tính điểm môn học</h2>
                                     </div>
                                     <form action="/tinh-diem-mon-hoc/tinh-diem" method="POST">
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="TCLT" required
-                                                   placeholder="Số tín chỉ lý thuyết">
-                                            <span class="focus-border"><i></i></span>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="TCLT" required
+                                                       onblur="kiemtrastclt()" id="txtstclt"
+                                                       placeholder="Số tín chỉ lý thuyết">
+                                                    <span class="focus-border" id="s1"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="TCTH"
+                                                       onblur="kiemtrastcth()" id="txtstcth"
+                                                       placeholder="Số tín chỉ thực hành">
+                                                <span class="focus-border" id="s2"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemTK1" required
+                                                       onblur="kiemtradtk1()" id="txtdtk1"
+                                                       placeholder="Điểm thường kỳ 1">
+                                                <span class="focus-border" id="s3"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemTK2"
+                                                       onblur="kiemtradtk2()" id="txtdtk2"
+                                                       placeholder="Điểm thường kỳ 2">
+                                                <span class="focus-border" id="s4"><i></i></span>
+                                            </div>
                                         </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="TCTH"
-                                                   placeholder="Số tín chỉ thực hành">
-                                            <span class="focus-border"><i></i></span>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemTK3"
+                                                       onblur="kiemtradtk3()" id="txtdtk3"
+                                                       placeholder="Điểm thường kỳ 3">
+                                                <span class="focus-border" id="s5"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemGK" required
+                                                       onblur="kiemtradgk()" id="txtdgk"
+                                                       placeholder="Điểm giữa kỳ">
+                                                <span class="focus-border" id="s6"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemTH1"
+                                                       onblur="kiemtradth1()" id="txtdth1"
+                                                       placeholder="Điểm thực hành 1">
+                                                <span class="focus-border" id="s7"><i></i></span>
+                                            </div>
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemTH2"
+                                                       onblur="kiemtradth2()" id="txtdth2"
+                                                       placeholder="Điểm thực hành 2">
+                                                <span class="focus-border" id="s8"><i></i></span>
+                                            </div>
                                         </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemTK1" required
-                                                   placeholder="Điểm thường kỳ 1">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemTK2"
-                                                   placeholder="Điểm thường kỳ 2">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemTK3"
-                                                   placeholder="Điểm thường kỳ 3">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemGK" required
-                                                   placeholder="Điểm giữa kỳ">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemTH1"
-                                                   placeholder="Điểm thực hành 1">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemTH2"
-                                                   placeholder="Điểm thực hành 2">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-2-diem">
-                                            <input class="effect-7" type="text" th:name="DiemCK" required
-                                                   placeholder="Điểm cuối kỳ">
-                                            <span class="focus-border"><i></i></span>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6"></div>
-                                        <div class="col-2-diem">
-                                            <input class="btn btn-custon-four btn-primary" type="submit"
-                                                   value="Tính điểm">
-                                            <span class="focus-border"><i></i></span>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-2-diem">
+                                                <input class="effect-7" type="text" th:name="DiemCK" required
+                                                       onblur="kiemtradck()" id="txtdck"
+                                                       placeholder="Điểm cuối kỳ">
+                                                <span class="focus-border" id="s9"><i></i></span>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6"></div>
+                                            <div class="col-2-diem">
+                                                <input class="btn btn-custon-four btn-primary" type="submit"
+                                                       value="Tính điểm">
+                                                <span class="focus-border"><i></i></span>
+                                            </div>
                                         </div>
                                     </form>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="col-2-diem">
-                                                <input class="effect-7" type="text" th:value="${diemTongKet}"
-                                                       placeholder="Điểm tổng kết" disabled>
-                                                <span class="focus-border"><i></i></span>
-                                            </div>
-                                            <div class="col-2-diem">
-                                                <input class="effect-7" type="text" th:value="${diemHe4}"
-                                                       placeholder="Thang điểm 4" disabled>
-                                                <span class="focus-border"><i></i></span>
-                                            </div>
-                                            <div class="col-2-diem">
-                                                <input class="effect-7" type="text" th:value="${diemChu}"
-                                                       placeholder="Điểm chữ" disabled>
-                                                <span class="focus-border"><i></i></span>
-                                            </div>
-                                            <div class="col-2-diem">
-                                                <input class="effect-7" type="text" th:value="${xepLoai}"
-                                                       placeholder="Xếp loại" disabled>
-                                                <span class="focus-border"><i></i></span>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-2-diem">
+                                                    <input class="effect-7" type="text" th:value="${diemTongKet}"
+                                                           placeholder="Điểm tổng kết" disabled>
+                                                    <span class="focus-border"><i></i></span>
+                                                </div>
+                                                <div class="col-2-diem">
+                                                    <input class="effect-7" type="text" th:value="${diemHe4}"
+                                                           placeholder="Thang điểm 4" disabled>
+                                                    <span class="focus-border"><i></i></span>
+                                                </div>
+                                                <div class="col-2-diem">
+                                                    <input class="effect-7" type="text" th:value="${diemChu}"
+                                                           placeholder="Điểm chữ" disabled>
+                                                    <span class="focus-border"><i></i></span>
+                                                </div>
+                                                <div class="col-2-diem">
+                                                    <input class="effect-7" type="text" th:value="${xepLoai}"
+                                                           placeholder="Xếp loại" disabled>
+                                                    <span class="focus-border"><i></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +130,7 @@
         </div>
     </div>
 </div>
-    <!-- Script-->
-    <div th:replace="SV_Fragment :: script"/>
+<!-- Script-->
+<div th:replace="SV_Fragment :: script"/>
 </body>
 </html>
