@@ -1,9 +1,6 @@
 package com.n5_qlsv_client.controller;
 
-import com.n5_qlsv_client.model.HocKyLHP;
-import com.n5_qlsv_client.model.KetQuaHocTap;
-import com.n5_qlsv_client.model.LopHocPhanTheoHK;
-import com.n5_qlsv_client.model.SinhVien;
+import com.n5_qlsv_client.model.*;
 import com.n5_qlsv_client.service.*;
 import com.n5_qlsv_client.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 @RequestMapping("/")
@@ -75,7 +71,6 @@ public class LoginController {
                 soTCDaHoc += num;
             }
         model.addAttribute("soTCDaHoc", soTCDaHoc);
-            // tính phần trăm
 
         return "index";
     }
@@ -92,6 +87,32 @@ public class LoginController {
                         lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH()));
         });
         return list;
+    }
+
+    @PostMapping("/BieuDoKQHT")
+    @ResponseBody
+    public List<BieuDoKQHT> bieuDoKQHTS(@RequestParam("maHK") Long maHK){
+        List<BieuDoKQHT>  list = new ArrayList<>();
+        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(sinhVien.getMaSV());
+        for (KetQuaHocTap ketQuaHocTap : ketQuaHocTaps){
+            if (ketQuaHocTap.getLopHocPhan().getHocKy().getMaHK() == maHK){
+                list.add(new BieuDoKQHT(ketQuaHocTap.getLopHocPhan().getTenLHP(), ketQuaHocTap.getDiemHe10(), diemTBLHP(ketQuaHocTap.getLopHocPhan().getMaLHP())));
+            }
+        }
+        return list;
+    }
+    // tính điểm trung bình lớp học phần
+    public Double diemTBLHP(Long maLHP){
+        List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHYByMaLHP(maLHP);
+        double diemTBLHP = 0;
+        for (KetQuaHocTap kqht : ketQuaHocTaps){
+            diemTBLHP += kqht.getDiemHe10();
+        }
+        double diem = 0;
+        for (int i = 0; i < ketQuaHocTaps.size(); i++){
+            diem = diemTBLHP / ketQuaHocTaps.size();
+        }
+        return diem;
     }
     List<HocKyLHP> hocKyLHPS(String maSV) {
         //học kỳ học phần

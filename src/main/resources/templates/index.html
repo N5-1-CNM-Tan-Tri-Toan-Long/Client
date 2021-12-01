@@ -191,7 +191,6 @@
                                 <div class="stats-title" style="text-align: center">
                                     <h4 style="font-size: 18px">Nhắc nhở</h4>
                                 </div>
-
                             </div>
                         </div>
                     </a>
@@ -207,20 +206,64 @@
                                 <h2 style="font-weight: bold; font-size: 20px">Kết quả học tập</h2>
                             </div>
                             <div class="col-lg-7" style="margin-top: 14px">
-                                <select class="form-control">
-                                    <option value="">Chọn học kỳ</option>
-                                    <!--                                        <option th:each="hk: ${HocKyLHP}"-->
-                                    <!--                                                th:value="${hk.getMaHK()}"-->
-                                    <!--                                                th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">-->
-                                    <!--                                        </option>-->
+                                <select id="cboChonHocKyKQHT" class="form-control">
+                                    <option value="0">Chọn học kỳ</option>
+                                    <option th:each="hk: ${HocKyLHP}"
+                                            th:value="${hk.getMaHK()}"
+                                            th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
+                                    </option>
                                 </select>
+                                <p id="lhp"></p>
+                                <p id="diemMonHoc"></p>
+                                <p id="diemTBLHP"></p>
                             </div>
                         </div>
                         <div id="bar1-chart" style="margin-left: -70px;">
-                            <canvas id="barchart1"></canvas>
+                            <canvas id="bieudo"></canvas>
                         </div>
                     </div>
                 </div>
+<!--                Biểu đồ kết quả học tập-->
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#cboChonHocKyKQHT').on('change', function () {
+                            var maHK;
+                            maHK = $(this).val();
+                            $.ajax({
+                                url: "/BieuDoKQHT",
+                                type: 'POST',
+                                data: jQuery.param({maHK: maHK}),
+                                success: function (data) {
+                                    const tenHP = [];
+                                    const diemCuaToi = [];
+                                    const diemTB = [];
+                                    var tenLHP = document.getElementById('lhp');
+                                    var diemhtml = document.getElementById('diemMonHoc');
+                                    var tbhtml = document.getElementById('diemTBLHP');
+                                    tenLHP.innerHTML = '';
+                                    diemhtml.innerHTML = '';
+                                    tbhtml.innerHTML = '';
+                                    var bieudo = document.getElementById('bieudo');
+                                    bieudo.innerHTML = '';
+                                    for (var i = 0; i < data.length; i++) {
+                                        if (data[i].tenHP === null || data[i].diemCuaToi === null){
+                                            tenLHP.innerHTML = '';
+                                            diemhtml.innerHTML = '';
+                                            tbhtml.innerHTML = '';
+                                        }else{
+                                            tenHP.push(data[i].tenHP);
+                                            diemCuaToi.push(data[i].diemCuaToi);
+                                            diemTB.push(data[i].diemTrungBinhMon);
+                                            tenLHP.innerHTML = `<p>ten hp: ${tenHP}</p>`;
+                                            diemhtml.innerHTML = `<p>diem cua toi: ${diemCuaToi}</p>`;
+                                            tbhtml.innerHTML = `<p>diem tb: ${diemTB}</p>`;
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
 
                 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12">
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
@@ -289,10 +332,12 @@
                                 </div>
                             </div>
                         </div>
+<!--                        Lớp học phần theo học kỳ-->
                         <script type="text/javascript">
                             $(document).ready(function () {
                                 $('#cboChonHocKyLHP').on('change', function () {
-                                    var maHK = $(this).val();
+                                    var maHK;
+                                    maHK = $(this).val();
                                     $.ajax({
                                         url: "/LHPInHK",
                                         type: 'POST',
@@ -318,8 +363,6 @@
                                             }
                                         }
                                     });
-
-
                                 });
                             });
                         </script>
