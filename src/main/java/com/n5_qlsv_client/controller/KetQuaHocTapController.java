@@ -28,8 +28,10 @@ public class KetQuaHocTapController {
 
     @Autowired
     private MaHKTheoKQHT maHKTheoKQHT;
+
     @Autowired
     private SinhVienService sinhVienService;
+
     @GetMapping
     public String findKQHTByMaSV(Model model, HttpSession session){
 

@@ -35,18 +35,25 @@
                                         <div class="panel-group edu-custon-design" id="accordion">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading accordion-head">
-                                                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                    <h4 class="panel-title" data-toggle="collapse"
+                                                        data-parent="#accordion" href="#collapse1">
                                                         Học Kỳ 1
                                                     </h4>
                                                 </div>
                                                 <div id="collapse1" class="panel-collapse panel-ic collapse in">
-                                                    <div class="panel-body admin-panel-content animated bounce" style="padding: 0">
-                                                        <table class="table table-bordered" width="100%" style="margin-bottom: 0">
+                                                    <div class="panel-body admin-panel-content animated bounce"
+                                                         style="padding: 0">
+                                                        <table class="table table-bordered" width="100%"
+                                                               style="margin-bottom: 0">
                                                             <thead>
                                                             <tr class="active">
                                                                 <th style="min-width: 20px">STT</th>
-                                                                <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
-                                                                <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
+                                                                <th style="min-width: 200px; text-align: center">Tên môn
+                                                                    học/học phần
+                                                                </th>
+                                                                <th style="min-width: 150px; text-align: center">Mã lớp
+                                                                    học phần
+                                                                </th>
                                                                 <th>Số Tín Chỉ</th>
                                                                 <th>Số tiết LT</th>
                                                                 <th>Số tiết TH</th>
@@ -54,10 +61,18 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr class="row1" th:each="hpk, stt: ${hpks1}">
-                                                                <td style="min-widtd: 20px" th:text="${stt.index + 1}"></td>
-                                                                <td style="min-widtd: 200px; text-align: center" th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
-                                                                <td style="min-widtd: 150px; text-align: center" th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                            <tr>
+                                                                <th colspan="7" style="color: red"><b>Học phần bắt
+                                                                    buộc</b></th>
+                                                            </tr>
+                                                            <tr class="row1" th:each="hpk, stt: ${hpks1}"
+                                                                th:if="${hpk.getHocPhan().isHocPhanBatBuoc() == true}">
+                                                                <td style="min-widtd: 20px"
+                                                                    th:text="${stt.index + 1}"></td>
+                                                                <td style="min-widtd: 200px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                                <td style="min-widtd: 150px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
                                                                 <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietTH()}"></td>
@@ -78,18 +93,25 @@
                                             </div>
                                             <div class="panel panel-default">
                                                 <div class="panel-heading accordion-head">
-                                                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                                            Học Kỳ 2
+                                                    <h4 class="panel-title" data-toggle="collapse"
+                                                        data-parent="#accordion" href="#collapse2">
+                                                        Học Kỳ 2
                                                     </h4>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse panel-ic collapse">
-                                                    <div class="panel-body admin-panel-content animated bounce" style="padding: 0">
-                                                        <table class="table table-bordered" width="100%" style="margin-bottom: 0">
+                                                    <div class="panel-body admin-panel-content animated bounce"
+                                                         style="padding: 0">
+                                                        <table class="table table-bordered" width="100%"
+                                                               style="margin-bottom: 0">
                                                             <thead>
                                                             <tr class="active">
                                                                 <th style="min-width: 20px">STT</th>
-                                                                <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
-                                                                <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
+                                                                <th style="min-width: 200px; text-align: center">Tên môn
+                                                                    học/học phần
+                                                                </th>
+                                                                <th style="min-width: 150px; text-align: center">Mã lớp
+                                                                    học phần
+                                                                </th>
                                                                 <th>Số Tín Chỉ</th>
                                                                 <th>Số tiết LT</th>
                                                                 <th>Số tiết TH</th>
@@ -97,10 +119,44 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr class="row1" th:each="hpk, stt: ${hpks2}">
-                                                                <td style="min-widtd: 20px" th:text="${stt.index + 1}"></td>
-                                                                <td style="min-widtd: 200px; text-align: center" th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
-                                                                <td style="min-widtd: 150px; text-align: center" th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                            <tr>
+                                                                <th colspan="7" style="color: red"><b>Học phần bắt
+                                                                    buộc</b></th>
+                                                            </tr>
+                                                            <tr class="row1" th:each="hpk, stt: ${hpks2}"
+                                                                th:if="${hpk.getHocPhan().isHocPhanBatBuoc() == true}">
+                                                                <td style="min-widtd: 20px"
+                                                                    th:text="${stt.index + 1}"></td>
+                                                                <td style="min-widtd: 200px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                                <td style="min-widtd: 150px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                                <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
+                                                                <td th:text="${hpk.getSoTietLT()}"></td>
+                                                                <td th:text="${hpk.getSoTietTH()}"></td>
+                                                                <td th:if="${hpk.getTrangThai() == ''}"></td>
+                                                                <td th:if="${hpk.getTrangThai() == 'Đạt'}">
+                                                                    <i style="color: #63f34e; font-size: 20px"
+                                                                       class="fa fa-check-circle"></i>
+                                                                </td>
+                                                                <td th:if="${hpk.getTrangThai() == 'Không đạt'}">
+                                                                    <i style="color: red; font-size: 20px"
+                                                                       class="fa fa-times-circle"></i>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                            <tbody>
+                                                            <tr>
+                                                                <th colspan="7" style="color: red"><b>Học phần tự chọn</b></th>
+                                                            </tr>
+                                                            <tr class="row1" th:each="hpk, stt: ${hpks2}"
+                                                                th:if="${hpk.getHocPhan().isHocPhanBatBuoc() == false}">
+                                                                <td style="min-widtd: 20px"
+                                                                    th:text="${stt.index + 1}"></td>
+                                                                <td style="min-widtd: 200px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                                <td style="min-widtd: 150px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
                                                                 <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietTH()}"></td>
@@ -119,20 +175,28 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="panel panel-default">
                                                 <div class="panel-heading accordion-head">
-                                                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                                    <h4 class="panel-title" data-toggle="collapse"
+                                                        data-parent="#accordion" href="#collapse3">
                                                         Học Kỳ 3
                                                     </h4>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse panel-ic collapse">
-                                                    <div class="panel-body admin-panel-content animated bounce" style="padding: 0">
-                                                        <table class="table table-bordered" width="100%" style="margin-bottom: 0">
+                                                    <div class="panel-body admin-panel-content animated bounce"
+                                                         style="padding: 0">
+                                                        <table class="table table-bordered" width="100%"
+                                                               style="margin-bottom: 0">
                                                             <thead>
                                                             <tr class="active">
                                                                 <th style="min-width: 20px">STT</th>
-                                                                <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
-                                                                <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
+                                                                <th style="min-width: 200px; text-align: center">Tên môn
+                                                                    học/học phần
+                                                                </th>
+                                                                <th style="min-width: 150px; text-align: center">Mã lớp
+                                                                    học phần
+                                                                </th>
                                                                 <th>Số Tín Chỉ</th>
                                                                 <th>Số tiết LT</th>
                                                                 <th>Số tiết TH</th>
@@ -140,10 +204,18 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr class="row1" th:each="hpk, stt: ${hpks3}">
-                                                                <td style="min-widtd: 20px" th:text="${stt.index + 1}"></td>
-                                                                <td style="min-widtd: 200px; text-align: center" th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
-                                                                <td style="min-widtd: 150px; text-align: center" th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                            <tr>
+                                                                <th colspan="7" style="color: red"><b>Học phần bắt
+                                                                    buộc</b></th>
+                                                            </tr>
+                                                            <tr class="row1" th:each="hpk, stt: ${hpks3}"
+                                                                th:if="${hpk.getHocPhan().isHocPhanBatBuoc() == true}">
+                                                                <td style="min-widtd: 20px"
+                                                                    th:text="${stt.index + 1}"></td>
+                                                                <td style="min-widtd: 200px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                                <td style="min-widtd: 150px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
                                                                 <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietTH()}"></td>
@@ -158,35 +230,18 @@
                                                                 </td>
                                                             </tr>
                                                             </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading accordion-head">
-                                                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                                        Học Kỳ 4
-                                                    </h4>
-                                                </div>
-                                                <div id="collapse4" class="panel-collapse panel-ic collapse">
-                                                    <div class="panel-body admin-panel-content animated bounce" style="padding: 0">
-                                                        <table class="table table-bordered" width="100%" style="margin-bottom: 0">
-                                                            <thead>
-                                                            <tr class="active">
-                                                                <th style="min-width: 20px">STT</th>
-                                                                <th style="min-width: 200px; text-align: center">Tên môn học/học phần</th>
-                                                                <th style="min-width: 150px; text-align: center">Mã lớp học phần</th>
-                                                                <th>Số Tín Chỉ</th>
-                                                                <th>Số tiết LT</th>
-                                                                <th>Số tiết TH</th>
-                                                                <th>Đạt</th>
-                                                            </tr>
-                                                            </thead>
                                                             <tbody>
-                                                            <tr class="row1" th:each="hpk, stt: ${hpks4}">
-                                                                <td style="min-widtd: 20px" th:text="${stt.index + 1}"></td>
-                                                                <td style="min-widtd: 200px; text-align: center" th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
-                                                                <td style="min-widtd: 150px; text-align: center" th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
+                                                            <tr>
+                                                                <th colspan="7" style="color: red"><b>Học phần tự chọn</b></th>
+                                                            </tr>
+                                                            <tr class="row1" th:each="hpk, stt: ${hpks3}"
+                                                                th:if="${hpk.getHocPhan().isHocPhanBatBuoc() == false}">
+                                                                <td style="min-widtd: 20px"
+                                                                    th:text="${stt.index + 1}"></td>
+                                                                <td style="min-widtd: 200px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMonHoc().getTenMonHoc()}"></td>
+                                                                <td style="min-widtd: 150px; text-align: center"
+                                                                    th:text="${hpk.getHocPhan().getMaHocPhan()}"></td>
                                                                 <td th:text="${hpk.getHocPhan().getSoTCTH() + hpk.getHocPhan().getSoTCLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietLT()}"></td>
                                                                 <td th:text="${hpk.getSoTietTH()}"></td>
