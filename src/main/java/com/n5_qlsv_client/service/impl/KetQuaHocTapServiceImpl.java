@@ -59,5 +59,16 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
         return restTemplate.getForObject(url + "/" + maSV + "/" + maLHP + "/kq", KetQuaHocTap.class);
     }
 
+    @Override
+    public List<KetQuaHocTap> findKQHYByMaLHP(Long maLHP) {
+        ResponseEntity<List<KetQuaHocTap>> responseEntity
+                = restTemplate.exchange(url + "/" + maLHP + "/kq",
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<KetQuaHocTap>>() {
+                });
+        List<KetQuaHocTap> ketQuaHocTapList = responseEntity.getBody();
+        return ketQuaHocTapList;
+    }
+
 
 }
