@@ -5,11 +5,14 @@ import com.n5_qlsv_client.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -194,8 +197,9 @@ public class DangKyHocPhanController {
     @PostMapping("/kiem-tra-trung")
     @ResponseBody
     public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam(name = "nhomTH",
-            defaultValue = "0") int nhomTH, HttpSession session) {
-        String maSV = (String) session.getAttribute("maSV");
+            defaultValue = "0") int nhomTH, Principal principal) {
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String maSV = loginedUser.getUsername();
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", "", "", "", ""));
         LopHocPhan lophocPhan = lopHocPhanService.findById(maLHP);
