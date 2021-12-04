@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -102,7 +104,8 @@ public class LichHocTheoTuanControler {
     }
 
     @GetMapping("/in-lich")
-    public String InLichTheoTuan() {
+    public String InLichTheoTuan(@RequestParam("date") String date, Model model) {
+        model.addAttribute("date", date);
         return "in-lich-sinh-vien";
     }
 

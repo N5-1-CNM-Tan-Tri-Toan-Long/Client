@@ -8,7 +8,7 @@
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet'/>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js'></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" rel="stylesheet"
-          media="print" />
+          media="print"/>
 </head>
 <head th:replace="SV_Fragment :: style-head"/>
 <body>
@@ -54,15 +54,15 @@
 <!-- calendar JS -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
             buttonText: {today: "Hôm nay"},
             customButtons: {
                 printCalendar: {
                     text: 'In lịch',
                     click: function () {
-                        window.open("/lich-theo-tuan/in-lich")
+                        getDate()
                     }
                 }
             },
@@ -88,9 +88,14 @@
                 url: '/lich-theo-tuan/lich-hoc'
             }
         });
-
         calendar.render();
+
+        function getDate() {
+            let date = calendar.getDate();
+            window.open("/lich-theo-tuan/in-lich?date=" + date.toLocaleDateString());
+        }
     });
+
 
 </script>
 

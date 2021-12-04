@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,51 +58,14 @@
                 allDaySlot: false,
             },
         },
-
+        lang: 'vi',
         events: {
             url: '/lich-theo-tuan/lich-hoc'
         }
     })
 
-
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     var calendarEl = document.getElementById('calendar');
-    //     var calendar = new FullCalendar.Calendar(calendarEl, {
-    //         initialView: 'timeGridWeek',
-    //         buttonText: {today: "Hôm nay"},
-    //         customButtons: {
-    //             printCalendar: {
-    //                 text: 'In lịch',
-    //                 click: function () {
-    //                     window.print();
-    //                 }
-    //             }
-    //         },
-    //         locale: 'vi',
-    //         nowIndicator: true,
-    //         height: 900,
-    //         views: {
-    //             listWeek: {buttonText: 'Sự kiện tuần'},
-    //             dayGridMonth: {buttonText: 'Tháng'},
-    //             timeGridWeek: {
-    //                 buttonText: 'Tuần',
-    //                 slotMinTime: '6:00:00',
-    //                 slotMaxTime: '22:00:00',
-    //                 allDaySlot: false,
-    //             },
-    //         },
-    //         headerToolbar: {
-    //             left: 'prev,next,today,printCalendar',
-    //             center: 'title',
-    //             right: 'timeGridWeek,listWeek,dayGridMonth'
-    //         },
-    //         events: {
-    //             url: '/lich-theo-tuan/lich-hoc'
-    //         }
-    //     });
-    //
-    //     calendar.fullCalendar('render');
-    // });
+    date = moment("[[${date}]]", "DD/MM/YYYY");
+    $("#calendar").fullCalendar('gotoDate', date);
 </script>
 </body>
 
