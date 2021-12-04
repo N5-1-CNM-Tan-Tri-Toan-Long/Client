@@ -112,7 +112,7 @@ public class LoginController {
         for (int i = 0; i < ketQuaHocTaps.size(); i++){
             diem = diemTBLHP / ketQuaHocTaps.size();
         }
-        return diem;
+        return Double.valueOf(Math.round(diem * 10) / 10);
     }
     List<HocKyLHP> hocKyLHPS(String maSV) {
         //học kỳ học phần

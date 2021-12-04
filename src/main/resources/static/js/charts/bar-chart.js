@@ -1,88 +1,89 @@
-(function ($) {
-	"use strict";
-	/*----------------------------------------*/
-	/*  1.  Bar Chart
-	/*----------------------------------------*/
+function bieudo(tenHP, diemcuatoi, diemtrungbinhhocphan) {
+    (function ($) {
+        "use strict";
+        var ctx = document.getElementById("barchart1");
+        var barchart1 = new Chart(ctx, {
+            base:true,
+            type: 'bar',
+            data: {
+                labels: tenHP,
+                datasets: [{
+                    label: 'Điểm của bạn',
+                    data: diemcuatoi,
+                    borderWidth: 1,
+                    yAxisID: "y-axis-1",
+                    backgroundColor: 'rgba(250,108,81, 0.2)',
+                    borderColor: 'rgba(250,108,81,1)',
+                },
+                    {
+                        type: "line",
+                        label: "Điểm trung bình lớp học phần",
+                        data: diemtrungbinhhocphan,
+                        fill: false,
+                        backgroundColor: 'rgba(253,205,86, 0.2)',
+                        borderColor: 'rgba(253,205,86, 1)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
 
-	/*----------------------------------------*/
-	/*  2.  Bar Chart vertical
-	/*----------------------------------------*/
-	var ctx = document.getElementById("barchart1");
-	var barchart1 = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: ["Toán cao cấp A1", "Lập trình hướng đối tượng", "Toán rời rạc", "Phát triển ứng dụng", "Tâm lý đại cương", "Lập trình WWW (Java)"],
-			datasets: [{
-				label: 'Điểm của bạn',
-				data: [6, 8, 7.8, 8.5, 7, 6.5],
-				borderWidth: 1,
-				yAxisID: "y-axis-1",
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(255, 99, 132, 0.2)',
-				],
-				borderColor: [
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-					'rgba(255,99,132,1)',
-				],
-			},
-				{
-					type: "line",
-					label: "Điểm trung bình lớp học phần",
-					data: [7, 7, 8, 6, 8, 5],
-					fill: false,
-					backgroundColor: [
-						'rgba(238, 130, 238, 0.2)'
-					],
-					borderColor: [
-						'rgba(238, 130, 238, 1)'
-					],
-				}
-			]
-		},
-		options: {
-			responsive: true,
-			// title:{
-			// 	display:true,
-			// 	text:"Bar Chart Multi Axis"
-			// },
-			tooltips: {
-				mode: 'index',
-				intersect: false
-			},
-			title: {
-				display: true,
-				position: 'right',
-				text: 'Custom Chart Title'
-			},
-			scales: {
-				yAxes: [{
-					type: "linear",
-					display: false,
-					position: "left",
-					id: "y-axis-1",
+                // title:{
+                // 	display:true,
+                // 	text:"Bar Chart Multi Axis"
+                // },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    yAxes: [{
+                        type: "linear",
+                        display: false,
+                        position: "left",
+                        id: "y-axis-1",
+                        ticks: {
+                            beginAtZero:true
+                        }
 
-				}, {
-					type: "linear",
-					display: false,
-					position: "right",
-					id: "y-axis-2",
+                    }, {
+                        type: "linear",
+                        display: false,
+                        position: "right",
+                        id: "y-axis-2",
 
-					gridLines: {
-						drawOnChartArea: false
-					}
-				}],
-			}
-		}
-	});
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                    }],
+                }
+            }
+        });
 
 
-})(jQuery); 
+    })(jQuery);
+}
+
+$(document).ready(function () {
+    $('#cboChonHocKyKQHT').on('change', function () {
+        var maHK;
+        maHK = $(this).val();
+        $.ajax({
+            url: "/BieuDoKQHT",
+            type: 'POST',
+            data: jQuery.param({maHK: maHK}),
+            success: function (data) {
+                const tenHP = [];
+                const diemCuaToi = [];
+                const diemTB = [];
+                for (var i = 0; i < data.length; i++) {
+                    tenHP.push(data[i].tenHP);
+                    diemCuaToi.push(data[i].diemCuaToi);
+                    diemTB.push(data[i].diemTrungBinhMon);
+                }
+                bieudo(tenHP, diemCuaToi, diemTB);
+                bieudo.replace();
+            }
+        });
+    });
+});
