@@ -197,7 +197,7 @@ public class DangKyHocPhanController {
             defaultValue = "0") int nhomTH, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
-        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", null, null, null, null));
+        hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", "", "", "", ""));
         LopHocPhan lophocPhan = lopHocPhanService.findById(maLHP);
         if (!lophocPhan.getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký") ||
                 lophocPhan.getSoLuongDangKyHienTai() == lophocPhan.getSoLuongDangKyToiDa())
