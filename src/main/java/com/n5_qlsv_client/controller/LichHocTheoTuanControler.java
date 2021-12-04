@@ -2,11 +2,8 @@ package com.n5_qlsv_client.controller;
 
 import com.n5_qlsv_client.model.ItemLichHoc;
 import com.n5_qlsv_client.model.LichHocSinhVien;
-import com.n5_qlsv_client.model.SinhVien;
+import com.n5_qlsv_client.model.LichHocTheoTienDo;
 import com.n5_qlsv_client.service.LichHocSinhVienService;
-import com.n5_qlsv_client.service.SinhVienService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -22,9 +19,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,8 +30,33 @@ public class LichHocTheoTuanControler {
     @Autowired
     private LichHocSinhVienService lichHocSinhVienService;
 
-    @Autowired
-    private SinhVienService sinhVienService;
+    @GetMapping("/lich-tien-do")
+    private String listLichHocTheoTienDo(Principal principal, Model model) {
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String maSV = loginedUser.getUsername();
+        Set<LichHocTheoTienDo> lich = new HashSet<>();
+        lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
+            List<Integer> tietHocs = extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
+            LocalDate dateBD = lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateKT = lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc()
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            lich.add(new LichHocTheoTienDo(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP() + "",
+                    lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT() +
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH() + "",
+                    tietHocs.get(0) + "", tietHocs.get(1) + " - " + tietHocs.get(2),
+                    lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getNhomTH() + "",
+                    dateBD.toString(), dateKT.toString(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getMaGV() + "",
+                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV()));
+        });
+
+        model.addAttribute("lichTienDo", lich);
+        return "lich-theo-tien-do";
+    }
 
     @GetMapping("/lich-hoc")
     @ResponseBody
@@ -44,8 +64,7 @@ public class LichHocTheoTuanControler {
 
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
-        String maSV = sinhVien.getMaSV();
+        String maSV = loginedUser.getUsername();
 
         List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV(maSV);
         List<ItemLichHoc> lichHocs = new ArrayList<>();

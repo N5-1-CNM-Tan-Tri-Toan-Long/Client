@@ -1,9 +1,6 @@
 package com.n5_qlsv_client.controller;
 
 import com.n5_qlsv_client.model.SinhVien;
-import com.n5_qlsv_client.service.ChuyenNganhService;
-import com.n5_qlsv_client.service.KhoaService;
-import com.n5_qlsv_client.service.LopHocService;
 import com.n5_qlsv_client.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -30,10 +26,9 @@ public class ThongTinSinhVienController {
 
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien1 = sinhVienService.findById(loginedUser.getUsername());
-        String ma = sinhVien1.getMaSV();
+        String maSV = loginedUser.getUsername();
 
-        SinhVien sinhVien = sinhVienService.findById(ma);
+        SinhVien sinhVien = sinhVienService.findById(maSV);
         model.addAttribute("sinhvien", sinhVien);
         model.addAttribute("TrangHienTai","Thông Tin Sinh Viên");
         return "thong-tin-sinh-vien";

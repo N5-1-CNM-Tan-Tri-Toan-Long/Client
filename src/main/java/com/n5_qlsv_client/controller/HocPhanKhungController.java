@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 
@@ -31,10 +30,9 @@ public class HocPhanKhungController {
 
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien1 = sinhVienService.findById(loginedUser.getUsername());
-        String ma = sinhVien1.getMaSV();
+        String maSV = loginedUser.getUsername();
 
-        SinhVien sinhVien = sinhVienService.findById(ma);
+        SinhVien sinhVien = sinhVienService.findById(maSV);
 
         model.addAttribute("hpks1",
                 hocPhanKhungService.findAllByChuyenNganhAndHocKi(sinhVien.getChuyenNganh().getMaChuyenNganh(), 1));

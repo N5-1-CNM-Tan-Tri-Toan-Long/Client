@@ -5,7 +5,6 @@ import com.n5_qlsv_client.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,8 +50,7 @@ public class DoiMatKhauController {
 
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        SinhVien sinhVien1 = sinhVienService.findById(loginedUser.getUsername());
-        String maSV = sinhVien1.getMaSV();
+        String maSV = loginedUser.getUsername();
 
         SinhVien sinhVien = sinhVienService.findById(maSV);
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
