@@ -202,7 +202,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
                          style="margin-top: 1px; width: 500px; height: 400px; border-radius: 10px">
-                        <div class="alert-title col-lg-12" style="margin-bottom: 50px">
+                        <div class="alert-title col-lg-12" style="margin-bottom: 20px">
                             <div class="col-lg-5">
                                 <h2 style="font-weight: bold; font-size: 20px">Kết quả học tập</h2>
                             </div>
@@ -214,57 +214,55 @@
                                             th:text="'HK' + ${hk.getThuTuHocKy()} + ' (' + ${hk.getNamBatDau()} + ' - ' + ${hk.getNamKetThuc()} + ')'">
                                     </option>
                                 </select>
-                                <p id="lhp"></p>
-                                <p id="diemMonHoc"></p>
-                                <p id="diemTBLHP"></p>
                             </div>
                         </div>
-                        <div id="bar1-chart" style="margin-left: -70px;">
-                            <canvas id="bieudo"></canvas>
+                        <div id="bar1-chart" style="width: 500px;">
+                            <canvas id="barchart1"></canvas>
                         </div>
                     </div>
                 </div>
-<!--                Biểu đồ kết quả học tập-->
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('#cboChonHocKyKQHT').on('change', function () {
-                            var maHK;
-                            maHK = $(this).val();
-                            $.ajax({
-                                url: "/BieuDoKQHT",
-                                type: 'POST',
-                                data: jQuery.param({maHK: maHK}),
-                                success: function (data) {
-                                    const tenHP = [];
-                                    const diemCuaToi = [];
-                                    const diemTB = [];
-                                    var tenLHP = document.getElementById('lhp');
-                                    var diemhtml = document.getElementById('diemMonHoc');
-                                    var tbhtml = document.getElementById('diemTBLHP');
-                                    tenLHP.innerHTML = '';
-                                    diemhtml.innerHTML = '';
-                                    tbhtml.innerHTML = '';
-                                    var bieudo = document.getElementById('bieudo');
-                                    bieudo.innerHTML = '';
-                                    for (var i = 0; i < data.length; i++) {
-                                        if (data[i].tenHP === null || data[i].diemCuaToi === null){
-                                            tenLHP.innerHTML = '';
-                                            diemhtml.innerHTML = '';
-                                            tbhtml.innerHTML = '';
-                                        }else{
-                                            tenHP.push(data[i].tenHP);
-                                            diemCuaToi.push(data[i].diemCuaToi);
-                                            diemTB.push(data[i].diemTrungBinhMon);
-                                            tenLHP.innerHTML = `<p>ten hp: ${tenHP}</p>`;
-                                            diemhtml.innerHTML = `<p>diem cua toi: ${diemCuaToi}</p>`;
-                                            tbhtml.innerHTML = `<p>diem tb: ${diemTB}</p>`;
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    });
-                </script>
+<!--&lt;!&ndash;                Biểu đồ kết quả học tập&ndash;&gt;-->
+<!--                <script type="text/javascript">-->
+<!--                    $(document).ready(function () {-->
+<!--                        $('#cboChonHocKyKQHT').on('change', function () {-->
+<!--                            var maHK;-->
+<!--                            maHK = $(this).val();-->
+<!--                            $.ajax({-->
+<!--                                url: "/BieuDoKQHT",-->
+<!--                                type: 'POST',-->
+<!--                                data: jQuery.param({maHK: maHK}),-->
+<!--                                success: function (data) {-->
+<!--                                    const tenHP = [];-->
+<!--                                    const diemCuaToi = [];-->
+<!--                                    const diemTB = [];-->
+<!--                                    var tenLHP = document.getElementById('lhp');-->
+<!--                                    var diemhtml = document.getElementById('diemMonHoc');-->
+<!--                                    var tbhtml = document.getElementById('diemTBLHP');-->
+<!--                                    tenLHP.innerHTML = '';-->
+<!--                                    diemhtml.innerHTML = '';-->
+<!--                                    tbhtml.innerHTML = '';-->
+<!--                                    var bieudo1 = document.getElementById("bieudo");-->
+<!--                                    bieudo.innerHTML = '';-->
+<!--                                    for (var i = 0; i < data.length; i++) {-->
+<!--                                        if (data[i].tenHP === null || data[i].diemCuaToi === null){-->
+<!--                                            tenLHP.innerHTML = '';-->
+<!--                                            diemhtml.innerHTML = '';-->
+<!--                                            tbhtml.innerHTML = '';-->
+<!--                                        }else{-->
+<!--                                            tenHP.push(data[i].tenHP);-->
+<!--                                            diemCuaToi.push(data[i].diemCuaToi);-->
+<!--                                            diemTB.push(data[i].diemTrungBinhMon);-->
+<!--                                            tenLHP.innerHTML = `<p>ten hp: ${tenHP}</p>`;-->
+<!--                                            diemhtml.innerHTML = `<p>diem cua toi: ${diemCuaToi}</p>`;-->
+<!--                                            tbhtml.innerHTML = `<p>diem tb: ${diemTB}</p>`;-->
+<!--                                        }-->
+<!--                                    }-->
+<!--                                }-->
+<!--                            });-->
+<!--                        });-->
+<!--                    });-->
+<!--                    barchart();-->
+<!--                </script>-->
 
                 <div class="col-lg-3 col-md-3 col-sm-5 col-xs-12">
                     <div class="charts-single-pro mg-t-30 table-mg-btm-0-pro dk-mg-b-0-desk"
