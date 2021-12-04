@@ -38,20 +38,19 @@ public class DangKyHocPhanController {
     private SinhVienService sinhVienService;
 
     @Autowired
-    private KetQuaHocTapService ketQuaHocTapService;
+    private HocPhanKhungService hocPhanKhungService;
 
-    private Logger logger = LoggerFactory.getLogger(DangKyHocPhanController.class);
-    private Set<HocPhanDaDangKy> list;
+    private Set<HocPhanDaDangKy> listHocPhanDaDangKy;
     private Long maHocKy;
 
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         if (maHK != null) {
-            list = new HashSet<>();
+            listHocPhanDaDangKy = new HashSet<>();
             lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
                 if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocKy().getMaHK() == maHK)
-                    list.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
+                    listHocPhanDaDangKy.add(new HocPhanDaDangKy(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenVietTat(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTrangThai(),
@@ -60,11 +59,13 @@ public class DangKyHocPhanController {
                                     lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH(),
                             lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getMaHocPhan()));
             });
-            model.addAttribute("listHocPhanDaDK", list);
+            model.addAttribute("listHocPhanDaDK", listHocPhanDaDangKy);
 
+            SinhVien sv = sinhVienService.findById(maSV);
+            List<HocPhanKhung> listHocPhanKhung = hocPhanKhungService.findAllByChuyenNganh(sv.getChuyenNganh().getMaChuyenNganh());
             Set<HocPhan> listHP = new HashSet<>();
             hocPhanService.findHPByMaHK(maHK).forEach(hocPhan -> {
-                if (checkHocPhanTrongList(hocPhan.getMaHocPhan(), list))
+                if (checkHocPhanTrongList(hocPhan.getMaHocPhan(), listHocPhanDaDangKy) && checkHocPhanKhung(hocPhan.getMaHocPhan(), listHocPhanKhung))
                     listHP.add(hocPhan);
             });
             model.addAttribute("danhsachHP", listHP);
@@ -73,6 +74,15 @@ public class DangKyHocPhanController {
         maHocKy = maHK;
         model.addAttribute("maHK", maHocKy);
         return "dang-ky-hoc-phan";
+    }
+
+    private boolean checkHocPhanKhung(String maHocPhan, List<HocPhanKhung> listHocPhanKhung) {
+        AtomicBoolean ketQua = new AtomicBoolean(false);
+        listHocPhanKhung.forEach(hocPhanDaDangKy -> {
+            if (hocPhanDaDangKy.getHocPhan().getMaHocPhan().equals(maHocPhan))
+                ketQua.set(true);
+        });
+        return ketQua.get();
     }
 
     List<HocKyLHP> hocKyLHPS(String maSV) {
@@ -139,6 +149,10 @@ public class DangKyHocPhanController {
         int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
         lichHocSinhVien.setNgayDangKyHP(new Date());
+
+        if (!checkHocPhanKhung(lopHocPhan.getHocPhan().getMaHocPhan(),
+                hocPhanKhungService.findAllByChuyenNganh(sinhVien.getChuyenNganh().getMaChuyenNganh())))
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
         if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
@@ -264,7 +278,7 @@ public class DangKyHocPhanController {
     public String InLHPDaDK(Model model, HttpSession session) {
         String maSV = (String) session.getAttribute("maSV");
         model.addAttribute("sinhvien", sinhVienService.findById(maSV));
-        model.addAttribute("listHocPhanDaDK", list);
+        model.addAttribute("listHocPhanDaDK", listHocPhanDaDangKy);
         model.addAttribute("HKLHP", hocKyLHPS(maSV));
         model.addAttribute("maHK", maHocKy);
         return "in-lop-hoc-phan";

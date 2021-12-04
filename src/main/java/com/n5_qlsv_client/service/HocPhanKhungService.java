@@ -8,4 +8,5 @@ public interface HocPhanKhungService {
 
     List<HocPhanKhung> findAllByChuyenNganhAndHocKi(long maCN, int tthk);
 
+    List<HocPhanKhung> findAllByChuyenNganh(long maCN);
 }

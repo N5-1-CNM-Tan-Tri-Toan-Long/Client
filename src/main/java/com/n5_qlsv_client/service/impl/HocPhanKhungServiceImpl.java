@@ -28,7 +28,16 @@ public class HocPhanKhungServiceImpl implements HocPhanKhungService {
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<HocPhanKhung>>() {
                 });
-        List<HocPhanKhung> hocPhanKhungList = responseEntity.getBody();
-        return hocPhanKhungList;
+        return responseEntity.getBody();
+    }
+
+    @Override
+    public List<HocPhanKhung> findAllByChuyenNganh(long maCN) {
+        ResponseEntity<List<HocPhanKhung>> responseEntity
+                = restTemplate.exchange(url + "/chuyenNganh/" + maCN,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<HocPhanKhung>>() {
+                });
+        return responseEntity.getBody();
     }
 }
