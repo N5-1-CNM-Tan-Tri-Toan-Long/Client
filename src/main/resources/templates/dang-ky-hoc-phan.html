@@ -140,7 +140,7 @@
                                             table.innerHTML = '';
                                             var row = '';
                                             for (var i = 0; i < data.length; i++) {
-                                                row = `<tr onclick="xemCTLHP(${data[i].maLopHocPhan})"><td>${id}${data[i].maLopHocPhan}</td><td>${data[i].tenLop}</td><td>${data[i].tenVietTat} (${data[i].trangThai})</td><td>${data[i].soLuongDangKyHienTai}/${data[i].soLuongDangKyToiDa}</td></tr>`;
+                                                row = `<tr onclick="xemCTLHP(${data[i].maLopHocPhan})"><td>${data[i].maLopHocPhan}</td><td>${data[i].tenLop}</td><td>${data[i].tenVietTat} (${data[i].trangThai})</td><td>${data[i].soLuongDangKyHienTai}/${data[i].soLuongDangKyToiDa}</td></tr>`;
                                                 table.innerHTML += row;
                                             }
                                         },
@@ -260,6 +260,11 @@
 
                                         },
                                     });
+                                    xemCTLHPTheoNhomTH(id);
+                                    select.setAttribute('onchange', 'xemCTLHPTheoNhomTH(id)');
+                                }
+
+                                function xemCTLHPTheoNhomTH(id){
                                     var value = select.value;
                                     $.ajax({
                                         url: "/hoc-phan/dang-ky-hoc-phan/kiem-tra-trung",

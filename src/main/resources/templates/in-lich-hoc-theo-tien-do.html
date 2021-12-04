@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>In lịch học theo tiến độ</title>
+    <style>
+        @media print {
+
+            @page  {
+                size: landscape A4;
+
+            }
+
+            .visible-print {
+                display: inherit !important;
+            }
+
+            .hidden-print {
+                display: none !important;
+            }
+        }
+
+    </style>
+    <script>
+        setTimeout(window.print(), 1000);
+    </script>
+</head>
+<head th:replace="SV_Fragment :: head"/>
+<head th:replace="SV_Fragment :: style-head"/>
+<body>
+<div class="single-pro-review-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="sparkline12-list">
+                <div class="sparkline12-hd mg-b-30">
+                    <div class="main-sparkline12-hd">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-x: auto">
+                                <table class="table table-bordered" width="100%">
+                                    <thead>
+                                    <tr class="active">
+                                        <th class="title-color" rowspan="2" style="min-width: 20px;">STT</th>
+                                        <th class="title-color" rowspan="2" style="min-width: 150px;">Mã lớp học
+                                            phần
+                                        </th>
+                                        <th class="title-color" rowspan="2" style="min-width: 200px;">Tên môn
+                                            học/học phần
+                                        </th>
+                                        <th class="title-color" rowspan="2">Số tín chỉ</th>
+                                        <th class="title-color" colspan="4">Thông tin lịch</th>
+                                        <th class="title-color" colspan="2">Thời gian</th>
+                                        <th class="title-color" rowspan="2">Mã giảng viên</th>
+                                        <th class="title-color" rowspan="2">Mã giảng viên</th>
+                                    </tr>
+                                    <tr class="active">
+                                        <th class="title-color">Thứ</th>
+                                        <th class="title-color">Tiết</th>
+                                        <th class="title-color">Phòng</th>
+                                        <th class="title-color">Nhóm</th>
+                                        <th class="title-color">Bắt đầu</th>
+                                        <th class="title-color">Kết thúc</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="scroll">
+                                    <div th:each="lich, stt: ${lichTienDo}">
+                                        <tr>
+                                            <td th:text="${stt.count}"></td>
+                                            <td th:text="${lich.maLHP}"></td>
+                                            <td th:text="${lich.tenHP}"></td>
+                                            <td th:text="${lich.soTC}"></td>
+                                            <td th:text="${lich.thu}"></td>
+                                            <td th:text="${lich.tiet}"></td>
+                                            <td th:text="${lich.phong}"></td>
+                                            <td th:text="${lich.nhom=='0'?'LT':lich.nhom}"></td>
+                                            <td th:text="${lich.dateBD}"></td>
+                                            <td th:text="${lich.dateKT}"></td>
+                                            <td th:text="${lich.maGV}"></td>
+                                            <td th:text="${lich.tenGV}"></td>
+                                        </tr>
+                                    </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <input type="hidden" class="btn btn-dark" th:onload="window.print()"
+                               th:onfocus="window.print()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

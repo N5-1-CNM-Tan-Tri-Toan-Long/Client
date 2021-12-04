@@ -30,6 +30,34 @@ public class LichHocTheoTuanControler {
     @Autowired
     private LichHocSinhVienService lichHocSinhVienService;
 
+    @GetMapping("/in-lich-tien-do")
+    private String inLichHocTheoTienDo(Principal principal, Model model) {
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String maSV = loginedUser.getUsername();
+        Set<LichHocTheoTienDo> lich = new HashSet<>();
+        lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
+            List<Integer> tietHocs = extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
+            LocalDate dateBD = lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate dateKT = lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc()
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            lich.add(new LichHocTheoTienDo(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP() + "",
+                    lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCLT() +
+                            lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getHocPhan().getSoTCTH() + "",
+                    tietHocs.get(0) + "", tietHocs.get(1) + " - " + tietHocs.get(2),
+                    lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getNhomTH() + "",
+                    dateBD.toString(), dateKT.toString(),
+                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getMaGV() + "",
+                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV()));
+        });
+
+        model.addAttribute("lichTienDo", lich);
+        return "in-lich-hoc-theo-tien-do";
+    }
+
     @GetMapping("/lich-tien-do")
     private String listLichHocTheoTienDo(Principal principal, Model model) {
         //Lấy mã sinh viên thông qua login principal
