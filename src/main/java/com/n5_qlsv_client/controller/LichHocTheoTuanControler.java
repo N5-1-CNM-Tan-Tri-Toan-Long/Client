@@ -2,10 +2,14 @@ package com.n5_qlsv_client.controller;
 
 import com.n5_qlsv_client.model.ItemLichHoc;
 import com.n5_qlsv_client.model.LichHocSinhVien;
+import com.n5_qlsv_client.model.SinhVien;
 import com.n5_qlsv_client.service.LichHocSinhVienService;
+import com.n5_qlsv_client.service.SinhVienService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,15 +30,24 @@ import java.util.regex.Pattern;
 @Controller
 @RequestMapping("/lich-theo-tuan")
 public class LichHocTheoTuanControler {
+
     @Autowired
     private LichHocSinhVienService lichHocSinhVienService;
+
+    @Autowired
+    private SinhVienService sinhVienService;
 
     Logger logger = LoggerFactory.getLogger(LichHocTheoTuanControler.class);
 
     @GetMapping("/lich-hoc")
     @ResponseBody
-    public List<ItemLichHoc> listLichHoc(HttpSession session) {
-        String maSV = (String) session.getAttribute("maSV");
+    public List<ItemLichHoc> listLichHoc(Principal principal) {
+
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        String maSV = sinhVien.getMaSV();
+
         List<LichHocSinhVien> list = lichHocSinhVienService.getLichHocByMaSV(maSV);
         List<ItemLichHoc> lichHocs = new ArrayList<>();
         list.forEach(lichHocSinhVien -> {

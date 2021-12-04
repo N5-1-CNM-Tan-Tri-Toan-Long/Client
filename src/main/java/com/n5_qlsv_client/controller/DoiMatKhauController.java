@@ -3,6 +3,7 @@ package com.n5_qlsv_client.controller;
 import com.n5_qlsv_client.model.SinhVien;
 import com.n5_qlsv_client.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,12 +44,16 @@ public class DoiMatKhauController {
     }
 
     @PostMapping
-    public String changePassword(HttpSession session, Model model,
-                                 @RequestParam(value = "oldpassword", required = false) String oldPassword,
+    public String changePassword(@RequestParam(value = "oldpassword", required = false) String oldPassword,
                                  @RequestParam(value = "newpassword", required = false) String newPassword,
                                  @RequestParam(value = "repassword", required = false) String rePassword,
                                  RedirectAttributes redirectAttributes, Principal principal){
-        String maSV = (String) session.getAttribute("maSV");
+
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien1 = sinhVienService.findById(loginedUser.getUsername());
+        String maSV = sinhVien1.getMaSV();
+
         SinhVien sinhVien = sinhVienService.findById(maSV);
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         if (passwordEncoder.matches(oldPassword, user.getPassword())){
