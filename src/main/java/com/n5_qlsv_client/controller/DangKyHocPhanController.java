@@ -198,7 +198,9 @@ public class DangKyHocPhanController {
         String maSV = (String) session.getAttribute("maSV");
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", null, null, null, null));
-        if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
+        LopHocPhan lophocPhan = lopHocPhanService.findById(maLHP);
+        if (!lophocPhan.getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký") ||
+                lophocPhan.getSoLuongDangKyHienTai() == lophocPhan.getSoLuongDangKyToiDa())
             return hocPhanTrungs;
         List<ChiTietLopHocPhan> listCTHP = ctlhpService.findByMaLopHocPhan(maLHP);
         List<LichHocSinhVien> listLH = lichHocSinhVienService.getLichHocByMaSV(maSV);
