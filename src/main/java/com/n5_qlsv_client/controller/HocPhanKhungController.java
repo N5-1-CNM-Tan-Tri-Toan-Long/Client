@@ -5,12 +5,15 @@ import com.n5_qlsv_client.service.HocPhanKhungService;
 import com.n5_qlsv_client.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 
 @Controller
@@ -24,9 +27,12 @@ public class HocPhanKhungController {
     private SinhVienService sinhVienService;
 
     @GetMapping
-    public String hocPhanKhung(Model model, HttpSession session){
+    public String hocPhanKhung(Model model, Principal principal){
 
-        String ma = (String) session.getAttribute("maSV");
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien1 = sinhVienService.findById(loginedUser.getUsername());
+        String ma = sinhVien1.getMaSV();
 
         SinhVien sinhVien = sinhVienService.findById(ma);
 

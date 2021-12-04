@@ -1,17 +1,21 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.model.SinhVien;
 import com.n5_qlsv_client.service.SinhVienService;
 import com.n5_qlsv_client.service.impl.MaHKTheoKQHT;
 import com.n5_qlsv_client.model.KetQuaHocTap;
 import com.n5_qlsv_client.service.HocKyService;
 import com.n5_qlsv_client.service.KetQuaHocTapService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,9 +37,13 @@ public class KetQuaHocTapController {
     private SinhVienService sinhVienService;
 
     @GetMapping
-    public String findKQHTByMaSV(Model model, HttpSession session){
+    public String findKQHTByMaSV(Model model, Principal principal){
 
-        String maSV = (String) session.getAttribute("maSV");
+        //Lấy mã sinh viên thông qua login principal
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        String maSV = sinhVien.getMaSV();
+
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
         model.addAttribute("TrangHienTai","Kết Quả Học Tập");
         model.addAttribute("KQHTs", ketQuaHocTaps);
