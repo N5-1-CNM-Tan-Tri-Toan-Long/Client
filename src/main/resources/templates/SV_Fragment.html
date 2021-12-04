@@ -107,7 +107,7 @@
 
                 <ul class="metismenu" id="menu1">
                     <li class="active">
-                        <a title="Landing Page" href="/" aria-expanded="false">
+                        <a href="/" aria-expanded="false">
                             <span class="educate-icon educate-home icon-wrap"></span>
                             <span class="mini-click-non">Trang Chủ </span></a>
                     </li>
@@ -117,24 +117,24 @@
                             <span class="mini-click-non">Thông Tin Chung </span>
                         </a>
                         <ul class="submenu-angle" aria-expanded="true">
-                            <li><a title="Dashboard v.1" th:href="@{/thong-tin-sinh-vien}"><span
-                                    class="mini-sub-pro">Thông Tin Sinh Viên</span></a></li>
-                            <!--                            <li><a title="Dashboard v.2" href="#"><span-->
-                            <!--                                    class="mini-sub-pro">Ghi Chú Nhắc Nhở</span></a></li>-->
-                            <!--                            <li><a title="Analytics" href="/thong-tin-ngan-hang"><span-->
-                            <!--                                    class="mini-sub-pro">Ngân Hàng</span></a></li>-->
+                            <li>
+                                <a th:href="@{/thong-tin-sinh-vien}">
+                                    <span class="mini-sub-pro">Thông Tin Sinh Viên</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="/ket-qua-hoc-tap" aria-expanded="false">
                             <span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Học Tập </span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                            <li><a title="All Professors" th:href="@{/ket-qua-hoc-tap}"><span class="mini-sub-pro">Kết Quả Học Tập</span></a>
+                            <li><a th:href="@{/ket-qua-hoc-tap}"><span class="mini-sub-pro">Kết Quả Học Tập</span></a>
                             </li>
-                            <li><a title="Add Professor" href="/lich-theo-tuan"><span class="mini-sub-pro">Lịch Theo Tuần</span></a>
-                            <li><a title="Add Professor" href="lich-theo-tuan/lich-tien-do"><span class="mini-sub-pro">Lịch Theo Tiến độ</span></a>
+                            <li><a href="/lich-theo-tuan"><span class="mini-sub-pro">Lịch Theo Tuần</span></a>
+                            <li><a href="lich-theo-tuan/lich-tien-do"><span
+                                    class="mini-sub-pro">Lịch Theo Tiến độ</span></a>
                             </li>
-                            <li><a title="Edit Professor" href="/tinh-diem-mon-hoc"><span class="mini-sub-pro">Tính Điểm Môn Học</span></a>
+                            <li><a href="/tinh-diem-mon-hoc"><span class="mini-sub-pro">Tính Điểm Môn Học</span></a>
                             </li>
                         </ul>
                     </li>
@@ -142,24 +142,12 @@
                         <a class="has-arrow" href="/hoc-phan/hoc-phan-khung" aria-expanded="false">
                             <span class="educate-icon educate-department icon-wrap"></span><span class="mini-click-non">Đăng Ký Học Phần </span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                            <li><a title="All Courses" href="/chuong-trinh-khung"><span
+                            <li><a href="/chuong-trinh-khung"><span
                                     class="mini-sub-pro">Chương trình khung</span></a></li>
-                            <li><a title="Add Courses" href="/hoc-phan/dang-ky-hoc-phan"><span
+                            <li><a href="/hoc-phan/dang-ky-hoc-phan"><span
                                     class="mini-sub-pro">Đăng Ký Học Phần</span></a></li>
                         </ul>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a class="has-arrow" href="all-courses.html" aria-expanded="false">-->
-                    <!--                            <span class="educate-icon educate-form icon-wrap"></span><span class="mini-click-non">Học Phí </span></a>-->
-                    <!--                        <ul class="submenu-angle" aria-expanded="false">-->
-                    <!--                            <li><a title="All Courses" href="all-courses.html"><span-->
-                    <!--                                    class="mini-sub-pro">Tra Cứu Công Nợ</span></a></li>-->
-                    <!--                            <li><a title="Add Courses" href="add-course.html"><span-->
-                    <!--                                    class="mini-sub-pro">Thanh Toán</span></a></li>-->
-                    <!--                            <li><a title="Add Courses" href="add-course.html"><span-->
-                    <!--                                    class="mini-sub-pro">Phiếu Thu Tổng Hợp</span></a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
                 </ul>
             </nav>
         </div>
