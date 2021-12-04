@@ -37,6 +37,11 @@ function bieudo(tenHP, diemcuatoi, diemtrungbinhhocphan) {
                     intersect: false
                 },
                 scales: {
+                    xAxes:[{
+                        ticks: {
+                            display:false
+                        }
+                    }],
                     yAxes: [{
                         type: "linear",
                         display: false,
