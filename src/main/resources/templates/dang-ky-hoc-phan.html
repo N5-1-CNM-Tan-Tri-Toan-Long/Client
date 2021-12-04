@@ -233,7 +233,7 @@
                             </table>
                             <script>
                                 function xemCTLHP(id) {
-                                    var select = document.getElementById('selectNTH');
+                                    const select = document.getElementById('selectNTH');
                                     $.ajax({
                                         url: "/hoc-phan/dang-ky-hoc-phan/chi-tiet-lop-hoc-phan",
                                         type: 'POST',
@@ -261,11 +261,12 @@
                                         },
                                     });
                                     xemCTLHPTheoNhomTH(id);
-                                    select.setAttribute('onchange', 'xemCTLHPTheoNhomTH(id)');
+                                    select.setAttribute('onchange', 'xemCTLHPTheoNhomTH(' + id + ')');
                                 }
 
-                                function xemCTLHPTheoNhomTH(id){
-                                    var value = select.value;
+                                function xemCTLHPTheoNhomTH(id) {
+                                    const select = document.getElementById('selectNTH');
+                                    const value = select.value;
                                     $.ajax({
                                         url: "/hoc-phan/dang-ky-hoc-phan/kiem-tra-trung",
                                         type: 'POST',
