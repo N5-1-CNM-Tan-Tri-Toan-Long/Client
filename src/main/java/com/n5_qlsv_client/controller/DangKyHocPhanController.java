@@ -143,31 +143,33 @@ public class DangKyHocPhanController {
     @PostMapping("/dang-ky")
     public String dangKyLopHocPhan(@RequestParam("maHocKy") long maHK, @RequestParam("maLHP") long maLHP,
                                    @RequestParam(name = "nhomTH", defaultValue = "0") int nhomTH, Principal principal) {
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String maSV = loginedUser.getUsername();
-
-        SinhVien sinhVien = sinhVienService.findById(maSV);
-        LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
-        int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
-        LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
-        lichHocSinhVien.setNgayDangKyHP(new Date());
-
-        if (!checkHocPhanKhung(lopHocPhan.getHocPhan().getMaHocPhan(),
-                hocPhanKhungService.findAllByChuyenNganh(sinhVien.getChuyenNganh().getMaChuyenNganh())))
-            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
         if (!lopHocPhanService.findById(maLHP).getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký"))
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
 
-        if (kiemTraLichTrung(ctlhpService.findByMaLopHocPhan(maLHP), lichHocSinhVienService.getLichHocByMaSV(maSV), nhomTH).size() > 0)
-            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
-
+        LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
+        int toiDa = lopHocPhan.getSoLuongDangKyToiDa(), hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         if (hienTai + 1 > toiDa)
             return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
+        User loginUser = (User) ((Authentication) principal).getPrincipal();
+        String maSV = loginUser.getUsername();
+        SinhVien sinhVien = sinhVienService.findById(maSV);
+        if (!checkHocPhanKhung(lopHocPhan.getHocPhan().getMaHocPhan(),
+                hocPhanKhungService.findAllByChuyenNganh(sinhVien.getChuyenNganh().getMaChuyenNganh())))
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
+        LichHocSinhVien lichHocSinhVien = new LichHocSinhVien();
+        lichHocSinhVien.setNgayDangKyHP(new Date());
+        List<ChiTietLopHocPhan> cthhp = ctlhpService.findByMaLopHocPhan(maLHP);
+        if (kiemTraLichTrung(cthhp, lichHocSinhVienService.getLichHocByMaSV(maSV), nhomTH).size() > 0)
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
+
         lopHocPhan.setSoLuongDangKyHienTai(hienTai + 1);
         lopHocPhanService.saveLopHocPhan(lopHocPhan);
 
-        ctlhpService.findByMaLopHocPhan(maLHP).forEach(chiTietLopHocPhan -> {
+        cthhp.forEach(chiTietLopHocPhan -> {
             if (chiTietLopHocPhan.getNhomTH() == nhomTH || chiTietLopHocPhan.getNhomTH() == 0) {
                 lichHocSinhVien.setChiTietLopHocPhan(chiTietLopHocPhan);
                 lichHocSinhVien.setSinhVien(sinhVien);
@@ -202,8 +204,8 @@ public class DangKyHocPhanController {
     @ResponseBody
     public Set<HocPhanTrung> kiemTraHocPhanTrung(@RequestParam("maLHP") long maLHP, @RequestParam(name = "nhomTH",
             defaultValue = "0") int nhomTH, Principal principal) {
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String maSV = loginedUser.getUsername();
+        User loginUser = (User) ((Authentication) principal).getPrincipal();
+        String maSV = loginUser.getUsername();
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         hocPhanTrungs.add(new HocPhanTrung("Môn học không được phép đăng ký", "", "", "", ""));
         LopHocPhan lophocPhan = lopHocPhanService.findById(maLHP);
@@ -219,41 +221,32 @@ public class DangKyHocPhanController {
         Set<HocPhanTrung> hocPhanTrungs = new HashSet<>();
         listCTHP.forEach(chiTietLopHocPhan -> {
             listLH.forEach(lichHocSinhVien -> {
-                if (kiemTraNgayBatDau(chiTietLopHocPhan.getNgayBatDau(), lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau(),
-                        lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc()) ||
-                        chiTietLopHocPhan.getNhomTH() == nhomTH || chiTietLopHocPhan.getNhomTH() == 0) {
-                    List<Integer> tietHoc1s = LichHocTheoTuanControler.extractNumbers(chiTietLopHocPhan.getTietHoc());
-                    List<Integer> tietHoc2s = LichHocTheoTuanControler.extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
-                    if (tietHoc1s.get(0) == tietHoc2s.get(0)) {
-                        if (tietHoc1s.get(1) >= tietHoc2s.get(1) && tietHoc1s.get(1) <= tietHoc2s.get(2))
-                            hocPhanTrungs.add(new HocPhanTrung(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
-                                    lichHocSinhVien.getChiTietLopHocPhan().getTietHoc(),
-                                    lichHocSinhVien.getChiTietLopHocPhan().getCoSo() + " " +
-                                            lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
-                                    lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV(),
-                                    convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()) +
-                                            " : " + convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc())));
-                        else {
-                            if (tietHoc1s.get(2) >= tietHoc2s.get(1) && tietHoc1s.get(2) <= tietHoc2s.get(2))
-                                hocPhanTrungs.add(new HocPhanTrung(lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getTenLHP(),
-                                        lichHocSinhVien.getChiTietLopHocPhan().getTietHoc(),
-                                        lichHocSinhVien.getChiTietLopHocPhan().getCoSo() + " " +
-                                                lichHocSinhVien.getChiTietLopHocPhan().getPhong(),
-                                        lichHocSinhVien.getChiTietLopHocPhan().getGiangVien().getTenGV(),
-                                        convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayBatDau()) +
-                                                " : " + convertToLocalDate(lichHocSinhVien.getChiTietLopHocPhan().getNgayKetThuc())));
+                ChiTietLopHocPhan cthp = lichHocSinhVien.getChiTietLopHocPhan();
+                if (kiemTraNgayBatDau(chiTietLopHocPhan.getNgayBatDau(), cthp.getNgayBatDau(), cthp.getNgayKetThuc()))
+                    if (chiTietLopHocPhan.getNhomTH() == nhomTH || chiTietLopHocPhan.getNhomTH() == 0) {
+                        List<Integer> tietHoc1s = LichHocTheoTuanControler.extractNumbers(chiTietLopHocPhan.getTietHoc());
+                        List<Integer> tietHoc2s = LichHocTheoTuanControler.extractNumbers(cthp.getTietHoc());
+                        if (tietHoc1s.get(0).equals(tietHoc2s.get(0))) {
+                            if (tietHoc1s.get(1) >= tietHoc2s.get(1) && tietHoc1s.get(1) <= tietHoc2s.get(2))
+                                hocPhanTrungs.add(new HocPhanTrung(cthp.getLopHocPhan().getTenLHP(),
+                                        cthp.getTietHoc(), cthp.getCoSo() + " " + cthp.getPhong(), cthp.getGiangVien().getTenGV(),
+                                        convertToLocalDate(cthp.getNgayBatDau()) + " -> " + convertToLocalDate(cthp.getNgayKetThuc())));
+                            else {
+                                if (tietHoc1s.get(2) >= tietHoc2s.get(1) && tietHoc1s.get(2) <= tietHoc2s.get(2))
+                                    hocPhanTrungs.add(new HocPhanTrung(cthp.getLopHocPhan().getTenLHP(),
+                                            cthp.getTietHoc(), cthp.getCoSo() + " " + cthp.getPhong(),
+                                            cthp.getGiangVien().getTenGV(),
+                                            convertToLocalDate(cthp.getNgayBatDau()) + " -> " + convertToLocalDate(cthp.getNgayKetThuc())));
+                            }
                         }
                     }
-                }
             });
         });
         return hocPhanTrungs;
     }
 
     private boolean kiemTraNgayBatDau(Date ngayhoc, Date ngayBatDau, Date ngayKetThuc) {
-        if (!ngayBatDau.after(ngayhoc) && !ngayKetThuc.before(ngayhoc))
-            return true;
-        return false;
+        return !ngayBatDau.after(ngayhoc) && !ngayKetThuc.before(ngayhoc);
     }
 
     @PostMapping("/xem-lop-hoc-phan")
