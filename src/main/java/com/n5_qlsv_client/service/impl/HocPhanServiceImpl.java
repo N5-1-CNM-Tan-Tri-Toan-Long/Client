@@ -21,32 +21,10 @@ public class HocPhanServiceImpl implements HocPhanService {
 
     @Value("${app.url.hocphan}")
     private String url;
-    @Override
-    public List<HocPhan> getAllHocPhans() {
-        ResponseEntity<List<HocPhan>> responseEntity
-                = restTemplate.exchange(url, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<HocPhan>>() {
-                });
-        List<HocPhan> hocPhanList = responseEntity.getBody();
-        return hocPhanList;
-    }
-
-    @Override
-    public List<HocPhan> getAllHocPhansByPageAndSize(int pageIndex, int pageSize) {
-        ResponseEntity<List<HocPhan>> responseEntity
-                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize,
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<HocPhan>>() {
-                });
-        List<HocPhan> hocPhanList = responseEntity.getBody();
-        return hocPhanList;
-    }
-
 
     @Override
     public HocPhan findById(String maHocPhan) {
-        HocPhan hocPhan = restTemplate.getForObject(url + "/" + maHocPhan, HocPhan.class);
-        return hocPhan;
+        return restTemplate.getForObject(url + "/" + maHocPhan, HocPhan.class);
     }
 
     @Override
@@ -56,7 +34,6 @@ public class HocPhanServiceImpl implements HocPhanService {
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<HocPhan>>() {
                 });
-        List<HocPhan> HocPhans = responseEntity.getBody();
-        return HocPhans;
+        return responseEntity.getBody();
     }
 }

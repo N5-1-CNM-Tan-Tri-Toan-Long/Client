@@ -10,8 +10,6 @@ import java.util.List;
 public interface ChuyenNganhService {
 
     List<ChuyenNganh> getAllChuyenNganhs();
-
-    List<ChuyenNganh> getAllChuyenNganhsByPageAndSize(int pageIndex, int pageSize);
     
     ChuyenNganh findById(long id);
 

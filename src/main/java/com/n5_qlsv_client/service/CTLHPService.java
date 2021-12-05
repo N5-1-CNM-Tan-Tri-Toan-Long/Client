@@ -10,10 +10,6 @@ public interface CTLHPService {
 
     List<ChiTietLopHocPhan> findByMaLopHocPhan(Long maLHP);
 
-    void saveCTLHP(ChiTietLopHocPhan chiTietLopHocPhan, Long maLHP);
-
-    void deleteCTLHP(long ma_ctlhp);
-
     ChiTietLopHocPhan findById(long ma_ctlhp);
 
 }

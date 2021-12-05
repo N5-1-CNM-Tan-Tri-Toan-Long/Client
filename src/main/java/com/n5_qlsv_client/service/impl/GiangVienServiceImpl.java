@@ -22,29 +22,7 @@ public class GiangVienServiceImpl implements GiangVienService {
     private String url;
 
     @Override
-    public List<GiangVien> getAllGiangVien() {
-        ResponseEntity<List<GiangVien>> responseEntity
-                = restTemplate.exchange(url, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<GiangVien>>() {
-                });
-        List<GiangVien> giangVienList = responseEntity.getBody();
-        return giangVienList;
-    }
-
-    @Override
-    public List<GiangVien> getAllGiangVienByPageAndSize(int pageIndex, int pageSize) {
-        ResponseEntity<List<GiangVien>> responseEntity
-                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize,
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<GiangVien>>() {
-                });
-        List<GiangVien> giangVienList = responseEntity.getBody();
-        return giangVienList;
-    }
-
-    @Override
     public GiangVien findById(long maGiangVien) {
-        GiangVien giangVien = restTemplate.getForObject(url + "/" + maGiangVien, GiangVien.class);
-        return giangVien;
+        return restTemplate.getForObject(url + "/" + maGiangVien, GiangVien.class);
     }
 }

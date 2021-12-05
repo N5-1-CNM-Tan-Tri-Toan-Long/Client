@@ -29,7 +29,7 @@ public class LichHocSinhVienServiceImpl implements LichHocSinhVienService {
     }
 
     @Override
-    public void saveLHSV(LichHocSinhVien lichHocSinhVien) {
+    public synchronized void saveLHSV(LichHocSinhVien lichHocSinhVien) {
         long ma_LHSV = lichHocSinhVien.getMaLHSV();
         if(ma_LHSV == 0){
             restTemplate.postForEntity(url, lichHocSinhVien, String.class);
@@ -39,7 +39,7 @@ public class LichHocSinhVienServiceImpl implements LichHocSinhVienService {
     }
 
     @Override
-    public void deleteLHSV(Long maLHSV) {
+    public synchronized void deleteLHSV(Long maLHSV) {
         restTemplate.delete(url + "/" + maLHSV);
     }
 

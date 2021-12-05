@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 @Service
 public class SinhVienServiceImpl implements SinhVienService {
 
@@ -19,14 +21,13 @@ public class SinhVienServiceImpl implements SinhVienService {
 
     @Override
     public SinhVien findById(String ma_sv) {
-        SinhVien sinhVien = restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
-        return sinhVien;
+        return restTemplate.getForObject(url + "/" + ma_sv, SinhVien.class);
     }
 
     @Override
-    public void saveSinhVien(SinhVien sinhVien) {
+    public synchronized void saveSinhVien(SinhVien sinhVien) {
         String ma_sv = sinhVien.getMaSV();
-        if (ma_sv == "") {
+        if (Objects.equals(ma_sv, "")) {
         }else {
             restTemplate.put(url + "/" + ma_sv, sinhVien);
         }

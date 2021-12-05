@@ -10,10 +10,6 @@ import java.util.List;
 
 public interface HocPhanService {
 
-    List<HocPhan> getAllHocPhans();
-
-    List<HocPhan> getAllHocPhansByPageAndSize(int pageIndex, int pageSize);
-
     HocPhan findById(String maHocPhan);
 
     List<HocPhan> findHPByMaHK(long maHK);

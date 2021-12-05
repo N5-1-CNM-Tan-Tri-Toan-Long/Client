@@ -28,23 +28,11 @@ public class ChuyenNganhServiceImpl implements ChuyenNganhService {
                 = restTemplate.exchange(url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<ChuyenNganh>>() {
                 });
-        List<ChuyenNganh> chuyenNganhList = responseEntity.getBody();
-        return chuyenNganhList;
-    }
-
-    @Override
-    public List<ChuyenNganh> getAllChuyenNganhsByPageAndSize(int pageIndex, int pageSize) {
-        ResponseEntity<List<ChuyenNganh>> responseEntity
-                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<ChuyenNganh>>() {
-                });
-        List<ChuyenNganh> chuyenNganhList = responseEntity.getBody();
-        return chuyenNganhList;
+        return responseEntity.getBody();
     }
 
     @Override
     public ChuyenNganh findById(long id) {
-        ChuyenNganh chuyenNganh = restTemplate.getForObject(url + "/" + id, ChuyenNganh.class);
-        return chuyenNganh;
+        return restTemplate.getForObject(url + "/" + id, ChuyenNganh.class);
     }
 }

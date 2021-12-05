@@ -18,9 +18,6 @@ public class MonHocServiceImpl implements MonHocService {
 
     @Override
     public MonHoc findById(long maMonHoc) {
-        MonHoc monHoc = restTemplate.getForObject(url + "/" + maMonHoc, MonHoc.class);
-        return monHoc;
+        return restTemplate.getForObject(url + "/" + maMonHoc, MonHoc.class);
     }
-
-
 }

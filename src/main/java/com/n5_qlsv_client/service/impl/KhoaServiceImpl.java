@@ -22,31 +22,9 @@ public class KhoaServiceImpl implements KhoaService {
     @Value("${app.url.khoa}")
     private String url;
 
-    @Override
-    public List<Khoa> getAllKhoas() {
-        ResponseEntity<List<Khoa>> responseEntity
-                = restTemplate.exchange(url, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Khoa>>() {
-                });
-        List<Khoa> khoaList = responseEntity.getBody();
-        return khoaList;
-    }
-
-    @Override
-    public List<Khoa> getAllKhoasByPageAndSize(int pageIndex, int pageSize) {
-        ResponseEntity<List<Khoa>> responseEntity
-                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize,
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Khoa>>() {
-                });
-        List<Khoa> khoaList = responseEntity.getBody();
-        return khoaList;
-    }
-
 
     @Override
     public Khoa findById(long ma_khoa) {
-        Khoa khoa = restTemplate.getForObject(url + "/" + ma_khoa, Khoa.class);
-        return khoa;
+        return restTemplate.getForObject(url + "/" + ma_khoa, Khoa.class);
     }
 }

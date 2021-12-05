@@ -188,11 +188,11 @@ public class DangKyHocPhanController {
 
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
         lopHocPhan.setSoLuongDangKyHienTai(Math.max(hienTai - 1, 0));
-        lopHocPhanService.saveLopHocPhan(lopHocPhan);
 
         lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
             if (lichHocSinhVien.getChiTietLopHocPhan().getLopHocPhan().getMaLHP() == lopHocPhan.getMaLHP()) {
                 lichHocSinhVienService.deleteLHSV(lichHocSinhVien.getMaLHSV());
+                lopHocPhanService.saveLopHocPhan(lopHocPhan);
             }
         });
         return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;

@@ -19,7 +19,6 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public LopHoc findById(long maLopHoc) {
-        LopHoc lopHoc = restTemplate.getForObject(url + "/" + maLopHoc, LopHoc.class);
-        return lopHoc;
+        return restTemplate.getForObject(url + "/" + maLopHoc, LopHoc.class);
     }
 }

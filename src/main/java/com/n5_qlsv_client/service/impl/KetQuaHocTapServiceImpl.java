@@ -29,34 +29,7 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<KetQuaHocTap>>() {
                 });
-        List<KetQuaHocTap> ketQuaHocTapList = responseEntity.getBody();
-        return ketQuaHocTapList;
-    }
-
-    @Override
-    public Set<Long> findMaHKByMaSV(String maSV) {
-        ResponseEntity<Set<Long>> responseEntity
-                = restTemplate.exchange(url + "/" + maSV + "/hk",
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<Set<Long>>() {
-                });
-        Set<Long> mahk = responseEntity.getBody();
-        return mahk;
-    }
-
-    @Override
-    public KetQuaHocTap saveKetQuaHT(KetQuaHocTap ketQuaHocTap) {
-        return restTemplate.postForObject(url, ketQuaHocTap, KetQuaHocTap.class);
-    }
-
-    @Override
-    public void deleteKQHT(Long maKQHT) {
-        restTemplate.delete(url + "/" + maKQHT);
-    }
-
-    @Override
-    public KetQuaHocTap findKQHTByMaSVAndMaLHP(String maSV, Long maLHP) {
-        return restTemplate.getForObject(url + "/" + maSV + "/" + maLHP + "/kq", KetQuaHocTap.class);
+        return responseEntity.getBody();
     }
 
     @Override
@@ -66,8 +39,7 @@ public class KetQuaHocTapServiceImpl implements KetQuaHocTapService {
                 HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<KetQuaHocTap>>() {
                 });
-        List<KetQuaHocTap> ketQuaHocTapList = responseEntity.getBody();
-        return ketQuaHocTapList;
+        return responseEntity.getBody();
     }
 
 

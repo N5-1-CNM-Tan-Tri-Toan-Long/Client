@@ -7,10 +7,6 @@ import java.util.List;
 
 public interface GiangVienService {
 
-    List<GiangVien> getAllGiangVien();
-
-    List<GiangVien> getAllGiangVienByPageAndSize(int pageIndex, int pageSize);
-
     GiangVien findById(long maGiangVien);
 
 }

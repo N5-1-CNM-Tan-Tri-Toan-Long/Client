@@ -24,9 +24,9 @@ public class MaHKTheoKQHT {
             hks.add(mahk);
         }
         ArrayList<Long> arrHK = new ArrayList<>();
-        for (int i = 0; i < hks.size(); i++) {
-            if (!arrHK.contains(hks.get(i))) {
-                arrHK.add(hks.get(i));
+        for (Long hk : hks) {
+            if (!arrHK.contains(hk)) {
+                arrHK.add(hk);
             }
         }
         hks.clear();

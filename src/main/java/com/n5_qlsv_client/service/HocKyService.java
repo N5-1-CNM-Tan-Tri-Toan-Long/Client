@@ -10,8 +10,6 @@ public interface HocKyService {
 
     List<HocKy> getAllHocKys();
 
-    List<HocKy> getAllHocKysByPageAndSize(int pageIndex, int pageSize);
-
     HocKy findById(long id);
 
 }

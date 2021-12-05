@@ -36,15 +36,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         String role = restTemplate.getForObject(url + "/" + s + "/role", String.class);
 
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantList = new ArrayList<>();
 
         if (role != null) {
             GrantedAuthority authority = new SimpleGrantedAuthority(role);
             grantList.add(authority);
         }
 
-        UserDetails userDetails = new User(String.valueOf(sinhVien.getMaSV()), sinhVien.getPassword(), grantList);
-
-        return userDetails;
+        return new User(String.valueOf(sinhVien.getMaSV()), sinhVien.getPassword(), grantList);
     }
 }

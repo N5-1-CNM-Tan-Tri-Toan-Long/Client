@@ -28,24 +28,11 @@ public class HocKyServiceImpl implements HocKyService {
                 = restTemplate.exchange(url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<HocKy>>() {
                 });
-        List<HocKy> hocKyList = responseEntity.getBody();
-        return hocKyList;
-    }
-
-    @Override
-    public List<HocKy> getAllHocKysByPageAndSize(int pageIndex, int pageSize) {
-        ResponseEntity<List<HocKy>> responseEntity
-                = restTemplate.exchange(url + "?page=" + pageIndex + "&size=" + pageSize,
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<HocKy>>() {
-                });
-        List<HocKy> hocKyList = responseEntity.getBody();
-        return hocKyList;
+        return responseEntity.getBody();
     }
 
     @Override
     public HocKy findById(long id) {
-        HocKy hocKy = restTemplate.getForObject(url + "/" + id, HocKy.class);
-        return hocKy;
+        return restTemplate.getForObject(url + "/" + id, HocKy.class);
     }
 }
