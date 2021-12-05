@@ -182,8 +182,12 @@ public class DangKyHocPhanController {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String maSV = loginedUser.getUsername();
         LopHocPhan lopHocPhan = lopHocPhanService.findById(maLHP);
+
+        if (!lopHocPhan.getTrangThai().equalsIgnoreCase("Chờ sinh viên đăng ký") && !lopHocPhan.getTrangThai().equalsIgnoreCase("Chờ hủy lớp"))
+            return "redirect:/hoc-phan/dang-ky-hoc-phan?maHK=" + maHK;
+
         int hienTai = lopHocPhan.getSoLuongDangKyHienTai();
-        lopHocPhan.setSoLuongDangKyHienTai(hienTai - 1);
+        lopHocPhan.setSoLuongDangKyHienTai(Math.max(hienTai - 1, 0));
         lopHocPhanService.saveLopHocPhan(lopHocPhan);
 
         lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
