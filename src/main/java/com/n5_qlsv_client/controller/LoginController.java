@@ -42,10 +42,11 @@ public class LoginController {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
         session.setAttribute("maSV", sinhVien.getMaSV());
-        session.setAttribute("tensinhvien", sinhVien.getTenSV());
         model.addAttribute("sinhvien", sinhVien);
         model.addAttribute("maHK", maHK);
         model.addAttribute("HocKyLHP", hocKyLHPS(sinhVien.getMaSV()));

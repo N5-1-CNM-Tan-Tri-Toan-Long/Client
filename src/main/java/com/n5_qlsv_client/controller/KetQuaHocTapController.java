@@ -1,5 +1,6 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.model.SinhVien;
 import com.n5_qlsv_client.service.SinhVienService;
 import com.n5_qlsv_client.service.impl.MaHKTheoKQHT;
 import com.n5_qlsv_client.model.KetQuaHocTap;
@@ -39,6 +40,9 @@ public class KetQuaHocTapController {
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String maSV = loginedUser.getUsername();
+
+        SinhVien sinhVien = sinhVienService.findById(maSV);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         List<KetQuaHocTap> ketQuaHocTaps = ketQuaHocTapService.findKQHTByMaSV(maSV);
         model.addAttribute("TrangHienTai","Kết Quả Học Tập");

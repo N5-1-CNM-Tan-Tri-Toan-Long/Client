@@ -1,5 +1,10 @@
 package com.n5_qlsv_client.controller;
 
+import com.n5_qlsv_client.model.SinhVien;
+import com.n5_qlsv_client.service.SinhVienService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,13 +12,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/tinh-diem-mon-hoc")
 public class TinhDiemMonHocController {
 
+    @Autowired
+    private SinhVienService sinhVienService;
+
     @GetMapping
-    public String tinhDiemMonHoc(Model model){
+    public String tinhDiemMonHoc(Model model, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         model.addAttribute("TrangHienTai", "Tính điểm môn học");
+
         return "tinh-diem-mon-hoc";
     }
 

@@ -3,7 +3,9 @@ package com.n5_qlsv_client.controller;
 import com.n5_qlsv_client.model.ItemLichHoc;
 import com.n5_qlsv_client.model.LichHocSinhVien;
 import com.n5_qlsv_client.model.LichHocTheoTienDo;
+import com.n5_qlsv_client.model.SinhVien;
 import com.n5_qlsv_client.service.LichHocSinhVienService;
+import com.n5_qlsv_client.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -29,12 +31,19 @@ public class LichHocTheoTuanControler {
 
     @Autowired
     private LichHocSinhVienService lichHocSinhVienService;
+    
+    @Autowired
+    private SinhVienService sinhVienService;
 
     @GetMapping("/in-lich-tien-do")
     private String inLichHocTheoTienDo(Principal principal, Model model) {
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String maSV = loginedUser.getUsername();
+
+        SinhVien sinhVien = sinhVienService.findById(maSV);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+        
         Set<LichHocTheoTienDo> lich = new HashSet<>();
         lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
             List<Integer> tietHocs = extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());
@@ -60,9 +69,13 @@ public class LichHocTheoTuanControler {
 
     @GetMapping("/lich-tien-do")
     private String listLichHocTheoTienDo(Principal principal, Model model) {
+
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String maSV = loginedUser.getUsername();
+        SinhVien sinhVien = sinhVienService.findById(maSV);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+
         Set<LichHocTheoTienDo> lich = new HashSet<>();
         lichHocSinhVienService.getLichHocByMaSV(maSV).forEach(lichHocSinhVien -> {
             List<Integer> tietHocs = extractNumbers(lichHocSinhVien.getChiTietLopHocPhan().getTietHoc());

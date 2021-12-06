@@ -33,6 +33,7 @@ public class HocPhanKhungController {
         String maSV = loginedUser.getUsername();
 
         SinhVien sinhVien = sinhVienService.findById(maSV);
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         model.addAttribute("hpks1",
                 hocPhanKhungService.findAllByChuyenNganhAndHocKi(sinhVien.getChuyenNganh().getMaChuyenNganh(), 1));

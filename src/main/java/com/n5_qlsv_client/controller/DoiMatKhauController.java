@@ -26,16 +26,22 @@ public class DoiMatKhauController {
 
     @Autowired
     private SinhVienService sinhVienService;
+
     @Autowired
     private UserDetailsService userDetailsService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @GetMapping
-    public String doiMatKhau(Model model, HttpSession session){
-        String maSV = (String) session.getAttribute("maSV");
-        SinhVien sinhVien = sinhVienService.findById(maSV);
+    public String doiMatKhau(Model model, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         model.addAttribute("TrangHienTai", "Đổi mật khẩu");
         model.addAttribute("sinhVien", sinhVien);
