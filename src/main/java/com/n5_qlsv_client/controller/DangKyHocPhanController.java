@@ -46,6 +46,9 @@ public class DangKyHocPhanController {
     @GetMapping
     public String hocKyLopHocPhan(Model model, Long maHK, Principal principal) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
+        
         String maSV = loginedUser.getUsername();
         if (maHK != null) {
             listHocPhanDaDangKy = new HashSet<>();

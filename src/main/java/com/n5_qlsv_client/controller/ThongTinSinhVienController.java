@@ -27,8 +27,9 @@ public class ThongTinSinhVienController {
         //Lấy mã sinh viên thông qua login principal
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         String maSV = loginedUser.getUsername();
-
         SinhVien sinhVien = sinhVienService.findById(maSV);
+
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
         model.addAttribute("sinhvien", sinhVien);
         model.addAttribute("TrangHienTai","Thông Tin Sinh Viên");
         return "thong-tin-sinh-vien";
