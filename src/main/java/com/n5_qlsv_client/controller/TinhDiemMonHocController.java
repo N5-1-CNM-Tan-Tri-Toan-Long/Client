@@ -34,12 +34,17 @@ public class TinhDiemMonHocController {
         return "tinh-diem-mon-hoc";
     }
 
-    @PostMapping ("/tinh-diem")
+    @PostMapping
     public String tinhDiem(Model model, @RequestParam(value = "TCLT", defaultValue = "0") int TCLT, @RequestParam(value = "TCTH", defaultValue = "0") int TCTH,
                            @RequestParam(value = "DiemTK1", defaultValue = "") Double diemTK1, @RequestParam(value = "DiemTK2", defaultValue = "") Double diemTK2,
                            @RequestParam(value = "DiemTK3", defaultValue = "") Double diemTK3, @RequestParam(value = "DiemGK", defaultValue = "") Double diemGK,
                            @RequestParam(value = "DiemTH1", defaultValue = "") Double diemTH1, @RequestParam(value = "DiemTH2", defaultValue = "") Double diemTH2,
-                           @RequestParam(value = "DiemCK", defaultValue = "") Double diemCK){
+                           @RequestParam(value = "DiemCK", defaultValue = "") Double diemCK, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        SinhVien sinhVien = sinhVienService.findById(loginedUser.getUsername());
+
+        model.addAttribute("tensinhvien", sinhVien.getTenSV());
 
         Double tk = null;
         if (diemTK1 != null){
